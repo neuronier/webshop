@@ -7,3 +7,4 @@ vbn
 ssh teszt
 Ezt most én írtam bele (Norbi)
 szoveg (Zoli)
+szoveg2 (Zoli)

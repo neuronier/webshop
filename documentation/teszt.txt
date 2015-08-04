@@ -1,2 +1,2 @@
 asd
-git-test
+git-tests

@@ -49,28 +49,30 @@
 		<module>business</module>
 		<module>business-api</module>
 		<module>web</module>
+		<module>ear-all</module>
 		<module>ear-business</module>
+		<module>ear-web</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>hu.neuron.ier.webshop.business</groupId>
+				<groupId>hu.neuron.ier.business</groupId>
 				<artifactId>business</artifactId>
 				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>hu.neuron.ier.webshop.business</groupId>
+				<groupId>hu.neuron.ier.business</groupId>
 				<artifactId>business-api</artifactId>
 				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>hu.neuron.ier.webshop.core</groupId>
+				<groupId>hu.neuron.ier.core</groupId>
 				<artifactId>core</artifactId>
 				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>hu.neuron.ier.webshop.web</groupId>
+				<groupId>hu.neuron.ier.web</groupId>
 				<artifactId>web</artifactId>
 				<version>0.1</version>
 			</dependency>

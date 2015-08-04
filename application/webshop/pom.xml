@@ -15,6 +15,10 @@
 			<name>Balla Márk</name>
 			<email>balla.mark@gmail.com</email>
 		</developer>
+		<developer>
+			<name>Tököli Zoltán</name>
+			<email>zoli0506@gmail.com</email>
+		</developer>
 	</developers>
 	<distributionManagement>
 		<site>

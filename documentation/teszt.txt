@@ -6,3 +6,4 @@ my
 vbn
 ssh teszt
 Ezt most én írtam bele (Norbi)
+szoveg (Zoli)

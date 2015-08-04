@@ -11,6 +11,10 @@
 			<name>Kosztur Norbert</name>
 			<email>kosztur@freemail.hu</email>
 		</developer>
+		<developer>
+			<name>Balla Márk</name>
+			<email>balla.mark@gmail.com</email>
+		</developer>
 	</developers>
 	<distributionManagement>
 		<site>

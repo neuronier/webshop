@@ -45,27 +45,28 @@
 		<module>business</module>
 		<module>business-api</module>
 		<module>web</module>
+		<module>ear-business</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>hu.neuron.ier.business</groupId>
+				<groupId>hu.neuron.ier.webshop.business</groupId>
 				<artifactId>business</artifactId>
 				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>hu.neuron.ier.business</groupId>
+				<groupId>hu.neuron.ier.webshop.business</groupId>
 				<artifactId>business-api</artifactId>
 				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>hu.neuron.ier.core</groupId>
+				<groupId>hu.neuron.ier.webshop.core</groupId>
 				<artifactId>core</artifactId>
 				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>hu.neuron.ier.web</groupId>
+				<groupId>hu.neuron.ier.webshop.web</groupId>
 				<artifactId>web</artifactId>
 				<version>0.1</version>
 			</dependency>

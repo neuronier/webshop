@@ -56,26 +56,26 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>hu.neuron.ier.business</groupId>
-				<artifactId>business</artifactId>
-				<version>0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>hu.neuron.ier.business</groupId>
-				<artifactId>business-api</artifactId>
-				<version>0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>hu.neuron.ier.core</groupId>
-				<artifactId>core</artifactId>
-				<version>0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>hu.neuron.ier.web</groupId>
-				<artifactId>web</artifactId>
-				<version>0.1</version>
-			</dependency>
+			<!-- <dependency> -->
+			<!-- <groupId>hu.neuron.ier.webshop</groupId> -->
+			<!-- <artifactId>business</artifactId> -->
+			<!-- <version>0.1</version> -->
+			<!-- </dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>hu.neuron.ier.webshop</groupId> -->
+			<!-- <artifactId>business-api</artifactId> -->
+			<!-- <version>0.1</version> -->
+			<!-- </dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>hu.neuron.ier.webshop</groupId> -->
+			<!-- <artifactId>core</artifactId> -->
+			<!-- <version>0.1</version> -->
+			<!-- </dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>hu.neuron.ier.webshop</groupId> -->
+			<!-- <artifactId>web</artifactId> -->
+			<!-- <version>0.1</version> -->
+			<!-- </dependency> -->
 
 			<dependency>
 				<groupId>junit</groupId>

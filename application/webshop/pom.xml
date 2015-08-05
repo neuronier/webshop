@@ -19,6 +19,10 @@
 			<name>Tököli Zoltán</name>
 			<email>zoli0506@gmail.com</email>
 		</developer>
+		<developer>
+			<name>Szászi Zoltán</name>
+			<email>diirhun@gmail.com</email>
+		</developer>
 	</developers>
 	<distributionManagement>
 		<site>

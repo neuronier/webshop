@@ -15,6 +15,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <description>
+  A modul az üzleti folyamatok eléréséhez szükséges interfészeket biztosítja.
+  </description>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

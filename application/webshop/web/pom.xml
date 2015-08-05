@@ -14,6 +14,12 @@
 	<packaging>war</packaging>
 	<name>web Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	
+	<description>
+	A modul felhasználói interfészt nyújt az alkalmazás fehasználóinak.
+	A megvalósítás JSF technológiával történik.
+	</description>
+	
 	<dependencies>
 		<dependency>
 			<groupId>hu.neuron.ier.webshop</groupId>

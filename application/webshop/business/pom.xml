@@ -13,6 +13,11 @@
 	<version>0.1</version>
 	<name>business</name>
 	<url>http://maven.apache.org</url>
+	<description>
+	A modul feladata az üzleti folyamatok futtatása.
+	A felhasználói felületről érkező kéréseket továbbítja a core modulnak.
+	A megvalósítás EJB technológiával történik.
+	</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>

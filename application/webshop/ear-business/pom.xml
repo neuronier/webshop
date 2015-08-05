@@ -7,7 +7,7 @@
   </parent>
   <artifactId>ear-business</artifactId>
   <packaging>ear</packaging>
-  
+  <name>ear-business</name>
   <dependencies>
 		<dependency>
 			<groupId>hu.neuron.ier.webshop</groupId>

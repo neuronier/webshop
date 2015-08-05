@@ -7,7 +7,7 @@
   </parent>
   <artifactId>ear-web</artifactId>
   <packaging>ear</packaging>
-  
+  <name>ear-web</name>
   <dependencies>
 		
 		<dependency>

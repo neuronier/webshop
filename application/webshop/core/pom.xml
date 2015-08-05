@@ -15,6 +15,12 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <description>
+  Az adatbázishoz intézett kérések irányításáért felelős modul. 
+  A projekt során a Spring Data technológiával való megvalósítást alkalmazzuk.
+  </description>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

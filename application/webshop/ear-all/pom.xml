@@ -7,6 +7,7 @@
   </parent>
   <artifactId>ear-all</artifactId>
   <packaging>ear</packaging>
+  <name>ear-all</name>
   <dependencies>
 		<dependency>
 			<groupId>hu.neuron.ier.webshop</groupId>

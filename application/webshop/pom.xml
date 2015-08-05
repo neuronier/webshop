@@ -6,6 +6,9 @@
 	<artifactId>webshop</artifactId>
 	<version>0.1</version>
 	<packaging>pom</packaging>
+	<name>webshop</name>
+	<description>Webáruház és Self Care támogató modul.
+	 Lehetővé teszi az ügyfelek online vásárlását, és személyes adatainak kezelését.</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -182,5 +185,4 @@
 
 		</plugins>
 	</reporting>
-
 </project>

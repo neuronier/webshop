@@ -13,7 +13,7 @@ public interface RoleServiceRemote {
 
 	List<RoleVO> getRoles() throws Exception;
 
-	List<RoleVO> getRoles(int i, int pageSize, String sortField, int dir, String filter,
+	List<RoleVO> getRoles(int page, int pageSize, String sortField, int dir, String filter,
 			String filterColumnName) throws Exception;
 
 	RoleVO getRoleByName(String name) throws Exception;

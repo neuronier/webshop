@@ -13,7 +13,7 @@ public interface UserServiceRemote {
 
 	List<UserVO> getUserList() throws Exception;
 
-	List<UserVO> getUserList(int i, int pageSize, String sortField, int dir, String filter,
+	List<UserVO> getUserList(int page, int pageSize, String sortField, int dir, String filter,
 			String filterColumnName) throws Exception;
 
 	RoleVO getRoleByName(String role) throws Exception;

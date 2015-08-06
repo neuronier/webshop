@@ -21,8 +21,10 @@ public class User extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String userName;
-
 	private String password;
+	private String fullName;
+	private String email;
+	private String phone;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_role_sw")
@@ -52,10 +54,34 @@ public class User extends BaseEntity {
 		this.roles = roles;
 	}
 
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
-		return "User [userName=" + userName + ", password=" + password
-				+ ", getId()=" + getId() + "]";
+		return "User [userName=" + userName + ", password=" + password + ", getId()=" + getId()
+				+ "]";
 	}
 
 }

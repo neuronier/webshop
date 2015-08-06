@@ -10,7 +10,7 @@ public class UserVO implements Serializable {
 	private Long id;
 	private String userName;
 	private String password;
-	private String name;
+	private String fullName;
 	private String email;
 	private String phone;
 	private List<RoleVO> roles;
@@ -39,12 +39,12 @@ public class UserVO implements Serializable {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getEmail() {

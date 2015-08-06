@@ -1,7 +1,6 @@
 package hu.neuron.ier.core.entity;
 
 import hu.neuron.ier.core.Address;
-import hu.neuron.ier.core.RoleVO;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class Client extends BaseEntity {
 	private String phone;
 	private Address billingAddress;
 	private Address deliveryAddress;
-	private List<RoleVO> roles;
+	private List<Role> roles;
 
 	public Long getId() {
 		return id;
@@ -92,11 +91,11 @@ public class Client extends BaseEntity {
 		this.deliveryAddress = deliveryAddress;
 	}
 
-	public List<RoleVO> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<RoleVO> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

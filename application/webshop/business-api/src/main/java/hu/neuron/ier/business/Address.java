@@ -2,17 +2,27 @@ package hu.neuron.ier.business;
 
 public class Address {
 
+	private Long id;
 	private long postcode;
 	private String city;
 	private String street;
 	private String house;
 
-	public Address(long postcode, String city, String street, String house) {
+	public Address(Long id, long postcode, String city, String street, String house) {
 		super();
+		this.id = id;
 		this.postcode = postcode;
 		this.city = city;
 		this.street = street;
 		this.house = house;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public long getPostcode() {

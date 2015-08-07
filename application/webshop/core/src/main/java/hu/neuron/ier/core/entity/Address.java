@@ -1,21 +1,23 @@
-package hu.neuron.ier.core;
+package hu.neuron.ier.core.entity;
 
-public class Address {
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "Address")
+public class Address extends BaseEntity{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Long id;
 	private long postcode;
 	private String city;
 	private String street;
 	private String house;
-
-	public Address(Long id, long postcode, String city, String street, String house) {
-		super();
-		this.id = id;
-		this.postcode = postcode;
-		this.city = city;
-		this.street = street;
-		this.house = house;
-	}
 
 	public Long getId() {
 		return id;

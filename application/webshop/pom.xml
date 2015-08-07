@@ -317,11 +317,13 @@
 				<configuration>
 					<aggregate>true</aggregate>
 				</configuration>
+				<version>2.8</version>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.4</version>
 				<configuration>
 					<aggregate>true</aggregate>
 				</configuration>
@@ -337,11 +339,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.9.1</version>
 				<configuration>
 					<aggregate>true</aggregate>
 					<configLocation>checkstyle.xml</configLocation>
 				</configuration>
+				<version>2.15</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -349,10 +351,7 @@
 				<version>2.6</version>
 				<configuration>
 					<aggregate>true</aggregate>
-					<formats>
-						<format>html</format>
-						<format>xml</format>
-					</formats>
+					<forceMojoExecution>true</forceMojoExecution>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -1,6 +1,6 @@
 package hu.neuron.ier.core.entity;
 
-import hu.neuron.ier.core.Address;
+import hu.neuron.ier.core.entity.Address;
 
 import java.util.List;
 

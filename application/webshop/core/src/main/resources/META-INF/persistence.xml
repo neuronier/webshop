@@ -11,6 +11,11 @@
 		<jta-data-source>hu.neuron.ier.webshop.database</jta-data-source>
 		<class>hu.neuron.ier.core.entity.BaseEntity</class>
 		<class>hu.neuron.ier.core.entity.User</class>
+		<class>hu.neuron.ier.core.entity.Role</class>
+		<class>hu.neuron.ier.core.entity.Offer</class>
+		<class>hu.neuron.ier.core.entity.OfferGroup</class>
+		<class>hu.neuron.ier.core.entity.Client</class>
+		<class>hu.neuron.ier.core.entity.Address</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 

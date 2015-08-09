@@ -20,6 +20,7 @@
 
 
 	<context:component-scan base-package="hu.neuron.ier.core" />
+	
 
 	<bean id="entityManagerFactory" class="org.hibernate.ejb.EntityManagerFactoryImpl"
 		factory-method="getNamedEntityManagerFactory">
@@ -30,9 +31,9 @@
 	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 	<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" 
 		/>
-	<property name="persistenceUnitName" value="hu.neuron.java.jpa" />
+	<property name="persistenceUnitName" value="hu.neuron.ier.jpa" />
 	</bean>
-	<jpa:repositories base-package="hu.neuron.java.core"
+	<jpa:repositories base-package="hu.neuron.ier.core"
 		entity-manager-factory-ref="entityManagerFactory"
 		repository-impl-postfix="Impl" />
 

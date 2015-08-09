@@ -8,30 +8,19 @@ import javax.persistence.Table;
 @Table(name = "Address")
 public class Address extends BaseEntity{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
-	private long postcode;
+	private Long postcode;
 	private String city;
 	private String street;
 	private String house;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public long getPostcode() {
+	public Long getPostcode() {
 		return postcode;
 	}
 
-	public void setPostcode(long postcode) {
+	public void setPostcode(Long postcode) {
 		this.postcode = postcode;
 	}
 

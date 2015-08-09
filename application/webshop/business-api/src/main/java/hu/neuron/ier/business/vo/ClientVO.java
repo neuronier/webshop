@@ -1,7 +1,5 @@
 package hu.neuron.ier.business.vo;
 
-import hu.neuron.ier.business.Address;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,8 +14,8 @@ public class ClientVO implements Serializable {
 	private String fullName;
 	private String email;
 	private String phone;
-	private Address billingAddress;
-	private Address deliveryAddress;
+	private AddressVO billingAddress;
+	private AddressVO deliveryAddress;
 	private List<RoleVO> roles;
 
 	public Long getId() {
@@ -68,19 +66,19 @@ public class ClientVO implements Serializable {
 		this.phone = phone;
 	}
 
-	public Address getBillingAddress() {
+	public AddressVO getBillingAddress() {
 		return billingAddress;
 	}
 
-	public void setBillingAddress(Address billAddress) {
+	public void setBillingAddress(AddressVO billAddress) {
 		this.billingAddress = billAddress;
 	}
 
-	public Address getDeliveryAddress() {
+	public AddressVO getDeliveryAddress() {
 		return deliveryAddress;
 	}
 
-	public void setDeliveryAddress(Address deliveryAddress) {
+	public void setDeliveryAddress(AddressVO deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
 	}
 

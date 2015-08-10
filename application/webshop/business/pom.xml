@@ -26,12 +26,12 @@
 		<dependency>
 			<groupId>hu.neuron.ier.webshop</groupId>
 			<artifactId>business-api</artifactId>
-			<version>${version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>hu.neuron.ier.webshop</groupId>
 			<artifactId>core</artifactId>
-			<version>${version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>

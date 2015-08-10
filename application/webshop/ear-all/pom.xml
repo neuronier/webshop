@@ -13,19 +13,17 @@
 			<groupId>hu.neuron.ier.webshop</groupId>
 			<artifactId>business</artifactId>
 			<type>ejb</type>
-			<version>${version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>hu.neuron.ier.webshop</groupId>
 			<artifactId>web</artifactId>
 			<type>war</type>
-			<version>${version}</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
-
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
@@ -40,7 +38,6 @@
 							<artifactId>web</artifactId>
 							<contextRoot>/webshopApp</contextRoot>
 						</webModule>
-
 					</modules>
 				</configuration>
 			</plugin>

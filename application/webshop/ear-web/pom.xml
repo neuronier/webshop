@@ -9,12 +9,11 @@
   <packaging>ear</packaging>
   <name>ear-web</name>
   <dependencies>
-		
 		<dependency>
 			<groupId>hu.neuron.ier.webshop</groupId>
 			<artifactId>web</artifactId>
 			<type>war</type>
-			<version>${version}</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 </project>

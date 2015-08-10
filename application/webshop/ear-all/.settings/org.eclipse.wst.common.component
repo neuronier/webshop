@@ -5,7 +5,7 @@
         <dependent-module archiveName="web-0.1.war" deploy-path="/" handle="module:/resource/web/web">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="business-0.1.jar" deploy-path="/lib" handle="module:/resource/business/business">
+        <dependent-module archiveName="business-0.1.jar" deploy-path="/" handle="module:/resource/business/business">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="business-api-0.1.jar" deploy-path="/lib" handle="module:/resource/business-api/business-api">

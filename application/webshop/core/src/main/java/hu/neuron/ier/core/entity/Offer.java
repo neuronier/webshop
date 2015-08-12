@@ -12,10 +12,11 @@ public class Offer extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long itemNumber;
 	private Long cost;
 	private String name;
 	private String description;
+	private Offer parentOffer;
+	private OfferGroup parentOfferGroup;
 
 	public String getName() {
 		return name;
@@ -33,14 +34,6 @@ public class Offer extends BaseEntity {
 		this.description = description;
 	}
 
-	public Long getItemNumber() {
-		return itemNumber;
-	}
-
-	public void setItemNumber(Long itemNumber) {
-		this.itemNumber = itemNumber;
-	}
-
 	public Long getCost() {
 		return cost;
 	}
@@ -48,5 +41,23 @@ public class Offer extends BaseEntity {
 	public void setCost(Long cost) {
 		this.cost = cost;
 	}
+
+	public Offer getParentOffer() {
+		return parentOffer;
+	}
+
+	public void setParentOffer(Offer parentOffer) {
+		this.parentOffer = parentOffer;
+	}
+
+	public OfferGroup getParentOfferGroup() {
+		return parentOfferGroup;
+	}
+
+	public void setParentOfferGroup(OfferGroup parentOfferGroup) {
+		this.parentOfferGroup = parentOfferGroup;
+	}
+	
+	
 
 }

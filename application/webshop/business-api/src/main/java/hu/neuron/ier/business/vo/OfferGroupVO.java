@@ -9,6 +9,15 @@ public class OfferGroupVO implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
+	private OfferGroupVO parentOfferGroup;
+
+	public OfferGroupVO getParentOfferGroup() {
+		return parentOfferGroup;
+	}
+
+	public void setParentOfferGroup(OfferGroupVO parentOfferGroup) {
+		this.parentOfferGroup = parentOfferGroup;
+	}
 
 	public Long getId() {
 		return id;

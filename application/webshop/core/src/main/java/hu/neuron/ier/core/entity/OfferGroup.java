@@ -14,6 +14,15 @@ public class OfferGroup extends BaseEntity {
 
 	private String name;
 	private String description;
+	private OfferGroup parentOfferGroup;
+
+	public OfferGroup getParentOfferGroup() {
+		return parentOfferGroup;
+	}
+
+	public void setParentOfferGroup(OfferGroup parentOfferGroup) {
+		this.parentOfferGroup = parentOfferGroup;
+	}
 
 	public String getName() {
 		return name;

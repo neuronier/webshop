@@ -8,11 +8,13 @@ public interface OfferGroupServiceRemote {
 
 	void deleteOfferGroup(Long id) throws Exception;
 
-	void updateOfferGroupName(String name) throws Exception;
+	void updateOfferGroupName(Long id, String name) throws Exception;
 
-	void updateOfferGroupDescription(String description) throws Exception;
-
+	void updateOfferGroupDescription(Long id, String description) throws Exception;
 	// csoportokat egymás alá rendelni
+	void offerGroupToOfferGroup(Long id, Long parentId) throws Exception;
 	// hozzájuk ajánlatokat rendelni
+	void offerToOfferGroup(Long offerId, Long offerGroupId) throws Exception;
+	
 
 }

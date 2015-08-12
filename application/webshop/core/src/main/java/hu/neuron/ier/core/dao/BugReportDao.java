@@ -1,9 +1,12 @@
 package hu.neuron.ier.core.dao;
 
+import java.util.List;
+
 import hu.neuron.ier.core.entity.BugReport;
 
 
 import hu.neuron.ier.core.entity.Client;
+import hu.neuron.ier.core.entity.ProductType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,7 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.SUPPORTS)
 public interface BugReportDao extends JpaRepository<BugReport, Long>{
 
-	BugReport findbyClient(Client client) throws Exception;
+
+	List<BugReport> findByClient(Client client) throws Exception;
 	
-	BugReport findbyProblem(String problem) throws Exception;
+	List<BugReport> findByProductType(ProductType productType) throws Exception;
 }

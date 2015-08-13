@@ -1,7 +1,8 @@
 package hu.neuron.ier.core.dao.test;
 
-import hu.neuron.ier.core.dao.AddressDao;
-import hu.neuron.ier.core.entity.Address;
+import hu.neuron.ier.core.dao.OfferDao;
+import hu.neuron.ier.core.entity.Offer;
+import hu.neuron.ier.core.entity.OfferGroup;
 
 import java.util.List;
 
@@ -21,24 +22,27 @@ import org.springframework.transaction.annotation.Transactional;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @Transactional
 @TransactionConfiguration(defaultRollback = false)
-public class AddressDaoTest {
+public class OfferDaoTest {
 
-	private static final Logger logger = Logger.getLogger(AddressDaoTest.class);
+	private static final Logger logger = Logger.getLogger(OfferDaoTest.class);
 
-	private static Address address;
+	private static Offer offer;
+	private static Offer parentOffer;
+	private static OfferGroup offerGroup;
 
 	@Autowired
-	AddressDao addressDao;
+	OfferDao offerDao;
 
 	@Test
 	public void test1Save() {
 		try {
-			address = new Address();
-			address.setCity("test");
-			address.setHouse("test");
-			address.setPostcode(123l);
-			address.setStreet("test");
-			address = addressDao.save(address);
+			offer = new Offer();
+			offer.setCost(12l);
+			offer.setDescription("test");
+			offer.setName("test123");
+			offer.setParentOfferGroup(offerGroup);
+			offer.setParentOffer(parentOffer);
+			offer = offerDao.save(offer);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
@@ -46,20 +50,19 @@ public class AddressDaoTest {
 	}
 
 	@Test
-	public void test2Find() {
+	public void test2FindOfferByName() {
 		try {
-			Address ad = addressDao.findAddressByCity(address.getCity());
+			Offer offer = offerDao.findOfferByName(this.offer.getName());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	@Test
 	public void test3FindAll() {
 		try {
-			List<Address> addresses = addressDao.findAll();
+			List<Offer> offers = offerDao.findAll();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
@@ -69,7 +72,7 @@ public class AddressDaoTest {
 	@Test
 	public void test4Delete() {
 		try {
-			addressDao.delete(address);
+			offerDao.delete(offer.getId());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);

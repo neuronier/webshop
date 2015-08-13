@@ -52,7 +52,7 @@ public class OfferDaoTest {
 	@Test
 	public void test2FindOfferByName() {
 		try {
-			Offer offer = offerDao.findOfferByName(this.offer.getName());
+			List<Offer> offers = offerDao.findOfferByName(this.offer.getName());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);

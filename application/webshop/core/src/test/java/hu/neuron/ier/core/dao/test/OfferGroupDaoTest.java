@@ -49,7 +49,8 @@ public class OfferGroupDaoTest {
 	@Test
 	public void test2FindOfferGroupByName() {
 		try {
-			OfferGroup offerGroup = offerGroupDao.findOfferGroupByName(this.offerGroup.getName());
+			List<OfferGroup> offerGroup = offerGroupDao.findOfferGroupByName(this.offerGroup
+					.getName());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);

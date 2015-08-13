@@ -98,7 +98,7 @@ public class BugReportDaoTest {
 	}
 
 	@Test
-	public void test4Delete() {
+	public void test5Delete() {
 		try {
 			bugReportDao.delete(bugReport.getId());
 		} catch (Exception e) {

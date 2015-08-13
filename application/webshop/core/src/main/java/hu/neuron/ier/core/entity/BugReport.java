@@ -1,6 +1,7 @@
 package hu.neuron.ier.core.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,8 +12,9 @@ public class BugReport extends BaseEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	@ManyToOne
 	private Client client;
+	@ManyToOne
 	private ProductType productType;
 	private String problem;
 	

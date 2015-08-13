@@ -1,7 +1,9 @@
 package hu.neuron.ier.core.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +18,7 @@ public class OfferGroup extends BaseEntity {
 
 	private String name;
 	private String description;
+	@ManyToOne
 	private OfferGroup parentOfferGroup;
 
 	public OfferGroup getParentOfferGroup() {

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -25,7 +26,9 @@ public class Client extends BaseEntity {
 	private String fullName;
 	private String email;
 	private String phone;
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Address billingAddress;
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Address deliveryAddress;
 
 	@ManyToMany(fetch = FetchType.LAZY)

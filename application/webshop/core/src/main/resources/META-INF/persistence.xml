@@ -9,13 +9,15 @@
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>hu.neuron.ier.database</jta-data-source>
+		<class>hu.neuron.ier.core.entity.Address</class>
 		<class>hu.neuron.ier.core.entity.BaseEntity</class>
-		<class>hu.neuron.ier.core.entity.User</class>
-		<class>hu.neuron.ier.core.entity.Role</class>
+		<class>hu.neuron.ier.core.entity.BugReport</class>
+		<class>hu.neuron.ier.core.entity.Client</class>
 		<class>hu.neuron.ier.core.entity.Offer</class>
 		<class>hu.neuron.ier.core.entity.OfferGroup</class>
-		<class>hu.neuron.ier.core.entity.Client</class>
-		<class>hu.neuron.ier.core.entity.Address</class>
+		<class>hu.neuron.ier.core.entity.ProductType</class>
+		<class>hu.neuron.ier.core.entity.Role</class>
+		<class>hu.neuron.ier.core.entity.User</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 

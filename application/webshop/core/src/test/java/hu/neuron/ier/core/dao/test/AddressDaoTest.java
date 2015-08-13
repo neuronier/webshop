@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(defaultRollback = false)
 public class AddressDaoTest {
 
-	private static final Logger logger = Logger.getLogger(UserDaoTest.class);
+	private static final Logger logger = Logger.getLogger(AddressDaoTest.class);
 
 	private static Address address;
 
@@ -31,13 +31,14 @@ public class AddressDaoTest {
 	AddressDao addressDao;
 
 	@Test
-	public void test1CreateTestData() {
+	public void test1Save() {
 		try {
 			address = new Address();
 			address.setCity("test");
 			address.setHouse("test");
 			address.setPostcode(123l);
 			address.setStreet("test");
+			address = addressDao.save(address);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
@@ -59,6 +60,16 @@ public class AddressDaoTest {
 	public void test3FindAll() {
 		try {
 			List<Address> addresses = addressDao.findAll();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Test
+	public void test4Delete() {
+		try {
+			addressDao.delete(address);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);

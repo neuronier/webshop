@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(defaultRollback = false)
 public class RoleDaoTest {
 
-	private static final Logger logger = Logger.getLogger(UserDaoTest.class);
+	private static final Logger logger = Logger.getLogger(RoleDaoTest.class);
 	private static Role role;
 	private static User user;
 

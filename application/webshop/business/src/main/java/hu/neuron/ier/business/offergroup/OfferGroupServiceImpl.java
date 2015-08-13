@@ -23,14 +23,13 @@ import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 @Remote(OfferGroupServiceRemote.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @Interceptors(SpringBeanAutowiringInterceptor.class)
-public class OfferGroupServiceImpl implements OfferGroupServiceRemote,
-		Serializable {
+public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializable {
 
 	private static final long serialVersionUID = -5417875507641978550L;
 
 	@Autowired
 	OfferGroupDao offerGroupDao;
-	
+
 	@Autowired
 	OfferDao offerDao;
 
@@ -49,33 +48,31 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote,
 
 	@Override
 	public void updateOfferGroupName(Long id, String name) throws Exception {
-		OfferGroup og = offerGroupDao.findOfferGroupByID(id);
+		OfferGroup og = offerGroupDao.findOne(id);
 		og.setName(name);
 		offerGroupDao.save(og);
 	}
 
 	@Override
-	public void updateOfferGroupDescription(Long id, String description)
-			throws Exception {
-		OfferGroup og = offerGroupDao.findOfferGroupByID(id);
+	public void updateOfferGroupDescription(Long id, String description) throws Exception {
+		OfferGroup og = offerGroupDao.findOne(id);
 		og.setDescription(description);
 		offerGroupDao.save(og);
 	}
 
 	@Override
 	public void offerGroupToOfferGroup(Long id, Long parentId) throws Exception {
-		OfferGroup parent = offerGroupDao.findOfferGroupByID(parentId);
-		OfferGroup og = offerGroupDao.findOfferGroupByID(id);
+		OfferGroup parent = offerGroupDao.findOne(parentId);
+		OfferGroup og = offerGroupDao.findOne(id);
 		og.setParentOfferGroup(parent);
 		offerGroupDao.save(og);
 	}
 
 	@Override
-	public void offerToOfferGroup(Long offerId, Long offerGroupId)
-			throws Exception {
-		
-		Offer offer = offerDao.findOfferByID(offerId);
-		OfferGroup og = offerGroupDao.findOfferGroupByID(offerGroupId);
+	public void offerToOfferGroup(Long offerId, Long offerGroupId) throws Exception {
+
+		Offer offer = offerDao.findOne(offerId);
+		OfferGroup og = offerGroupDao.findOne(offerGroupId);
 		offer.setParentOfferGroup(og);
 		offerDao.save(offer);
 	}

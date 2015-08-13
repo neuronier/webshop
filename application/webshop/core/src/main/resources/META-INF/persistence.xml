@@ -15,6 +15,7 @@
 		<class>hu.neuron.ier.core.entity.Client</class>
 		<class>hu.neuron.ier.core.entity.Offer</class>
 		<class>hu.neuron.ier.core.entity.OfferGroup</class>
+		<class>hu.neuron.ier.core.entity.OfferProductTypeSw</class>
 		<class>hu.neuron.ier.core.entity.ProductType</class>
 		<class>hu.neuron.ier.core.entity.Role</class>
 		<class>hu.neuron.ier.core.entity.User</class>

@@ -2,7 +2,6 @@ package hu.neuron.ier.core.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -10,7 +9,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Offer")
-@NamedQuery(name = "Offer.findOfferByID", query = "SELECT o FROM Offer o  WHERE o.id = :id")
+//@NamedQuery(name = "Offer.findOfferByID", query = "SELECT o FROM Offer o  WHERE o.id = :id")
 public class Offer extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

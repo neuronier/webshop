@@ -12,6 +12,4 @@ import org.springframework.transaction.annotation.Transactional;
 public interface OfferDao extends JpaRepository<Offer, Long> {
 
 	Offer findOfferByName(String name) throws Exception;
-
-	Offer findOfferByID(Long id) throws Exception;
 }

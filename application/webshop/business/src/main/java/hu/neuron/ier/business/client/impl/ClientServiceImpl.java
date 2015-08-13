@@ -40,7 +40,7 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	@Override
 	public ClientVO findClientByName(String name) throws Exception {
 
-		return clientConverter.toVo(clientDao.findbyClientByClientName(name));
+		return clientConverter.toVo(clientDao.findByBClientByName(name));
 	}
 
 	@Override

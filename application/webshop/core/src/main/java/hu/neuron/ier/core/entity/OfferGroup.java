@@ -2,8 +2,6 @@ package hu.neuron.ier.core.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -11,7 +9,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "OfferGroup")
-@NamedQuery(name = "OfferGroup.findOfferGroupByID", query = "SELECT o FROM OfferGroup o  WHERE o.id = :id")
+//@NamedQuery(name = "OfferGroup.findOfferGroupByID", query = "SELECT o FROM OfferGroup o  WHERE o.id = :id")
 public class OfferGroup extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

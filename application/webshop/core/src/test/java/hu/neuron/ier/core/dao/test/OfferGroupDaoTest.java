@@ -1,7 +1,6 @@
 package hu.neuron.ier.core.dao.test;
 
-import hu.neuron.ier.core.dao.OfferDao;
-import hu.neuron.ier.core.entity.Offer;
+import hu.neuron.ier.core.dao.OfferGroupDao;
 import hu.neuron.ier.core.entity.OfferGroup;
 
 import java.util.List;
@@ -22,37 +21,35 @@ import org.springframework.transaction.annotation.Transactional;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @Transactional
 @TransactionConfiguration(defaultRollback = false)
-public class OfferDaoTest {
+public class OfferGroupDaoTest {
 
-	private static final Logger logger = Logger.getLogger(OfferDaoTest.class);
+	private static final Logger logger = Logger.getLogger(OfferGroupDaoTest.class);
 
-	private static Offer offer;
-	private static Offer parentOffer;
 	private static OfferGroup offerGroup;
+	private static OfferGroup parentOfferGroup;
 
 	@Autowired
-	OfferDao offerDao;
+	OfferGroupDao offerGroupDao;
 
 	@Test
 	public void test1Save() {
 		try {
-			offer = new Offer();
-			offer.setCost(12l);
-			offer.setDescription("test");
-			offer.setName("test123");
-			offer.setParentOfferGroup(offerGroup);
-			offer.setParentOffer(parentOffer);
-			offer = offerDao.save(offer);
+			offerGroup = new OfferGroup();
+			offerGroup.setName("test12");
+			offerGroup.setDescription("description");
+			offerGroup.setParentOfferGroup(parentOfferGroup);
+			offerGroup = offerGroupDao.save(offerGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		}
+
 	}
 
 	@Test
-	public void test2FindOfferByName() {
+	public void test2FindOfferGroupByName() {
 		try {
-			Offer offer = offerDao.findOfferByName(this.offer.getName());
+			OfferGroup offerGroup = offerGroupDao.findOfferGroupByName(this.offerGroup.getName());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
@@ -62,21 +59,21 @@ public class OfferDaoTest {
 	@Test
 	public void test3FindAll() {
 		try {
-			List<Offer> offers = offerDao.findAll();
+			List<OfferGroup> offerGroupss = offerGroupDao.findAll();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		}
+
 	}
 
 	@Test
 	public void test4Delete() {
 		try {
-			offerDao.delete(offer.getId());
+			offerGroupDao.delete(offerGroup.getId());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		}
 	}
-
 }

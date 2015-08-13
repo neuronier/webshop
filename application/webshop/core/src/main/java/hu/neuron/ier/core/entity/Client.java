@@ -1,10 +1,12 @@
 package hu.neuron.ier.core.entity;
 
-import hu.neuron.ier.core.entity.Address;
-
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -12,26 +14,30 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Client")
+@NamedQuery(name = "Client.findbyClientByClientName", query = "SELECT c FROM Client c  WHERE c.clientName = :clientName")
 public class Client extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long clientId;
-	private String userName;
+	private String clientName;
 	private String password;
 	private String fullName;
 	private String email;
 	private String phone;
 	private Address billingAddress;
 	private Address deliveryAddress;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "client_role_sw")
 	private List<Role> roles;
 
-	public String getUserName() {
-		return userName;
+	public String getClientName() {
+		return clientName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 
 	public String getPassword() {

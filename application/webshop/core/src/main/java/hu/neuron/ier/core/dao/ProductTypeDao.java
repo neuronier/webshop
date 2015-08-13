@@ -11,5 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.SUPPORTS)
 public interface ProductTypeDao  extends JpaRepository<ProductType, Long> {
 
-	ProductType findByProductitemNumber(String itemNumber) throws Exception;
+	ProductType findProductByItemNumber(String itemNumber) throws Exception;
 }

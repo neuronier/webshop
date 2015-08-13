@@ -9,11 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(propagation = Propagation.SUPPORTS)
-public interface OfferDao  extends JpaRepository<Offer, Long> {
+public interface OfferDao extends JpaRepository<Offer, Long> {
 
 	Offer findOfferByName(String name) throws Exception;
-	
-	Offer findOfferByItemNumber(Long itemNumber) throws Exception;
-	
+
 	Offer findOfferByID(Long id) throws Exception;
 }

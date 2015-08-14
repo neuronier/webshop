@@ -12,6 +12,8 @@
 			}
 			
 			body{
-				background-image: url(/resources/images/dark.jpg);
-				background-color: green;
+				background-image: url(../../images/dark.jpg);
+				background-size: cover;
+      		 	background-repeat: no-repeat;
+/* 				background-color: green; */
 			}

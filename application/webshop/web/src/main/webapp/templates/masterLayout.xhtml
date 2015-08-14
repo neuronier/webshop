@@ -18,12 +18,12 @@
 			content="width=device-width, initial-scale=1.0, user-scalable=no" />
 		<title><ui:insert name="pageTitle"></ui:insert></title>
 		<ui:insert name="head-extra" />
-		<h:outputStylesheet library="css" name="masterLayout.css"  />
+		<h:outputStylesheet library="default" name="css/masterLayout.css"  />
 	</h:head>
 	
 	<h:body>
 		<p:growl id="growl" showDetail="true" autoUpdate="true" />
-		
+		<h:outputStylesheet library="default" name="css/masterLayout.css"  />
 		<p:menubar>
 
 			<p:menuitem value="Login" url="/public/login.xhtml"

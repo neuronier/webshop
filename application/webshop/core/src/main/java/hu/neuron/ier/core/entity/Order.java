@@ -3,6 +3,8 @@ package hu.neuron.ier.core.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 public class Order extends BaseEntity{
 
 	private static final long serialVersionUID = 1826068613871566627L;
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Client client;
 	private Date date;
 	private Double fullCost;

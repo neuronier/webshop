@@ -1,6 +1,7 @@
 package hu.neuron.ier.core.dao.test;
 
 import hu.neuron.ier.core.dao.OfferDao;
+import hu.neuron.ier.core.dao.OfferGroupDao;
 import hu.neuron.ier.core.entity.Offer;
 import hu.neuron.ier.core.entity.OfferGroup;
 
@@ -27,21 +28,26 @@ public class OfferDaoTest {
 	private static final Logger logger = Logger.getLogger(OfferDaoTest.class);
 
 	private static Offer offer;
-	private static Offer parentOffer;
 	private static OfferGroup offerGroup;
 
 	@Autowired
 	OfferDao offerDao;
+	
+	@Autowired
+	OfferGroupDao offerGroupDao;
 
 	@Test
 	public void test1Save() {
 		try {
+			offerGroup = new OfferGroup();
+			offerGroup.setName("Főcsoport");
+			offerGroup.setDescription("Itt van minden alcsoport");
+			offerGroup = offerGroupDao.save(offerGroup);
 			offer = new Offer();
 			offer.setCost(12l);
 			offer.setDescription("test");
 			offer.setName("test123");
 			offer.setParentOfferGroup(offerGroup);
-			offer.setParentOffer(parentOffer);
 			offer = offerDao.save(offer);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -63,6 +69,12 @@ public class OfferDaoTest {
 	public void test3FindAll() {
 		try {
 			List<Offer> offers = offerDao.findAll();
+			for(Offer o : offers){
+				logger.info("Offer name:" + o.getName());
+				logger.info("Offer description: " + o.getDescription());
+				logger.info("Offer cost" + o.getCost());
+				logger.info("Offer parentOfferGroup" + o.getParentOfferGroup().getName());
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);

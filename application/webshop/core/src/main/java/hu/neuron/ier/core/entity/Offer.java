@@ -9,7 +9,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Offer")
-//@NamedQuery(name = "Offer.findOfferByID", query = "SELECT o FROM Offer o  WHERE o.id = :id")
+// @NamedQuery(name = "Offer.findOfferByID", query =
+// "SELECT o FROM Offer o  WHERE o.id = :id")
 public class Offer extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -17,9 +18,7 @@ public class Offer extends BaseEntity {
 	private Long cost;
 	private String name;
 	private String description;
-	@ManyToOne
-	private Offer parentOffer;
-	
+
 	@ManyToOne
 	private OfferGroup parentOfferGroup;
 
@@ -45,14 +44,6 @@ public class Offer extends BaseEntity {
 
 	public void setCost(Long cost) {
 		this.cost = cost;
-	}
-
-	public Offer getParentOffer() {
-		return parentOffer;
-	}
-
-	public void setParentOffer(Offer parentOffer) {
-		this.parentOffer = parentOffer;
 	}
 
 	public OfferGroup getParentOfferGroup() {

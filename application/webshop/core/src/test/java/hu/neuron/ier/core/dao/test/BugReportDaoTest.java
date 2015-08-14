@@ -44,7 +44,7 @@ public class BugReportDaoTest {
 	public void test1Save() {
 		try {
 			client = new Client();
-			client.setClientName("test");
+			client.setUserName("test");
 			client.setClientId(1l);
 			client.setEmail("test");
 			client.setFullName("test");

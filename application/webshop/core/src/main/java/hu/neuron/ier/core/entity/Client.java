@@ -15,13 +15,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Client")
-@NamedQuery(name = "Client.findByBClientByName", query = "SELECT c FROM Client c  WHERE c.clientName = :clientName")
+@NamedQuery(name = "Client.findByBClientByName", query = "SELECT c FROM Client c  WHERE c.userName = :userName")
 public class Client extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long clientId;
-	private String clientName;
+	private String userName;
 	private String password;
 	private String fullName;
 	private String email;
@@ -35,12 +35,12 @@ public class Client extends BaseEntity {
 	@JoinTable(name = "client_role_sw")
 	private List<Role> roles;
 
-	public String getClientName() {
-		return clientName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {

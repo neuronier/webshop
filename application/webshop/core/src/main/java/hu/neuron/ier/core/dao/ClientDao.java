@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.SUPPORTS)
 public interface ClientDao extends JpaRepository<Client, Long> {
 	
-	Client findByBClientByName(@Param("clientName")String name) throws Exception;
+	Client findByUserName(@Param("userName")String name) throws Exception;
 	
-	Page<Client> findByClientNameStartsWith(String filter,Pageable pageable);
+	Page<Client> findByUserNameStartsWith(String filter,Pageable pageable);
 
 }

@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>business</artifactId>
-	<version>0.1</version>
+	
 	<packaging>ejb</packaging>
 	<name>business</name>
 	<url>http://maven.apache.org</url>

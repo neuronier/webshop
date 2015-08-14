@@ -9,7 +9,7 @@
   </parent>
   
   <artifactId>business-api</artifactId>
-  <version>0.1</version>
+  
   <name>business-api</name>
   <url>http://maven.apache.org</url>
   <properties>

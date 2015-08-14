@@ -19,8 +19,9 @@
 		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 
-	<context:component-scan base-package="hu.neuron.ier" />
-	
+	<context:component-scan base-package="hu.neuron.ier.core" />
+
+	<jpa:repositories base-package="hu.neuron.ier.core.dao" />
 
 	<bean id="entityManagerFactory" class="org.hibernate.ejb.EntityManagerFactoryImpl"
 		factory-method="getNamedEntityManagerFactory">
@@ -33,7 +34,7 @@
 		/>
 	<property name="persistenceUnitName" value="hu.neuron.ier.jpa" />
 	</bean>
-	<jpa:repositories base-package="hu.neuron.ier.core.dao"
+	<jpa:repositories base-package="hu.neuron.ier.core"
 		entity-manager-factory-ref="entityManagerFactory"
 		repository-impl-postfix="Impl" />
 

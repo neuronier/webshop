@@ -8,7 +8,7 @@
 		transaction-type="JTA">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>hu.neuron.ier.webshop.database</jta-data-source>
+		<jta-data-source>hu.neuron.ier.database</jta-data-source>
 		<class>hu.neuron.ier.core.entity.Address</class>
 		<class>hu.neuron.ier.core.entity.BaseEntity</class>
 		<class>hu.neuron.ier.core.entity.BugReport</class>

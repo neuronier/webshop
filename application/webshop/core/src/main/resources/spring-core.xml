@@ -28,12 +28,12 @@
 		<constructor-arg value="EntityManagerJNDI" />
 	</bean>
 
-<!-- 	<bean id="entityManagerFactory" -->
-<!-- 	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> -->
-<!-- 	<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"  -->
-<!-- 		/> -->
-<!-- 	<property name="persistenceUnitName" value="hu.neuron.ier.jpa" /> -->
-<!-- 	</bean> -->
+	<bean id="entityManagerFactory"
+	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" 
+		/>
+	<property name="persistenceUnitName" value="hu.neuron.ier.jpa" />
+	</bean>
 	<jpa:repositories base-package="hu.neuron.ier.core"
 		entity-manager-factory-ref="entityManagerFactory"
 		repository-impl-postfix="Impl" />
@@ -45,7 +45,7 @@
 	<tx:annotation-driven />
 	<tx:jta-transaction-manager></tx:jta-transaction-manager>
 
-<!-- 	<bean id="myAspect" class="hu.neuron.ier.core.LoggerAspect"></bean> -->
+	<bean id="myAspect" class="hu.neuron.ier.core.LoggerAspect"></bean>
 
 	<aop:aspectj-autoproxy />
 

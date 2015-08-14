@@ -49,6 +49,7 @@ public class OfferDaoTest {
 			offer.setName("test123");
 			offer.setParentOfferGroup(offerGroup);
 			offer = offerDao.save(offer);
+			logger.info("OfferId: " + offer.getId());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
@@ -58,7 +59,10 @@ public class OfferDaoTest {
 	@Test
 	public void test2FindOfferByName() {
 		try {
-			List<Offer> offers = offerDao.findOfferByName(this.offer.getName());
+			List<Offer> offers = offerDao.findOfferByName(offer.getName());
+			for(Offer o : offers){
+				logger.info("Offer: " + o.getName());
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);

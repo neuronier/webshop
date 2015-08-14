@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Client")
-@NamedQuery(name = "Client.findByBClientByName", query = "SELECT c FROM Client c  WHERE c.userName = :userName")
+//@NamedQuery(name = "Client.findByBClientByName", query = "SELECT c FROM Client c  WHERE c.userName = :userName")
 public class Client extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

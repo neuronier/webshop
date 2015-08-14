@@ -15,8 +15,8 @@
 		<class>hu.neuron.ier.core.entity.BugReport</class>
 		<class>hu.neuron.ier.core.entity.OfferProductTypeSw</class>
 		<class>hu.neuron.ier.core.entity.ProductType</class>
-		<class>hu.neuron.ier.core.entity.Order</class>
 		<class>hu.neuron.ier.core.entity.OrderedOfferSw</class>
+		<class>hu.neuron.ier.core.entity.Order</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class, hbm" />

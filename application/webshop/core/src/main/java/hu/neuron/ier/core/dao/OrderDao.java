@@ -1,7 +1,7 @@
 package hu.neuron.ier.core.dao;
 
 import hu.neuron.ier.core.entity.Client;
-import hu.neuron.ier.core.entity.Orders;
+import hu.neuron.ier.core.entity.Purchase;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(propagation = Propagation.SUPPORTS)
-public interface OrderDao extends JpaRepository<Orders, Long> {
+public interface OrderDao extends JpaRepository<Purchase, Long> {
 	
-	List<Orders> findByClient(@Param("client") Client client) throws Exception;
+	List<Purchase> findByClient(@Param("client") Client client) throws Exception;
 
 }

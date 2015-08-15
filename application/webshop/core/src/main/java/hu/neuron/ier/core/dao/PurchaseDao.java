@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(propagation = Propagation.SUPPORTS)
-public interface OrderDao extends JpaRepository<Purchase, Long> {
-	
+public interface PurchaseDao extends JpaRepository<Purchase, Long> {
+
 	List<Purchase> findByClient(@Param("client") Client client) throws Exception;
 
 }

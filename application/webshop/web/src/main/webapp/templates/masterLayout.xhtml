@@ -25,7 +25,7 @@
 		<p:growl id="growl" showDetail="true" autoUpdate="true" />
 		<h:outputStylesheet library="default" name="css/masterLayout.css" />
 		<p:menubar>
-
+			<p:menuitem value="Home" url="/" />
 
 			<p:menuitem value="Login" url="/public/login.xhtml"
 				icon="ui-icon-locked" style="position: absolute; right: 10px;" />
@@ -43,9 +43,29 @@
 				<p:inputText style="margin-right:80px" placeholder="Search" />
 
 			</f:facet>
-
 		</p:menubar>
 
+		<h:form>
+			<p:growl autoUpdate="true" />
+
+			<p:panelMenu style="width:300px">
+				<p:submenu label="Telefon">
+					<p:submenu label="OkosTelefon">
+						<p:menuitem value="Apple" />
+						<p:menuitem value="Microsoft" />
+						<p:menuitem value="Samsung" />
+					</p:submenu>
+					<p:submenu label="NemOkosTelefon">
+						<p:menuitem value="3210" />
+						<p:menuitem value="3310" />
+					</p:submenu>
+				</p:submenu>
+				<p:submenu label="Laptop">
+					<p:menuitem value="ASUS" />
+					<p:menuitem value="HP" />
+				</p:submenu>
+			</p:panelMenu>
+		</h:form>
 
 		<div id="contentDiv">
 			<div class="ui-wrap-content" style="height: 100%;">

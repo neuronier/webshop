@@ -9,7 +9,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "OfferGroup")
-//@NamedQuery(name = "OfferGroup.findOfferGroupByID", query = "SELECT o FROM OfferGroup o  WHERE o.id = :id")
 public class OfferGroup extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

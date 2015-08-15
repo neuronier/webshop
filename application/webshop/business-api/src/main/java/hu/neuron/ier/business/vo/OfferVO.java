@@ -9,7 +9,7 @@ public class OfferVO implements Serializable {
 	private Long cost;
 	private String name;
 	private String description;
-	private OfferVO parentOffer;
+
 	private OfferGroupVO parentOfferGroup;
 
 	public Long getId() {
@@ -42,14 +42,6 @@ public class OfferVO implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public OfferVO getParentOffer() {
-		return parentOffer;
-	}
-
-	public void setParentOffer(OfferVO parentOffer) {
-		this.parentOffer = parentOffer;
 	}
 
 	public OfferGroupVO getParentOfferGroup() {

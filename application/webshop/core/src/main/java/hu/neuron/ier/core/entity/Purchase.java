@@ -1,24 +1,24 @@
 package hu.neuron.ier.core.entity;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Order")
-public class Order extends BaseEntity{
+@Table(name = "Purchase")
+@NamedQuery(name = "findByClient", query = "Select p from Purchase p where p.client = :client")
+public class Purchase extends BaseEntity {
 
 	private static final long serialVersionUID = 1826068613871566627L;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Client client;
-	private Date date;
-	private Double fullCost;
+	private Calendar date;
+	private Long fullCost;
 	private String status;
-	
-	
+
 	public String getStatus() {
 		return status;
 	}
@@ -26,27 +26,27 @@ public class Order extends BaseEntity{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	public Date getDate() {
+
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
-	public Double getFullCost() {
+	public Long getFullCost() {
 		return fullCost;
 	}
 
-	public void setFullCost(Double fullCost) {
+	public void setFullCost(Long fullCost) {
 		this.fullCost = fullCost;
 	}
-	
+
 	public Client getClient() {
 		return client;
 	}
-	
+
 	public void setClient(Client client) {
 		this.client = client;
 	}

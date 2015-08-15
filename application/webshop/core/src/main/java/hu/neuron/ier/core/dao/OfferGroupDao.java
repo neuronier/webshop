@@ -14,4 +14,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface OfferGroupDao extends JpaRepository<OfferGroup, Long> {
 
 	List<OfferGroup> findOfferGroupByName(String name) throws Exception;
+	List<OfferGroup> findOfferGroupByParentOfferGroup(OfferGroup parentOfferGroup) throws Exception;
 }

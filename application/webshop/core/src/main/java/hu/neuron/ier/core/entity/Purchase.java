@@ -16,7 +16,7 @@ public class Purchase extends BaseEntity {
 	@ManyToOne
 	private Client client;
 	private Calendar date;
-	private Double fullCost;
+	private Long fullCost;
 	private String status;
 
 	public String getStatus() {
@@ -35,11 +35,11 @@ public class Purchase extends BaseEntity {
 		this.date = date;
 	}
 
-	public Double getFullCost() {
+	public Long getFullCost() {
 		return fullCost;
 	}
 
-	public void setFullCost(Double fullCost) {
+	public void setFullCost(Long fullCost) {
 		this.fullCost = fullCost;
 	}
 

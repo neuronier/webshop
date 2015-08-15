@@ -6,7 +6,7 @@
 	template="/templates/masterLayout.xhtml"
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="head-extra">
-<!-- 		custom css -->
+		<!-- 		custom css -->
 	</ui:define>
 	<ui:define name="pageTitle">#{out.login}</ui:define>
 	<ui:define name="content">
@@ -21,15 +21,15 @@
 
 				<table>
 					<tr>
-						<td>User:</td>
+						<td class="whiteLetter">User:</td>
 						<td><input type="text" name="username" /></td>
 					</tr>
 					<tr>
-						<td>Password:</td>
+						<td class="whiteLetter">Password:</td>
 						<td><input type="password" name="password" /></td>
 					</tr>
 					<tr>
-						<td>Remember Me:</td>
+						<td class="whiteLetter">Remember Me:</td>
 						<td><input type="checkbox" name="remember-me" /></td>
 					</tr>
 					<tr>

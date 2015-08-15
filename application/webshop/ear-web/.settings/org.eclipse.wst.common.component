@@ -5,5 +5,8 @@
         <dependent-module archiveName="web-0.1.war" deploy-path="/" handle="module:/resource/web/web">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="trontastic-1.0.10.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/primefaces/themes/trontastic/1.0.10/trontastic-1.0.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

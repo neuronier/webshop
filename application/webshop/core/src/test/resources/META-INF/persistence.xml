@@ -15,7 +15,7 @@
 		<class>hu.neuron.ier.core.entity.BugReport</class>
 		<class>hu.neuron.ier.core.entity.OfferProductTypeSw</class>
 		<class>hu.neuron.ier.core.entity.ProductType</class>
-		<class>hu.neuron.ier.core.entity.OrderedOfferSw</class>
+		<class>hu.neuron.ier.core.entity.PurchasedOfferSw</class>
 		<class>hu.neuron.ier.core.entity.Purchase</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>

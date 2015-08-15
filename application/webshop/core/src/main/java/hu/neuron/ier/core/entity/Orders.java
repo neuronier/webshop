@@ -8,9 +8,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Order")
-@NamedQuery(name = "findByClient", query = "Select o from Order o where o.client = :client")
-public class Order extends BaseEntity {
+@Table(name = "Orders")
+@NamedQuery(name = "findByClient", query = "Select o from Orders o where o.client = :client")
+public class Orders extends BaseEntity {
 
 	private static final long serialVersionUID = 1826068613871566627L;
 	@ManyToOne

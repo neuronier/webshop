@@ -16,7 +16,7 @@
 		<class>hu.neuron.ier.core.entity.Offer</class>
 		<class>hu.neuron.ier.core.entity.OfferGroup</class>
 		<class>hu.neuron.ier.core.entity.OfferProductTypeSw</class>
-		<class>hu.neuron.ier.core.entity.Order</class>
+		<class>hu.neuron.ier.core.entity.Orders</class>
 		<class>hu.neuron.ier.core.entity.OrderedOfferSw</class>
 		<class>hu.neuron.ier.core.entity.ProductType</class>
 		<class>hu.neuron.ier.core.entity.Role</class>

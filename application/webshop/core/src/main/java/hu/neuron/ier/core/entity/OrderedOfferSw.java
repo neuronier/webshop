@@ -12,17 +12,17 @@ public class OrderedOfferSw extends BaseEntity{
 	@ManyToOne
 	private Offer offer;
 	@ManyToOne
-	private Order order;
+	private Orders order;
 	public Offer getOffer() {
 		return offer;
 	}
 	public void setOffer(Offer offer) {
 		this.offer = offer;
 	}
-	public Order getOrder() {
+	public Orders getOrder() {
 		return order;
 	}
-	public void setOrder(Order order) {
+	public void setOrder(Orders order) {
 		this.order = order;
 	}
 	private int quanty;

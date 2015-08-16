@@ -23,19 +23,39 @@
 
 
 					<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
-						<h:outputLabel id="outTxtUserNameId" value="#{out.username}"
-							name="outTxtUserNameNm"></h:outputLabel>
+						
+						<h:outputText style="color: white;" value="Felhasználó név:"
+							name="outTxtUserNameNm" />
 						<p:inputText id="userName" required="true"
 							value="#{registrationController.userName}"
 							requiredMessage="Please enter username" />
 
-						<h:outputLabel for="pwd1" value="#{out.password}: " />
+						<h:outputText style="color: white;" value="Jelszó:" />
 						<p:password id="pwd1" value="#{registrationController.password}"
 							match="pwd2" label="Password 1" required="true" />
 
-						<h:outputLabel for="pwd2" value="#{out.password2}: " />
+						<h:outputText style="color: white;" value="Jelszó újra:" />
 						<p:password id="pwd2" value="#{registrationController.password2}"
 							label="Password 2" required="true" />
+
+						<h:outputText style="color: white;" value="Teljes név:" />
+						<p:inputText id="fullNameInput" required="true"
+							value="#{registrationController.fullName}"
+							requiredMessage="Please enter your full name" />
+
+						<h:outputText style="color: white;" value="Telefon szám: " />
+						<p:inputText id="phoneInput" required="true"
+							value="#{registrationController.phone}"
+							requiredMessage="Please enter your phone number" />
+
+						<h:outputText style="color: white;" value="Email cím:" />
+						<p:inputText id="emailInput" required="true"
+							value="#{registrationController.email}"
+							requiredMessage="Please enter your email" />
+
+
+
+
 
 					</h:panelGrid>
 

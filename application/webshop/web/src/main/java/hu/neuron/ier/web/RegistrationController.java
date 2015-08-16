@@ -30,6 +30,12 @@ public class RegistrationController implements Serializable {
 	private String password = "";
 
 	private String password2 = "";
+	
+	private String fullName = "";
+
+	private String email = "";
+
+	private String phone = "";
 
 	@EJB(name = "UserService", mappedName = "UserService")
 	private UserServiceRemote userService;
@@ -56,6 +62,9 @@ public class RegistrationController implements Serializable {
 
 			userVO.setPassword(encPassword);
 			userVO.setUserName(userName);
+			userVO.setPhone(phone);
+			userVO.setEmail(email);
+			userVO.setFullName(fullName);
 
 			userService.registrationUser(userVO);
 			context.getExternalContext().getFlash().setKeepMessages(true);
@@ -94,4 +103,29 @@ public class RegistrationController implements Serializable {
 	public void setPassword2(String password2) {
 		this.password2 = password2;
 	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 }

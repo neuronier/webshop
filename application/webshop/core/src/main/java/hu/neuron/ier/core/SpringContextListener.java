@@ -13,6 +13,6 @@ public class SpringContextListener implements
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		createShema.insertRoles();
-
+		createShema.insertUsersAndAddRole();
 	};
 }

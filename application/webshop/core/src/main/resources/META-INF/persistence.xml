@@ -16,10 +16,11 @@
 		<class>hu.neuron.ier.core.entity.Offer</class>
 		<class>hu.neuron.ier.core.entity.OfferGroup</class>
 		<class>hu.neuron.ier.core.entity.OfferProductTypeSw</class>
+		<class>hu.neuron.ier.core.entity.ProductType</class>
 		<class>hu.neuron.ier.core.entity.Purchase</class>
 		<class>hu.neuron.ier.core.entity.PurchasedOfferSw</class>
-		<class>hu.neuron.ier.core.entity.ProductType</class>
 		<class>hu.neuron.ier.core.entity.Role</class>
+		<class>hu.neuron.ier.core.entity.ShoppingCart</class>
 		<class>hu.neuron.ier.core.entity.User</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>

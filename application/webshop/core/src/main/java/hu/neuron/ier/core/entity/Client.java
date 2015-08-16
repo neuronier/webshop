@@ -7,7 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -15,7 +15,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Client")
-//@NamedQuery(name = "Client.findByBClientByName", query = "SELECT c FROM Client c  WHERE c.userName = :userName")
+// @NamedQuery(name = "Client.findByBClientByName", query =
+// "SELECT c FROM Client c  WHERE c.userName = :userName")
 public class Client extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +35,8 @@ public class Client extends BaseEntity {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "client_role_sw")
 	private List<Role> roles;
+	@OneToOne
+	private ShoppingCart shoppingCart;
 
 	public String getUserName() {
 		return userName;
@@ -105,6 +108,14 @@ public class Client extends BaseEntity {
 
 	public void setClientId(Long clientId) {
 		this.clientId = clientId;
+	}
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
 	}
 
 }

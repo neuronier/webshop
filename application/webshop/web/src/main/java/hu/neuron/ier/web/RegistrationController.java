@@ -1,8 +1,5 @@
 package hu.neuron.ier.web;
 
-
-
-import hu.neuron.ier.business.role.RoleServiceRemote;
 import hu.neuron.ier.business.user.UserServiceRemote;
 import hu.neuron.ier.business.vo.UserVO;
 
@@ -30,7 +27,7 @@ public class RegistrationController implements Serializable {
 	private String password = "";
 
 	private String password2 = "";
-	
+
 	private String fullName = "";
 
 	private String email = "";
@@ -127,5 +124,5 @@ public class RegistrationController implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 }

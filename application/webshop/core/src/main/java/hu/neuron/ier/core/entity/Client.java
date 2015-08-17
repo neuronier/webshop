@@ -35,8 +35,8 @@ public class Client extends BaseEntity {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "client_role_sw")
 	private List<Role> roles;
-//	@OneToOne
-//	private ShoppingCart shoppingCart;
+	@OneToOne
+	private ShoppingCart shoppingCart;
 
 	public String getUserName() {
 		return userName;
@@ -110,12 +110,12 @@ public class Client extends BaseEntity {
 		this.clientId = clientId;
 	}
 
-//	public ShoppingCart getShoppingCart() {
-//		return shoppingCart;
-//	}
-//
-//	public void setShoppingCart(ShoppingCart shoppingCart) {
-//		this.shoppingCart = shoppingCart;
-//	}
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
 
 }

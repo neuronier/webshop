@@ -17,5 +17,8 @@ public interface ClientDao extends JpaRepository<Client, Long> {
 	Client findByUserName(@Param("userName")String name) throws Exception;
 	
 	Page<Client> findByUserNameStartsWith(String filter,Pageable pageable);
-
+	
+	
+	
+	Client findUserByEmail(@Param("email")String email) throws Exception;
 }

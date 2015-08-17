@@ -40,10 +40,15 @@
 
 			<f:facet name="options">
 				<p:inputText placeholder="Search" />
-				<p:button href="/public/login.xhtml" value="#{out.login}"
+				<p:button
+						rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
+						value="Selfcare" href="/public/clientSelfCare.xhtml" />
+				<p:button rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}" href="/public/login.xhtml" value="#{out.login}"
 					icon="ui-icon-locked" type="button" />
-				<p:button type="button" value="#{out.signup}" icon="ui-icon-gear"
+				<p:button rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('registration.xhtml')}" type="button" value="#{out.signup}" icon="ui-icon-gear"
 					href="/public/registration.xhtml"/>
+				<p:button rendered="#{not empty request.remoteUser}" href="/logout"
+						value="Logout" icon="ui-icon-circle-close" />
 			</f:facet>
 		</p:menubar>
 		<div id="categoryMenuDiv" style="float: left; margin: 10px">

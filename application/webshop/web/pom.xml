@@ -55,7 +55,7 @@
 		
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
-			<artifactId>dark-hive</artifactId>
+			<artifactId>cruze</artifactId>
 		</dependency>
 		
 		<dependency>

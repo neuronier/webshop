@@ -17,7 +17,7 @@ public class ClientVO implements Serializable {
 	private AddressVO billingAddress;
 	private AddressVO deliveryAddress;
 	private List<RoleVO> roles;
-	private ShoppingCartVO shoppingCart;
+//	private ShoppingCartVO shoppingCart;
 
 	public Long getId() {
 		return id;
@@ -99,11 +99,11 @@ public class ClientVO implements Serializable {
 		this.clientId = clientId;
 	}
 
-	public ShoppingCartVO getShoppingCart() {
-		return shoppingCart;
-	}
-
-	public void setShoppingCart(ShoppingCartVO shoppingCart) {
-		this.shoppingCart = shoppingCart;
-	}
+//	public ShoppingCartVO getShoppingCart() {
+//		return shoppingCart;
+//	}
+//
+//	public void setShoppingCart(ShoppingCartVO shoppingCart) {
+//		this.shoppingCart = shoppingCart;
+//	}
 }

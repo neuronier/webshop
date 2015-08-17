@@ -16,11 +16,23 @@
 			username-parameter="username" password-parameter="password" />
 		<security:logout logout-url="/logout"
 			logout-success-url="/index.xhtml" />
-		<security:remember-me key="key"
-			remember-me-parameter="remember-me" token-validity-seconds="86400" />
+<!-- 		<security:remember-me  key="key" -->
+<!-- 			remember-me-parameter="remember-me" token-validity-seconds="86400" /> -->
 	</security:http>
 
+<!-- 	<security:authentication-manager id="authenticationManager"> -->
+<!-- 		<security:authentication-provider -->
+<!-- 			user-service-ref="customUserDetailsService"> -->
+<!-- 			<security:password-encoder hash="bcrypt" /> -->
+<!-- 		</security:authentication-provider> -->
+<!-- 	</security:authentication-manager> -->
+	
 	<security:authentication-manager id="authenticationManager">
+		<security:authentication-provider
+			user-service-ref="customClientDetailsService">
+			
+			<security:password-encoder hash="bcrypt" />
+		</security:authentication-provider>
 		<security:authentication-provider
 			user-service-ref="customUserDetailsService">
 			<security:password-encoder hash="bcrypt" />

@@ -1,7 +1,7 @@
 package hu.neuron.ier.web;
 
-import hu.neuron.ier.business.user.UserServiceRemote;
-import hu.neuron.ier.business.vo.UserVO;
+import hu.neuron.ier.business.client.ClientServiceRemote;
+import hu.neuron.ier.business.vo.ClientVO;
 
 import java.io.Serializable;
 
@@ -34,8 +34,8 @@ public class RegistrationController implements Serializable {
 
 	private String phone = "";
 
-	@EJB(name = "UserService", mappedName = "UserService")
-	private UserServiceRemote userService;
+	@EJB(name = "ClientService", mappedName = "ClientService")
+	private ClientServiceRemote clientService;
 
 	public String addUser() {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -45,29 +45,29 @@ public class RegistrationController implements Serializable {
 						FacesMessage.SEVERITY_ERROR, "Error!",
 						"Password not match"));
 				return null;
-			} else if (userService.findUserByName(userName) != null) {
+			} else if (clientService.findClientByName(userName) != null) {
 				context.addMessage(null, new FacesMessage(
 						FacesMessage.SEVERITY_ERROR, "Error!",
 						"Sorry we already have a user with this name"));
 				return null;
 			}
 
-			UserVO userVO = new UserVO();
+			ClientVO clientVO = new ClientVO();
 
 			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 			String encPassword = bCryptPasswordEncoder.encode(password);
 
-			userVO.setPassword(encPassword);
-			userVO.setUserName(userName);
-			userVO.setPhone(phone);
-			userVO.setEmail(email);
-			userVO.setFullName(fullName);
+			clientVO.setPassword(encPassword);
+			clientVO.setUserName(userName);
+			clientVO.setPhone(phone);
+			clientVO.setEmail(email);
+			clientVO.setFullName(fullName);
 
-			userService.registrationUser(userVO);
+			clientService.registrationClient(clientVO);
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			context.addMessage(null, new FacesMessage(
 					FacesMessage.SEVERITY_INFO, "Info",
-					"Registration sucessful you can log in now"));
+					"Registration successful you can log in now"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			context.addMessage(null, new FacesMessage(

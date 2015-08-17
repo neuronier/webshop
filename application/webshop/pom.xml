@@ -48,23 +48,23 @@
 	
 	<build>
 		<defaultGoal>install</defaultGoal>
-		<resources>
-			<resource>
-				<filtering>true</filtering>
-				<directory>src/test/resources</directory>
-				<includes>
-					<include>**/*.properties</include>
-					<include>**/*.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<includes>
-					<include>**/*.properties</include>
-					<include>**/*.xml</include>
-				</includes>
-			</resource>
-		</resources>
+<!-- 		<resources> -->
+<!-- 			<resource> -->
+<!-- 				<filtering>true</filtering> -->
+<!-- 				<directory>src/test/resources</directory> -->
+<!-- 				<includes> -->
+<!-- 					<include>**/*.properties</include> -->
+<!-- 					<include>**/*.xml</include> -->
+<!-- 				</includes> -->
+<!-- 			</resource> -->
+<!-- 			<resource> -->
+<!-- 				<directory>src/main/resources</directory> -->
+<!-- 				<includes> -->
+<!-- 					<include>**/*.properties</include> -->
+<!-- 					<include>**/*.xml</include> -->
+<!-- 				</includes> -->
+<!-- 			</resource> -->
+<!-- 		</resources> -->
 		
 		<plugins>
 			<plugin>

@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="head-extra">
+		<!-- 		custom css -->
+	</ui:define>
+	<ui:define name="pageTitle">Categories</ui:define>
+	<ui:define name="content">
+		<div style="float: right">
+			<h:form>
+				<p:growl id="growl" life="2000" />
+				<p:dataTable var="car" value="#{dtSortView.cars2}"
+					sortMode="multiple">
+					<f:facet name="header">Categories</f:facet>
+					<p:column headerText="Id" sortBy="#{car.id}" filterBy="#{car.id}"
+						filterMatchMode="contains">
+						<h:outputText value="#{car.id}" />
+					</p:column>
+
+					<p:column headerText="Name" sortBy="#{car.year}"
+						filterBy="#{car.id}" filterMatchMode="contains">
+						<h:outputText value="#{car.year}" />
+					</p:column>
+
+					<p:column headerText="Description" sortBy="#{car.year}"
+						filterBy="#{car.id}" filterMatchMode="contains">
+						<h:outputText value="#{car.year}" />
+					</p:column>
+
+					<p:column headerText="Parent Name" sortBy="#{car.year}"
+						filterBy="#{car.id}" filterMatchMode="contains">
+						<h:outputText value="#{car.year}" />
+					</p:column>
+				</p:dataTable>
+				<p:commandButton value="New Categoria" id="btnNewCateroria"
+					update="growl" actionListener="#{buttonView.buttonAction}"
+					styleClass="ui-priority-primary"/>
+				<p:commandButton value="Edit Selected" id="btnEditCategoria"
+					update="growl" actionListener="#{buttonView.buttonAction}"
+					styleClass="ui-priority-primary"/>
+				<p:commandButton value="Delete Selected" id="btnDeleteCategoria"
+					update="growl" actionListener="#{buttonView.buttonAction}"
+					styleClass="ui-priority-primary"/>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

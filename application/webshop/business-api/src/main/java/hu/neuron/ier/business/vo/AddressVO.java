@@ -1,21 +1,15 @@
 package hu.neuron.ier.business.vo;
 
-public class AddressVO {
+import java.io.Serializable;
 
+public class AddressVO implements Serializable {
+
+	private static final long serialVersionUID = 3480909071433780347L;
 	private Long id;
 	private long postcode;
 	private String city;
 	private String street;
 	private String house;
-
-	public AddressVO(Long id, long postcode, String city, String street, String house) {
-		super();
-		this.id = id;
-		this.postcode = postcode;
-		this.city = city;
-		this.street = street;
-		this.house = house;
-	}
 
 	public Long getId() {
 		return id;

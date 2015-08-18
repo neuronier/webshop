@@ -10,12 +10,23 @@ import hu.neuron.ier.core.entity.Offer;
 import hu.neuron.ier.core.entity.ShoppingCart;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
+@Stateless(mappedName = "ShoppingCartService", name = "ShoppingCartService")
+@Remote(ShoppingCartRemote.class)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@Interceptors(SpringBeanAutowiringInterceptor.class)
 public class ShoppingCartServiceImpl implements ShoppingCartRemote, Serializable {
 
 	private static final long serialVersionUID = -6887318215021194006L;
@@ -33,22 +44,28 @@ public class ShoppingCartServiceImpl implements ShoppingCartRemote, Serializable
 	@Override
 	public void addOffer(Long ShoppingCartId, OfferVO offerVO) throws Exception {
 		ShoppingCart cart = shoppingCartDao.findOne(ShoppingCartId);
-		cart.getOffers().add(offerConverter.toEntity(offerVO));
+		List<Offer> offers = cart.getOffers();
+		offers.add(offerConverter.toEntity(offerVO));
+		cart.setOffers(offers);
+		shoppingCartDao.save(cart);
 	}
 
 	@Override
 	public void deleteOffer(Long ShoppingCartId, Long offerId) throws Exception {
 		ShoppingCart cart = shoppingCartDao.findOne(ShoppingCartId);
 		Offer offer = offerDao.findOne(offerId);
-		cart.getOffers().remove(offer);
-
+		List<Offer> offers = cart.getOffers();
+		offers.remove(offer);
+		cart.setOffers(offers);
+		shoppingCartDao.save(cart);
 	}
 
 	@Override
 	public void deleteAllOffer(Long ShoppingCartId) throws Exception {
 		ShoppingCart cart = shoppingCartDao.findOne(ShoppingCartId);
-		List<Offer> offers = offerDao.findAll();
-		cart.getOffers().removeAll(offers);
+		List<Offer> offers = new ArrayList<Offer>();
+		cart.setOffers(offers);
+		shoppingCartDao.save(cart);
 	}
 
 }

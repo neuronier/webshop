@@ -56,9 +56,9 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	@Override
 	public void registrationClient(ClientVO clientVO) throws Exception {
 		Client client = clientDao.save(clientConverter.toEntity(clientVO));
-		Role role = roleDao.findRoleByName("ROLE_USER");
+		Role role = roleDao.findRoleByName("ROLE_CLIENT");
 		// itt két lehetőség is van, a client id-ja vagy a clientId-ja
-		roleDao.addRoleToUser(role.getId(), client.getId());
+		roleDao.addRoleToClient(role.getId(), client.getId());
 	}
 
 	@Override

@@ -10,7 +10,6 @@ import hu.neuron.ier.core.entity.Offer;
 import hu.neuron.ier.core.entity.ShoppingCart;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -46,7 +45,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartRemote, Serializable
 		ShoppingCart cart = shoppingCartDao.findOne(ShoppingCartId);
 		List<Offer> offers = cart.getOffers();
 		offers.add(offerConverter.toEntity(offerVO));
-		cart.setOffers(offers);
 		shoppingCartDao.save(cart);
 	}
 
@@ -56,15 +54,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartRemote, Serializable
 		Offer offer = offerDao.findOne(offerId);
 		List<Offer> offers = cart.getOffers();
 		offers.remove(offer);
-		cart.setOffers(offers);
 		shoppingCartDao.save(cart);
 	}
 
 	@Override
 	public void deleteAllOffer(Long ShoppingCartId) throws Exception {
 		ShoppingCart cart = shoppingCartDao.findOne(ShoppingCartId);
-		List<Offer> offers = new ArrayList<Offer>();
-		cart.setOffers(offers);
+		cart.getOffers().removeAll(cart.getOffers());
 		shoppingCartDao.save(cart);
 	}
 

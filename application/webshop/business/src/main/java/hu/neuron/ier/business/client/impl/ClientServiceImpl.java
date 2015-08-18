@@ -3,12 +3,15 @@ package hu.neuron.ier.business.client.impl;
 import hu.neuron.ier.business.client.ClientServiceRemote;
 import hu.neuron.ier.business.converter.ClientConverter;
 import hu.neuron.ier.business.converter.RoleConverter;
+import hu.neuron.ier.business.vo.AddressVO;
 import hu.neuron.ier.business.vo.ClientVO;
 import hu.neuron.ier.business.vo.RoleVO;
 import hu.neuron.ier.core.dao.ClientDao;
 import hu.neuron.ier.core.dao.RoleDao;
+import hu.neuron.ier.core.dao.ShoppingCartDao;
 import hu.neuron.ier.core.entity.Client;
 import hu.neuron.ier.core.entity.Role;
+import hu.neuron.ier.core.entity.ShoppingCart;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,6 +44,8 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	ClientDao clientDao;
 	@Autowired
 	RoleDao roleDao;
+	@Autowired
+	ShoppingCartDao shoppingCartDao;
 
 	@EJB
 	ClientConverter clientConverter;
@@ -57,6 +62,13 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	public void registrationClient(ClientVO clientVO) throws Exception {
 		Client client = clientDao.save(clientConverter.toEntity(clientVO));
 		Role role = roleDao.findRoleByName("ROLE_CLIENT");
+		// kosár létrehozása
+		ShoppingCart shoppingCart = new ShoppingCart();
+		shoppingCart = shoppingCartDao.save(shoppingCart);
+		// ügyfélhez hozzáadás
+		client.setShoppingCart(shoppingCart);
+		clientDao.save(client);
+
 		// itt két lehetőség is van, a client id-ja vagy a clientId-ja
 		roleDao.addRoleToClient(role.getId(), client.getId());
 	}
@@ -78,8 +90,7 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 		Page<Client> entities = null;
 
 		if (filter.length() != 0 && filterColumnName.equals("userName")) {
-			// kellene szerintem a clientDAO-ba egy findByUserNameStartsWith()
-			// metódus
+			entities = clientDao.findByUserNameStartsWith(filter, pageRequest);
 		} else {
 			entities = clientDao.findAll(pageRequest);
 		}
@@ -106,4 +117,18 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 
 	}
 
+	@Override
+	public void addAddressToClient(Long clientId, boolean isAddressMatch, AddressVO billingAddress,
+			AddressVO deliveryAddress) throws Exception {
+
+		ClientVO clientVO = new ClientVO();
+		clientVO = clientConverter.toVo(clientDao.findOne(clientId));
+		clientVO.setBillingAddress(billingAddress);
+		if (isAddressMatch) {
+			clientVO.setDeliveryAddress(billingAddress);
+		} else {
+			clientVO.setDeliveryAddress(deliveryAddress);
+		}
+		saveClient(clientVO);
+	}
 }

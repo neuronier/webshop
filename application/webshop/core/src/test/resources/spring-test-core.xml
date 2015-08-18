@@ -35,8 +35,4 @@
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-	
-
-	<aop:aspectj-autoproxy />
-
 </beans>

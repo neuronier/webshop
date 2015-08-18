@@ -35,6 +35,11 @@ public class CreateShema {
 				dto.setName("ROLE_ADMIN");
 				roleDAO.save(dto);
 			}
+			if (roleDAO.findRoleByName("ROLE_CLIENT") == null) {
+				dto = new Role();
+				dto.setName("ROLE_CLIENT");
+				roleDAO.save(dto);
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

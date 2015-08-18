@@ -15,7 +15,10 @@ public class Offer extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long cost;
+	private Long newCost;
+	private Long originalCost;
+	private boolean featured;
+	private boolean action;
 	private String name;
 	private String description;
 
@@ -38,12 +41,36 @@ public class Offer extends BaseEntity {
 		this.description = description;
 	}
 
-	public Long getCost() {
-		return cost;
+	public Long getNewCost() {
+		return newCost;
 	}
 
-	public void setCost(Long cost) {
-		this.cost = cost;
+	public void setNewCost(Long newCost) {
+		this.newCost = newCost;
+	}
+
+	public Long getOriginalCost() {
+		return originalCost;
+	}
+
+	public void setOriginalCost(Long originalCost) {
+		this.originalCost = originalCost;
+	}
+
+	public boolean isFeatured() {
+		return featured;
+	}
+
+	public void setFeatured(boolean featured) {
+		this.featured = featured;
+	}
+
+	public boolean isAction() {
+		return action;
+	}
+
+	public void setAction(boolean action) {
+		this.action = action;
 	}
 
 	public OfferGroup getParentOfferGroup() {

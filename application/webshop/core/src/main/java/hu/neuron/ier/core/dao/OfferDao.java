@@ -14,4 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface OfferDao extends JpaRepository<Offer, Long> {
 
 	List<Offer> findOfferByName(String name) throws Exception;
+	
+	List<Offer> findOfferByAction(boolean action) throws Exception;
+	
+	List<Offer> findOfferByFeatured(boolean featured) throws Exception;
 }

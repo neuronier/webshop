@@ -44,7 +44,7 @@ public class OfferDaoTest {
 			offerGroup.setDescription("Itt van minden alcsoport");
 			offerGroup = offerGroupDao.save(offerGroup);
 			offer = new Offer();
-			offer.setCost(12l);
+			offer.setOriginalCost(12l);
 			offer.setDescription("test");
 			offer.setName("test123");
 			offer.setParentOfferGroup(offerGroup);
@@ -76,7 +76,7 @@ public class OfferDaoTest {
 			for(Offer o : offers){
 				logger.info("Offer name:" + o.getName());
 				logger.info("Offer description: " + o.getDescription());
-				logger.info("Offer cost" + o.getCost());
+				logger.info("Offer cost" + o.getOriginalCost());
 				logger.info("Offer parentOfferGroup" + o.getParentOfferGroup().getName());
 			}
 		} catch (Exception e) {

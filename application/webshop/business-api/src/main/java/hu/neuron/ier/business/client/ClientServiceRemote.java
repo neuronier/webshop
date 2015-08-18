@@ -1,5 +1,6 @@
 package hu.neuron.ier.business.client;
 
+import hu.neuron.ier.business.vo.AddressVO;
 import hu.neuron.ier.business.vo.ClientVO;
 import hu.neuron.ier.business.vo.RoleVO;
 
@@ -19,5 +20,8 @@ public interface ClientServiceRemote {
 	RoleVO getRoleByName(String role) throws Exception;
 
 	void saveClient(ClientVO clientVO) throws Exception;
+
+	void addAddressToClient(Long clientId, boolean isAddressMatch, AddressVO billingAddress,
+			AddressVO deliveryAddress) throws Exception;
 
 }

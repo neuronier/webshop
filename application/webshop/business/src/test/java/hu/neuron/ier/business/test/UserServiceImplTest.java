@@ -23,13 +23,12 @@ public class UserServiceImplTest {
 	public void startTheContainer() throws Exception {
 		final Properties p = new Properties();
 
-		p.put("hu.neuron.java.jpa.hibernate.hbm2ddl.auto", "create");
-		p.put("hu.neuron.java.jpa.hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
-		p.put("hu.neuron.ier.database", "new://Resource?type=DataSource");
-		p.put("hu.neuron.ier.database.JtaManaged", "false");
-		p.put("hu.neuron.ier.database.JdbcDriver", "org.hsqldb.jdbcDriver");
-		p.put("hu.neuron.ier.database.JdbcUrl", "jdbc:hsqldb:mem:aname");
-
+		p.put("hu.neuron.ier.jpa.hibernate.hbm2ddl.auto", "create");
+		p.put("hu.neuron.ier.jpa.hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+		p.put("hu.neuron.ier.database.test", "new://Resource?type=DataSource");
+		p.put("hu.neuron.ier.database.test.JtaManaged", "false");
+		p.put("hu.neuron.ier.database.test.JdbcDriver", "org.hsqldb.jdbcDriver");
+		p.put("hu.neuron.ier.database.test.JdbcUrl", "jdbc:hsqldb:mem:aname");
 
 		EJBContainer ejbContainer = EJBContainer.createEJBContainer(p);
 		ejbContainer.getContext().bind("inject", this);

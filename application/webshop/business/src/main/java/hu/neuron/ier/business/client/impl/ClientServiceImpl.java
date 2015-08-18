@@ -7,8 +7,10 @@ import hu.neuron.ier.business.vo.ClientVO;
 import hu.neuron.ier.business.vo.RoleVO;
 import hu.neuron.ier.core.dao.ClientDao;
 import hu.neuron.ier.core.dao.RoleDao;
+import hu.neuron.ier.core.dao.ShoppingCartDao;
 import hu.neuron.ier.core.entity.Client;
 import hu.neuron.ier.core.entity.Role;
+import hu.neuron.ier.core.entity.ShoppingCart;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,6 +43,8 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	ClientDao clientDao;
 	@Autowired
 	RoleDao roleDao;
+	@Autowired
+	ShoppingCartDao shoppingCartDao;
 
 	@EJB
 	ClientConverter clientConverter;
@@ -57,6 +61,13 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	public void registrationClient(ClientVO clientVO) throws Exception {
 		Client client = clientDao.save(clientConverter.toEntity(clientVO));
 		Role role = roleDao.findRoleByName("ROLE_CLIENT");
+		//kosár létrehozása
+		ShoppingCart shoppingCart = new ShoppingCart();
+		shoppingCart = shoppingCartDao.save(shoppingCart);
+		//ügyfélhez hozzáadás
+		client.setShoppingCart(shoppingCart);
+		clientDao.save(client);
+		
 		// itt két lehetőség is van, a client id-ja vagy a clientId-ja
 		roleDao.addRoleToClient(role.getId(), client.getId());
 	}

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AddressServiceRemote {
 
-	void createAddress(AddressVO addressVO) throws Exception;
+	AddressVO createAddress(AddressVO addressVO) throws Exception;
 
 	void deleteAddress(Long id) throws Exception;
 

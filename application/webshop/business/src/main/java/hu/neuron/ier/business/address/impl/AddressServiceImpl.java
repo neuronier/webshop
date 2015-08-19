@@ -33,8 +33,9 @@ public class AddressServiceImpl implements AddressServiceRemote, Serializable {
 	AddressConverter addressConverter;
 
 	@Override
-	public void createAddress(AddressVO addressVO) throws Exception {
-		addressDao.save(addressConverter.toEntity(addressVO));
+	public AddressVO createAddress(AddressVO addressVO) throws Exception {
+		AddressVO vo = addressConverter.toVO(addressDao.save(addressConverter.toEntity(addressVO)));
+		return vo;
 
 	}
 

@@ -10,7 +10,7 @@ public interface ClientServiceRemote {
 
 	ClientVO findClientByName(String name) throws Exception;
 
-	void registrationClient(ClientVO clientVO) throws Exception;
+	ClientVO registrationClient(ClientVO clientVO) throws Exception;
 
 	List<ClientVO> getClientList() throws Exception;
 
@@ -21,7 +21,7 @@ public interface ClientServiceRemote {
 
 	void saveClient(ClientVO clientVO) throws Exception;
 
-	void addAddressToClient(Long clientId, boolean isAddressMatch, AddressVO billingAddress,
+	ClientVO addAddressToClient(Long clientId, boolean isAddressMatch, AddressVO billingAddress,
 			AddressVO deliveryAddress) throws Exception;
 
 }

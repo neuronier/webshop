@@ -115,9 +115,9 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	}
 
 	@Override
-	public void saveClient(ClientVO clientVO) throws Exception {
-		clientDao.save(clientConverter.toEntity(clientVO));
-
+	public ClientVO saveClient(ClientVO clientVO) throws Exception {
+		ClientVO vo = clientConverter.toVo(clientDao.save(clientConverter.toEntity(clientVO)));
+		return vo;
 	}
 
 	@Override

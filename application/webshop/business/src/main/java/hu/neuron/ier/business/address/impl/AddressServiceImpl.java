@@ -52,9 +52,9 @@ public class AddressServiceImpl implements AddressServiceRemote, Serializable {
 	}
 
 	@Override
-	public void updateAddress(AddressVO addressVO) throws Exception {
-		createAddress(addressVO);
-
+	public AddressVO updateAddress(AddressVO addressVO) throws Exception {
+		AddressVO vo = createAddress(addressVO);
+		return vo;
 	}
 
 }

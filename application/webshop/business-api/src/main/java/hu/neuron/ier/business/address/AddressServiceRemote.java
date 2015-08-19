@@ -12,5 +12,5 @@ public interface AddressServiceRemote {
 
 	List<AddressVO> getAddressByCity(String city) throws Exception;
 
-	void updateAddress(AddressVO addressVO) throws Exception;
+	AddressVO updateAddress(AddressVO addressVO) throws Exception;
 }

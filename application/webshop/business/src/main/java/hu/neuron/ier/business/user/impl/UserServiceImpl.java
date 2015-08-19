@@ -57,11 +57,11 @@ public class UserServiceImpl implements UserServiceRemote, Serializable {
 	}
 
 	@Override
-	public void registrationUser(UserVO userVO) throws Exception {
+	public UserVO registrationUser(UserVO userVO) throws Exception {
 		User user = userDao.save(userConverter.toEntity(userVO));
 		Role role = roleDao.findRoleByName("ROLE_USER");
 		roleDao.addRoleToUser(user.getId(), role.getId());
-
+		return userConverter.toVO(user);
 	}
 
 	@Override
@@ -109,9 +109,9 @@ public class UserServiceImpl implements UserServiceRemote, Serializable {
 	}
 
 	@Override
-	public void saveUser(UserVO selectedUser) throws Exception {
-		userDao.save(userConverter.toEntity(selectedUser));
-
+	public UserVO saveUser(UserVO selectedUser) throws Exception {
+		UserVO vo = userConverter.toVO(userDao.save(userConverter.toEntity(selectedUser)));
+		return vo;
 	}
 
 }

@@ -19,7 +19,7 @@ public interface ClientServiceRemote {
 
 	RoleVO getRoleByName(String role) throws Exception;
 
-	void saveClient(ClientVO clientVO) throws Exception;
+	ClientVO saveClient(ClientVO clientVO) throws Exception;
 
 	ClientVO addAddressToClient(Long clientId, boolean isAddressMatch, AddressVO billingAddress,
 			AddressVO deliveryAddress) throws Exception;

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OfferServiceRemote {
 
-	void createOffer(OfferVO offerVO) throws Exception;
+	OfferVO createOffer(OfferVO offerVO) throws Exception;
 
 	void deleteOffer(Long id) throws Exception;
 
@@ -18,10 +18,10 @@ public interface OfferServiceRemote {
 
 	List<OfferVO> getOffersByName(String name) throws Exception;
 
-	void updateOfferCost(Long id, Long cost) throws Exception;
+	OfferVO updateOfferCost(Long id, Long cost) throws Exception;
 
-	void updateOfferDescription(Long id, String description) throws Exception;
+	OfferVO updateOfferDescription(Long id, String description) throws Exception;
 
-	void updateOfferName(Long id, String name) throws Exception;
+	OfferVO updateOfferName(Long id, String name) throws Exception;
 
 }

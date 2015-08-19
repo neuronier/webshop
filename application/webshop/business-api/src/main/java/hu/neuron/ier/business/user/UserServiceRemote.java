@@ -9,7 +9,7 @@ public interface UserServiceRemote {
 
 	UserVO findUserByName(String name) throws Exception;
 
-	void registrationUser(UserVO userVO) throws Exception;
+	UserVO registrationUser(UserVO userVO) throws Exception;
 
 	List<UserVO> getUserList() throws Exception;
 
@@ -18,6 +18,6 @@ public interface UserServiceRemote {
 
 	RoleVO getRoleByName(String role) throws Exception;
 
-	void saveUser(UserVO selectedUser) throws Exception;
+	UserVO saveUser(UserVO selectedUser) throws Exception;
 
 }

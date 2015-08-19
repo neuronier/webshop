@@ -11,19 +11,17 @@
 	<ui:define name="pageTitle">Rendelés</ui:define>
 	<br />
 	<ui:define name="content">
-		<ui:include src="/includes/editCategory.xhtml"></ui:include>
-		<ui:include src="/includes/createCategory.xhtml"></ui:include>
-
 		<div style="float: right">
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
 
-				<p:dataTable style="width:50% ;margin-left:auto; margin-right:auto;" id="singleDT" var="car"
-					value="#{dtSelectionView.cars2}" selectionMode="single"
-					selection="#{dtSelectionView.selectedCar}" rowKey="#{car.id}">
+				<p:dataTable style="width:50% ;margin-left:auto; margin-right:auto;"
+					id="singleDT" var="car" value="#{dtSelectionView.cars2}"
+					selectionMode="single" selection="#{dtSelectionView.selectedCar}"
+					rowKey="#{car.id}">
 					<f:facet name="header">
-            Új rendelés felvétele
-        </f:facet>
+            				Új rendelés felvétele
+        			</f:facet>
 					<p:column headerText="Id">
 						<h:outputText value="#{car.id}" />
 					</p:column>
@@ -37,7 +35,7 @@
 					</f:facet>
 				</p:dataTable>
 				<p:dialog header="Car Info" widgetVar="carDialog" modal="true"
-					showEffect="fade" hideEffect="fade" resizable="false">
+					showEffect="slide" hideEffect="explode" resizable="false">
 					<p:outputPanel id="carDetail" style="text-align:center;">
 						<p:panelGrid columns="2"
 							rendered="#{not empty dtSelectionView.selectedCar}"

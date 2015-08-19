@@ -1,6 +1,7 @@
 package hu.neuron.ier.web;
 
 import hu.neuron.ier.business.client.ClientServiceRemote;
+import hu.neuron.ier.business.vo.AddressVO;
 import hu.neuron.ier.business.vo.ClientVO;
 
 import java.io.Serializable;
@@ -33,6 +34,94 @@ public class RegistrationController implements Serializable {
 	private String email = "";
 
 	private String phone = "";
+	
+	private long postcode;
+	
+	private String city = "";
+	
+	public long getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(long postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getHouse() {
+		return house;
+	}
+
+	public void setHouse(String house) {
+		this.house = house;
+	}
+
+	public long getBillingPostcode() {
+		return billingPostcode;
+	}
+
+	public void setBillingPostcode(long billingPostcode) {
+		this.billingPostcode = billingPostcode;
+	}
+
+	public String getBillingCity() {
+		return billingCity;
+	}
+
+	public void setBillingCity(String billingCity) {
+		this.billingCity = billingCity;
+	}
+
+	public String getBillingStreet() {
+		return billingStreet;
+	}
+
+	public void setBillingStreet(String billingStreet) {
+		this.billingStreet = billingStreet;
+	}
+
+	public String getBillingHouse() {
+		return billingHouse;
+	}
+
+	public void setBillingHouse(String billingHouse) {
+		this.billingHouse = billingHouse;
+	}
+
+	public ClientServiceRemote getClientService() {
+		return clientService;
+	}
+
+	public void setClientService(ClientServiceRemote clientService) {
+		this.clientService = clientService;
+	}
+
+	private String street = "";
+	
+	private String house = "";
+	
+	private long billingPostcode;
+	
+	private String billingCity = "";
+	
+	private String billingStreet = "";
+	
+	private String billingHouse = "";
 
 	@EJB(name = "ClientService", mappedName = "ClientService")
 	private ClientServiceRemote clientService;
@@ -62,6 +151,25 @@ public class RegistrationController implements Serializable {
 			clientVO.setPhone(phone);
 			clientVO.setEmail(email);
 			clientVO.setFullName(fullName);
+			
+			
+			
+			AddressVO deliveryAddress = new AddressVO();
+			AddressVO billAddress = new AddressVO();
+
+			billAddress.setPostcode(billingPostcode);
+			billAddress.setHouse(billingHouse);
+			billAddress.setCity(billingCity);
+			billAddress.setStreet(billingStreet);
+
+			deliveryAddress.setPostcode(postcode);
+			deliveryAddress.setHouse(house);
+			deliveryAddress.setCity(city);
+			deliveryAddress.setStreet(street);
+
+			clientVO.setBillingAddress(billAddress);
+
+			clientVO.setDeliveryAddress(deliveryAddress);
 
 			clientService.registrationClient(clientVO);
 			context.getExternalContext().getFlash().setKeepMessages(true);
@@ -124,5 +232,6 @@ public class RegistrationController implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 
 }

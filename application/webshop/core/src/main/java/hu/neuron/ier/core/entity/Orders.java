@@ -27,6 +27,7 @@ public class Orders extends BaseEntity {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "order_elements_sw")
 	private Collection<OrderElement> orderElements;
+	private String status;
 	
 	public Long getOrdersId() {
 		return ordersId;
@@ -40,7 +41,6 @@ public class Orders extends BaseEntity {
 	public void setOrderElements(Collection<OrderElement> orderElements) {
 		this.orderElements = orderElements;
 	}
-	private String status;
 	
 	public Calendar getDate() {
 		return date;

@@ -6,9 +6,6 @@ import hu.neuron.ier.business.vo.ProductTypeVO;
 
 public class OrderElementVO implements Serializable{
 
-	/**
-	 * 
-	 */
 	private Long id;
 	private static final long serialVersionUID = 8506177194834764694L;
 	private ProductTypeVO productType;

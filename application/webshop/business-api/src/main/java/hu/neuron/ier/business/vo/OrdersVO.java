@@ -12,7 +12,7 @@ public class OrdersVO implements Serializable {
 	 */
 	private static final long serialVersionUID = 3129217083180187209L;
 	private Long id;
-	private Long orders_id;
+	private Long ordersId;
 	private Calendar date;
 	private Collection<OrderElementVO> orderElements;
 	
@@ -23,10 +23,10 @@ public class OrdersVO implements Serializable {
 		this.id = id;
 	}
 	public Long getOrders_id() {
-		return orders_id;
+		return ordersId;
 	}
-	public void setOrders_id(Long orders_id) {
-		this.orders_id = orders_id;
+	public void setOrdersId(Long ordersId) {
+		this.ordersId = ordersId;
 	}
 	public Calendar getDate() {
 		return date;

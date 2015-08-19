@@ -63,12 +63,10 @@ public class AddressDaoTest {
 	public void test2FindAddressByCity() {
 		logger.info("test2FindAddressByCity start...");
 		try {
-			List<Address> adList = addressDao.findAddressByCity(address
-					.getCity());
+			List<Address> adList = addressDao.findAddressByCity(address.getCity());
 			// meg kell találnia, mert létezik
 			Assert.assertTrue(adList != null);
-			List<Address> nullList = addressDao
-					.findAddressByCity("nameless city");
+			List<Address> nullList = addressDao.findAddressByCity("nameless city");
 			logger.info("nullList is null: " + (nullList == null));
 			if (nullList != null) {
 				logger.info("nullList size: " + nullList.size());
@@ -92,47 +90,6 @@ public class AddressDaoTest {
 			throw new RuntimeException(e);
 		}
 		logger.info("test3FindAll end");
-	}
-
-	@Test
-	public void test4FindAddressByPostcodeAndCityAndStreetAndHouse() {
-		logger.info("test4FindAddressByPostcodeAndCityAndStreetAndHouse start...");
-		try {
-			Address result = addressDao
-					.findAddressByPostcodeAndCityAndStreetAndHouse(
-							address.getPostcode(), address.getCity(),
-							address.getStreet(), address.getHouse());
-			logger.info("result is null: " + (result == null));
-			if (result != null) {
-				logger.info("id: " + result.getId());
-				logger.info("postcode: " + result.getPostcode());
-				logger.info("city: " + result.getCity());
-				logger.info("street: " + result.getStreet());
-				logger.info("house: " + result.getHouse());
-			}
-			logger.info("result id == address id: "
-					+ address.getId().equals(result.getId()));
-			logger.info("result postcode == address postcode: "
-					+ address.getPostcode().equals(result.getPostcode()));
-			logger.info("result city == address city: "
-					+ address.getCity().equals(result.getCity()));
-			logger.info("result street == address street: "
-					+ address.getStreet().equals(result.getStreet()));
-			logger.info("result house == address house: "
-					+ address.getHouse().equals(result.getHouse()));
-
-			Assert.assertEquals(address.getId(), result.getId());
-			Assert.assertEquals(address.getPostcode(), result.getPostcode());
-			Assert.assertEquals(address.getCity(), result.getCity());
-			Assert.assertEquals(address.getStreet(), result.getStreet());
-			Assert.assertEquals(address.getHouse(), result.getHouse());
-
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new RuntimeException(e);
-		}
-		logger.info("test4FindAddressByPostcodeAndCityAndStreetAndHouse end");
-
 	}
 
 	@Test

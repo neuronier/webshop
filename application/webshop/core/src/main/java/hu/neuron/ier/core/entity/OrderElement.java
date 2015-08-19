@@ -15,7 +15,7 @@ public class OrderElement extends BaseEntity{
 	 */
 	private static final long serialVersionUID = 6410356804561545056L;
 	
-	private String itemNumber;
+	private ProductType productType;
 	private int quanty;
 
 	public int getQuanty() {
@@ -26,12 +26,14 @@ public class OrderElement extends BaseEntity{
 		this.quanty = quanty;
 	}
 
-	public String getItemNumber() {
-		return itemNumber;
+	public ProductType getProductType() {
+		return productType;
 	}
 
-	public void setItemNumber(String itemNumber) {
-		this.itemNumber = itemNumber;
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
 	}
+
+	
 	
 }

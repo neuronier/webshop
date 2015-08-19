@@ -4,6 +4,7 @@ import hu.neuron.ier.business.converter.OfferConverter;
 import hu.neuron.ier.business.converter.ShoppingCartConverter;
 import hu.neuron.ier.business.shoppingcart.ShoppingCartRemote;
 import hu.neuron.ier.business.vo.OfferVO;
+import hu.neuron.ier.business.vo.ShoppingCartVO;
 import hu.neuron.ier.core.dao.OfferDao;
 import hu.neuron.ier.core.dao.ShoppingCartDao;
 import hu.neuron.ier.core.entity.Offer;
@@ -41,11 +42,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartRemote, Serializable
 	OfferConverter offerConverter;
 
 	@Override
-	public void addOffer(Long ShoppingCartId, OfferVO offerVO) throws Exception {
+	public ShoppingCartVO addOffer(Long ShoppingCartId, OfferVO offerVO) throws Exception {
 		ShoppingCart cart = shoppingCartDao.findOne(ShoppingCartId);
-		List<Offer> offers = cart.getOffers();
-		offers.add(offerConverter.toEntity(offerVO));
+		cart.getOffers().add(offerConverter.toEntity(offerVO));
 		shoppingCartDao.save(cart);
+		return shoppingCartConverter.toVO(cart);
 	}
 
 	@Override
@@ -62,6 +63,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartRemote, Serializable
 		ShoppingCart cart = shoppingCartDao.findOne(ShoppingCartId);
 		cart.getOffers().removeAll(cart.getOffers());
 		shoppingCartDao.save(cart);
+	}
+
+	@Override
+	public ShoppingCartVO createShoppingCart(ShoppingCartVO shoppingCartVO) throws Exception {
+		ShoppingCartVO cartVO = shoppingCartConverter.toVO(shoppingCartDao
+				.save(shoppingCartConverter.toEntity(shoppingCartVO)));
+		return cartVO;
 	}
 
 }

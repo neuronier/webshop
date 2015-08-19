@@ -37,8 +37,9 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	OfferGroupConverter converter;
 
 	@Override
-	public void createOfferGroup(OfferGroupVO offerGroupVO) throws Exception {
-		offerGroupDao.save(converter.toEntity(offerGroupVO));
+	public OfferGroupVO createOfferGroup(OfferGroupVO offerGroupVO) throws Exception {
+		OfferGroupVO vo = converter.toVO(offerGroupDao.save(converter.toEntity(offerGroupVO)));
+		return vo;
 	}
 
 	@Override
@@ -47,34 +48,39 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	}
 
 	@Override
-	public void updateOfferGroupName(Long id, String name) throws Exception {
+	public OfferGroupVO updateOfferGroupName(Long id, String name) throws Exception {
 		OfferGroup og = offerGroupDao.findOne(id);
 		og.setName(name);
-		offerGroupDao.save(og);
+		OfferGroupVO vo = converter.toVO(offerGroupDao.save(og));
+		return vo;
 	}
 
 	@Override
-	public void updateOfferGroupDescription(Long id, String description) throws Exception {
+	public OfferGroupVO updateOfferGroupDescription(Long id, String description) throws Exception {
 		OfferGroup og = offerGroupDao.findOne(id);
 		og.setDescription(description);
-		offerGroupDao.save(og);
+		OfferGroupVO vo = converter.toVO(offerGroupDao.save(og));
+		return vo;
 	}
 
 	@Override
-	public void offerGroupToOfferGroup(Long id, Long parentId) throws Exception {
+	public OfferGroupVO offerGroupToOfferGroup(Long id, Long parentId) throws Exception {
 		OfferGroup parent = offerGroupDao.findOne(parentId);
 		OfferGroup og = offerGroupDao.findOne(id);
 		og.setParentOfferGroup(parent);
-		offerGroupDao.save(og);
+		OfferGroupVO vo = converter.toVO(offerGroupDao.save(og));
+		return vo;
 	}
 
 	@Override
-	public void offerToOfferGroup(Long offerId, Long offerGroupId) throws Exception {
+	public OfferGroupVO offerToOfferGroup(Long offerId, Long offerGroupId) throws Exception {
 
 		Offer offer = offerDao.findOne(offerId);
 		OfferGroup og = offerGroupDao.findOne(offerGroupId);
 		offer.setParentOfferGroup(og);
 		offerDao.save(offer);
+		OfferGroupVO vo = converter.toVO(offerGroupDao.save(og));
+		return vo;
 	}
 
 }

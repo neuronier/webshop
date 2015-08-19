@@ -59,7 +59,7 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	}
 
 	@Override
-	public void registrationClient(ClientVO clientVO) throws Exception {
+	public ClientVO registrationClient(ClientVO clientVO) throws Exception {
 		Client client = clientDao.save(clientConverter.toEntity(clientVO));
 		Role role = roleDao.findRoleByName("ROLE_CLIENT");
 		// kosár létrehozása
@@ -71,6 +71,9 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 
 		// itt két lehetőség is van, a client id-ja vagy a clientId-ja
 		roleDao.addRoleToClient(role.getId(), client.getId());
+
+		return clientConverter.toVo(client);
+
 	}
 
 	@Override
@@ -112,14 +115,14 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	}
 
 	@Override
-	public void saveClient(ClientVO clientVO) throws Exception {
-		clientDao.save(clientConverter.toEntity(clientVO));
-
+	public ClientVO saveClient(ClientVO clientVO) throws Exception {
+		ClientVO vo = clientConverter.toVo(clientDao.save(clientConverter.toEntity(clientVO)));
+		return vo;
 	}
 
 	@Override
-	public void addAddressToClient(Long clientId, boolean isAddressMatch, AddressVO billingAddress,
-			AddressVO deliveryAddress) throws Exception {
+	public ClientVO addAddressToClient(Long clientId, boolean isAddressMatch,
+			AddressVO billingAddress, AddressVO deliveryAddress) throws Exception {
 
 		ClientVO clientVO = new ClientVO();
 		clientVO = clientConverter.toVo(clientDao.findOne(clientId));
@@ -130,5 +133,7 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 			clientVO.setDeliveryAddress(deliveryAddress);
 		}
 		saveClient(clientVO);
+
+		return clientVO;
 	}
 }

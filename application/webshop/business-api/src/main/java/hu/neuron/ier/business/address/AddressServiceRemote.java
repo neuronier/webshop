@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface AddressServiceRemote {
 
-	void createAddress(AddressVO addressVO) throws Exception;
+	AddressVO createAddress(AddressVO addressVO) throws Exception;
 
 	void deleteAddress(Long id) throws Exception;
 
 	List<AddressVO> getAddressByCity(String city) throws Exception;
 
-	void updateAddress(AddressVO addressVO) throws Exception;
+	AddressVO updateAddress(AddressVO addressVO) throws Exception;
 }

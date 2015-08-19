@@ -32,8 +32,9 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 	OfferConverter converter;
 
 	@Override
-	public void createOffer(OfferVO offerVO) throws Exception {
-		offerDao.save(converter.toEntity(offerVO));
+	public OfferVO createOffer(OfferVO offerVO) throws Exception {
+		OfferVO vo = converter.toVO(offerDao.save(converter.toEntity(offerVO)));
+		return vo;
 
 	}
 
@@ -72,24 +73,27 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 	}
 
 	@Override
-	public void updateOfferCost(Long id, Long cost) throws Exception {
+	public OfferVO updateOfferCost(Long id, Long cost) throws Exception {
 		OfferVO offerVO = converter.toVO(offerDao.findOne(id));
 		offerVO.setNewCost(cost);
 		createOffer(offerVO);
+		return offerVO;
 	}
 
 	@Override
-	public void updateOfferDescription(Long id, String description) throws Exception {
+	public OfferVO updateOfferDescription(Long id, String description) throws Exception {
 		OfferVO offerVO = converter.toVO(offerDao.findOne(id));
 		offerVO.setDescription(description);
 		createOffer(offerVO);
+		return offerVO;
 	}
 
 	@Override
-	public void updateOfferName(Long id, String name) throws Exception {
+	public OfferVO updateOfferName(Long id, String name) throws Exception {
 		OfferVO offerVO = converter.toVO(offerDao.findOne(id));
 		offerVO.setName(name);
 		createOffer(offerVO);
+		return offerVO;
 
 	}
 

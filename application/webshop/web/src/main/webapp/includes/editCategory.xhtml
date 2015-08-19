@@ -7,27 +7,27 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 
 	<p:dialog header="Edit Category" widgetVar="editCategoryDialog" showEffect="explode"
-		hideEffect="bounce" height="100">
+		hideEffect="" height="100">
 		<h:panelGroup>
 			<h:form id="editCategoryFormId" prependId="false">
 				<table>
 				<tr>
 				<td><h:outputText value="Name: " name="outTxtNameNm"></h:outputText></td>
-				<td><h:inputText id="categoryName" required="true" value="semmi"
+				<td><h:inputText id="categoryName" required="true" value=""
 						requiredMessage="Please enter Category name"></h:inputText></td>
 						<h:outputLabel id="outLblCategoryNameId" for="categoryName"
 						name="outLblCategoryNameNm"></h:outputLabel>
 				</tr>
 				<tr>
 				<td><h:outputText value="Description: " name="outTxtDescriptionNm"></h:outputText></td>
-				<td><h:inputText id="categoryDescription" required="true" value="semmi"
+				<td><h:inputText id="categoryDescription" required="true" value=""
 						requiredMessage="Please enter Category description"></h:inputText></td>
 						<h:outputLabel id="outLblCategoryDescriptionId" for="categoryDescription"
 						name="outLblCategoryDescriptionNm"></h:outputLabel>
 				</tr>
 				</table>
 
-				<h:commandButton value="Save" action="close()"
+				<h:commandButton id="editCategorySave"  value="Save" action="close()"
 					styleClass="loginPanelBtn"></h:commandButton>
 
 			</h:form>

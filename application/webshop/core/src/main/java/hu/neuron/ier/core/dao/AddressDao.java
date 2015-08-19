@@ -15,7 +15,4 @@ public interface AddressDao extends JpaRepository<Address, Long> {
 
 	List<Address> findAddressByCity(String city) throws Exception;
 
-	Address findAddressByPostcodeAndCityAndStreetAndHouse(Long postcode,
-			String city, String street, String house) throws Exception;
-
 }

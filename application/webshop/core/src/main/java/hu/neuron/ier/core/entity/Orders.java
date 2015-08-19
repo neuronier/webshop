@@ -22,17 +22,17 @@ public class Orders extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long orders_id;
+	private Long ordersId;
 	private Calendar date;
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "order_elements_sw")
 	private Collection<OrderElement> orderElements;
 	
-	public Long getOrders_id() {
-		return orders_id;
+	public Long getOrdersId() {
+		return ordersId;
 	}
-	public void setOrders_id(Long orders_id) {
-		this.orders_id = orders_id;
+	public void setOrdersId(Long ordersId) {
+		this.ordersId = ordersId;
 	}
 	public Collection<OrderElement> getOrderElements() {
 		return orderElements;

@@ -34,7 +34,7 @@
 						<p:column headerText="Parent Name" sortBy=""
 							filterBy="#{category.parentOfferGroup}"
 							filterMatchMode="contains">
-							<h:outputText value="#{category.parentOfferGroup}" />
+							<h:outputText value="#{category.parentOfferGroup.name}" />
 						</p:column>
 					</p:dataTable>
 					<p:commandButton value="Create Category" id="btnCreateCategory"

@@ -45,7 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartRemote, Serializable
 	public ShoppingCartVO addOffer(Long ShoppingCartId, OfferVO offerVO) throws Exception {
 		ShoppingCart cart = shoppingCartDao.findOne(ShoppingCartId);
 		cart.getOffers().add(offerConverter.toEntity(offerVO));
-		shoppingCartDao.save(cart);
+		cart = shoppingCartDao.save(cart);
 		return shoppingCartConverter.toVO(cart);
 	}
 

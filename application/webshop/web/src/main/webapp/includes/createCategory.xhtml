@@ -13,22 +13,22 @@
 				<table>
 				<tr>
 				<td><h:outputText value="Name: " name="outTxtNewNameNm"></h:outputText></td>
-				<td><h:inputText id="newCategoryName" required="true" value=" "
+				<td><h:inputText id="newCategoryName" required="true" value="#{offerGroupController.name}"
 						requiredMessage="Please enter Category name"></h:inputText></td>
 						<h:outputLabel id="outLblNewCategoryNameId" for="newCategoryName"
 						name="outLblNewCategoryNameNm"></h:outputLabel>
 				</tr>
 				<tr>
 				<td><h:outputText value="Description: " name="outTxtNewDescriptionNm"></h:outputText></td>
-				<td><h:inputText id="newCategoryDescription" required="true" value=" "
+				<td><h:inputText id="newCategoryDescription" required="true" value="#{offerGroupController.description}"
 						requiredMessage="Please enter Category description"></h:inputText></td>
 						<h:outputLabel id="outLblNewCategoryDescriptionId" for="newCategoryDescription"
 						name="outLblNewCategoryDescriptionNm"></h:outputLabel>
 				</tr>
 				</table>
 
-				<h:commandButton id="createCategorySave" value="Save" action="PF('createCategoryDialog').hide()"
-					styleClass="loginPanelBtn"></h:commandButton>
+				<h:commandButton id="createCategorySave" value="Save" action="#{offerGroupController.createOfferGroup()}"
+					styleClass="loginPanelBtn" update="categoryDataTableId" onclick="#{offerGroupController.getAll()}"></h:commandButton>
 
 			</h:form>
 		</h:panelGroup>

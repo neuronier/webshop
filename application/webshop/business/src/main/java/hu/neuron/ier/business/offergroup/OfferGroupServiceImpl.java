@@ -8,6 +8,7 @@ import hu.neuron.ier.core.entity.Offer;
 import hu.neuron.ier.core.entity.OfferGroup;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -81,6 +82,11 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 		offerDao.save(offer);
 		OfferGroupVO vo = converter.toVO(offerGroupDao.save(og));
 		return vo;
+	}
+
+	@Override
+	public List<OfferGroupVO> findAllOfferGroup() throws Exception {
+		return converter.toVO(offerGroupDao.findAll());
 	}
 
 }

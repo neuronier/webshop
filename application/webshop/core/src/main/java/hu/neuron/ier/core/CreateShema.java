@@ -1,7 +1,11 @@
 package hu.neuron.ier.core;
 
+import hu.neuron.ier.core.dao.OfferDao;
+import hu.neuron.ier.core.dao.OfferGroupDao;
 import hu.neuron.ier.core.dao.RoleDao;
 import hu.neuron.ier.core.dao.UserDao;
+import hu.neuron.ier.core.entity.Offer;
+import hu.neuron.ier.core.entity.OfferGroup;
 import hu.neuron.ier.core.entity.Role;
 import hu.neuron.ier.core.entity.User;
 
@@ -22,6 +26,10 @@ public class CreateShema {
 	public RoleDao roleDAO;
 	@Autowired
 	public UserDao userDAO;
+	@Autowired
+	public OfferDao offerDAO;
+	@Autowired
+	public OfferGroupDao offerGroupDAO;
 	public void insertRoles() {
 		Role dto = null;
 		try {
@@ -69,5 +77,75 @@ public class CreateShema {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
+	}
+	
+	public void saveOffers(){
+
+	OfferGroup offerGroup = new OfferGroup();
+	OfferGroup offerGroup1 = new OfferGroup();
+	OfferGroup offerGroup2 = new OfferGroup();
+	OfferGroup offerGroup3 = new OfferGroup();
+	
+	offerGroup.setName("Lap-topok");
+	offerGroup1.setName("Telefonok");
+	offerGroup2.setName("Akkumulátor Töltő");
+	offerGroup3.setName("Elektronikus eszközök"); //parent
+	
+	offerGroup.setDescription("Hordozható számítógépek");
+	offerGroup1.setDescription("Okos és nem okos telefonok");
+	offerGroup2.setDescription("Akkumulátor töltésre használatos eszközök");
+	offerGroup3.setDescription("Elektronikusan müködő eszközök");
+	
+	offerGroup=offerGroupDAO.save(offerGroup);
+	offerGroup1=offerGroupDAO.save(offerGroup1);
+	offerGroup2=offerGroupDAO.save(offerGroup2);
+	offerGroup3=offerGroupDAO.save(offerGroup3);
+	
+	offerGroup.setParentOfferGroup(offerGroup3);
+	offerGroup1.setParentOfferGroup(offerGroup3);
+	offerGroup2.setParentOfferGroup(offerGroup3);
+	
+	Offer dto = new Offer();
+	dto.setDescription("1 db Lenovo");
+	dto.setFeatured(false);
+	dto.setName("LenovoOffer");
+	dto.setOriginalCost(140000L);
+	dto.setNewCost(120000L);
+	dto.setAction(false);
+	
+	dto.setParentOfferGroup(offerGroup);
+	offerDAO.save(dto);
+	
+	
+	Offer dto1 = new Offer();
+	dto1.setDescription("1 db iPhone okostelefon ajándék tokkal");
+	dto1.setFeatured(false);
+	dto1.setName("iPhoneOffer");
+	dto1.setOriginalCost(130000L);
+	dto1.setNewCost(120000L);
+	dto1.setAction(true);
+	dto1.setParentOfferGroup(offerGroup1);
+	offerDAO.save(dto1);
+	
+	Offer dto2 = new Offer();
+	dto2.setDescription("2 db Nexus telefon töltővel");
+	dto2.setFeatured(true);
+	dto2.setName("NexusOffer");
+	dto2.setOriginalCost(80000L);
+	dto2.setNewCost(70000L);
+	dto2.setAction(false);
+	dto2.setParentOfferGroup(offerGroup1);
+	offerDAO.save(dto2);
+	
+	
+	Offer dto3 = new Offer();
+	dto3.setDescription("1 db Hama akkumulátor töltő 4 db elemmel");
+	dto3.setFeatured(true);
+	dto3.setName("HamaOffer");
+	dto3.setOriginalCost(4000L);
+	dto3.setNewCost(3000L);
+	dto3.setAction(false);
+	dto3.setParentOfferGroup(offerGroup2);
+	offerDAO.save(dto3);
 	}
 }

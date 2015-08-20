@@ -16,38 +16,38 @@
 		<div style="float: right">
 			<h:form>
 				<p:growl id="growl" life="2000" />
-				<p:dataTable var="car" value="" sortMode="multiple">
-					<f:facet name="header">Categories</f:facet>
-					<p:column headerText="Id" sortBy="" filterBy=""
-						filterMatchMode="contains">
-						<h:outputText value="" />
-					</p:column>
+				<p:fieldset legend="categories" style="margin-bottom:20px">
+					<p:dataTable var="car" value="" sortMode="multiple">
+						
+						<p:column headerText="Name" sortBy="" filterBy=""
+							filterMatchMode="contains">
+							<h:outputText value="" />
+						</p:column>
 
-					<p:column headerText="Name" sortBy="" filterBy=""
-						filterMatchMode="contains">
-						<h:outputText value="" />
-					</p:column>
+						<p:column headerText="Description" sortBy="" filterBy=""
+							filterMatchMode="contains">
+							<h:outputText value="" />
+						</p:column>
 
-					<p:column headerText="Description" sortBy="" filterBy=""
-						filterMatchMode="contains">
-						<h:outputText value="" />
-					</p:column>
-
-					<p:column headerText="Parent Name" sortBy="" filterBy="#{car.id}"
-						filterMatchMode="contains">
-						<h:outputText value="" />
-					</p:column>
-				</p:dataTable>
-				<p:commandButton value="Create Category" id="btnCreateCategory"
-					update="growl" actionListener="#{buttonView.buttonAction}"
-					styleClass="ui-priority-primary" onclick="PF('createCategoryDialog').show();"/>
-				<p:commandButton value="Edit Selected" id="btnEditCategory"
-					update="growl" actionListener="#{buttonView.buttonAction}"
-					styleClass="ui-priority-primary"
-					onclick="PF('editCategoryDialog').show();" />
-				<p:commandButton value="Delete Selected" id="btnDeleteCategory"
-					update="growl" actionListener="#{buttonView.buttonAction}"
-					styleClass="ui-priority-primary" disabled="true" />
+						<p:column headerText="Parent Name" sortBy="" filterBy="#{car.id}"
+							filterMatchMode="contains">
+							<h:outputText value="" />
+						</p:column>
+					</p:dataTable>
+					<p:commandButton value="Create Category" id="btnCreateCategory"
+						update="growl" actionListener="#{buttonView.buttonAction}"
+						styleClass="ui-priority-primary"
+						onclick="PF('createCategoryDialog').show();" />
+					<p:commandButton value="Edit Selected" id="btnEditCategory"
+						update="growl" actionListener="#{buttonView.buttonAction}"
+						styleClass="ui-priority-primary"
+						onclick="PF('editCategoryDialog').show();" />
+					<p:commandButton value="Delete Selected" id="btnDeleteCategory"
+						update="growl" actionListener="#{buttonView.buttonAction}"
+						styleClass="ui-priority-primary" disabled="true" />
+					<p:button value="Sort Categories" id="btnSortCategories" 
+						styleClass="ui-priority-primary" href="public/sortCategories.xhtml" />
+				</p:fieldset>
 			</h:form>
 		</div>
 	</ui:define>

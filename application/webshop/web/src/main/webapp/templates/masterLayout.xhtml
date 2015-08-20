@@ -34,23 +34,29 @@
 					icon="fa fa-user" />
 				<p:menuitem value="Role" url="/secured/roles.xhtml"
 					icon="fa fa-user" />
-				<p:menuitem value="Categories" url="/public/categories.xhtml"
-					 />
+				<p:menuitem value="Categories" url="/public/categories.xhtml" />
 			</p:submenu>
-			
+
 			<p:menuitem value="Rendelés" url="/public/order.xhtml" />
+
+			<p:menuitem value="#{out.shoppingCart}"
+				url="/public/shoppingCart.xhtml" />
 
 			<f:facet name="options">
 				<p:inputText placeholder="Search" />
 				<p:button
-						rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
-						value="Selfcare" href="/public/clientSelfCare.xhtml" />
-				<p:button rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}" href="/public/login.xhtml" value="#{out.login}"
+					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
+					value="Selfcare" href="/public/clientSelfCare.xhtml" />
+				<p:button
+					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}"
+					href="/public/login.xhtml" value="#{out.login}"
 					icon="ui-icon-locked" type="button" />
-				<p:button rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('registration.xhtml')}" type="button" value="#{out.signup}" icon="ui-icon-gear"
-					href="/public/registration.xhtml"/>
+				<p:button
+					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('registration.xhtml')}"
+					type="button" value="#{out.signup}" icon="ui-icon-gear"
+					href="/public/registration.xhtml" />
 				<p:button rendered="#{not empty request.remoteUser}" href="/logout"
-						value="Logout" icon="ui-icon-circle-close" />
+					value="Logout" icon="ui-icon-circle-close" />
 			</f:facet>
 		</p:menubar>
 		<div id="categoryMenuDiv" style="float: left; margin: 10px">
@@ -76,7 +82,7 @@
 				</p:panelMenu>
 			</h:form>
 		</div>
-		<div id="contentDiv" style=" margin: 10px">
+		<div id="contentDiv" style="margin: 10px">
 			<div class="ui-wrap-content" style="height: 100%;">
 				<div id="content">
 					<div id="contentInside">

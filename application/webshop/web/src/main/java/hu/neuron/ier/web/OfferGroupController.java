@@ -66,7 +66,8 @@ public class OfferGroupController implements Serializable {
 			this.name = "";
 			this.description = "";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,null,"Sikertelen mentés!"));
+			
 			e.printStackTrace();
 		}
 	}

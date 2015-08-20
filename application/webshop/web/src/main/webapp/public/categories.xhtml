@@ -14,24 +14,27 @@
 		<ui:include src="/includes/createCategory.xhtml"></ui:include>
 
 		<div style="float: right">
-			<h:form>
+			<h:form id="categoryFormId">
 				<p:growl id="growl" life="2000" />
 				<p:fieldset legend="categories" style="margin-bottom:20px">
-					<p:dataTable var="car" value="" sortMode="multiple">
-						
-						<p:column headerText="Name" sortBy="" filterBy=""
-							filterMatchMode="contains">
-							<h:outputText value="" />
+					<p:dataTable id="categoryDataTableId" var="category"
+						value="#{offerGroupController.allOfferGroup}" sortMode="multiple">
+
+						<p:column headerText="Name" sortBy="#{category.name}"
+							filterBy="#{category.name}" filterMatchMode="contains">
+							<h:outputText value="#{category.name}" />
 						</p:column>
 
-						<p:column headerText="Description" sortBy="" filterBy=""
-							filterMatchMode="contains">
-							<h:outputText value="" />
+						<p:column headerText="Description"
+							sortBy="#{category.description}"
+							filterBy="#{category.description}" filterMatchMode="contains">
+							<h:outputText value="#{category.description}" />
 						</p:column>
 
-						<p:column headerText="Parent Name" sortBy="" filterBy="#{car.id}"
+						<p:column headerText="Parent Name" sortBy=""
+							filterBy="#{category.parentOfferGroup}"
 							filterMatchMode="contains">
-							<h:outputText value="" />
+							<h:outputText value="#{category.parentOfferGroup}" />
 						</p:column>
 					</p:dataTable>
 					<p:commandButton value="Create Category" id="btnCreateCategory"
@@ -45,8 +48,9 @@
 					<p:commandButton value="Delete Selected" id="btnDeleteCategory"
 						update="growl" actionListener="#{buttonView.buttonAction}"
 						styleClass="ui-priority-primary" disabled="true" />
-					<p:button value="Sort Categories" id="btnSortCategories" 
-						styleClass="ui-priority-primary" href="public/sortCategories.xhtml" />
+					<p:button value="Sort Categories" id="btnSortCategories"
+						styleClass="ui-priority-primary"
+						href="public/sortCategories.xhtml" />
 				</p:fieldset>
 			</h:form>
 		</div>

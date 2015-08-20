@@ -128,8 +128,9 @@ public class OfferGroupDaoTest {
 	@Test
 	public void test5Delete() {
 		try {
-			offerGroupDao.delete(offerGroup1);
-			offerGroupDao.deleteAll();
+			offerGroupDao.delete(offerGroupDao.findOfferGroupByParentOfferGroup(parentOfferGroup));
+			offerGroupDao.delete(offerGroupDao.findOfferGroupByName("parntless"));
+			offerGroupDao.delete(offerGroupDao.findOfferGroupByName("parent"));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);

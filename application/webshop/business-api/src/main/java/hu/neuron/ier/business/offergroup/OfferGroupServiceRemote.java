@@ -2,7 +2,11 @@ package hu.neuron.ier.business.offergroup;
 
 import hu.neuron.ier.business.vo.OfferGroupVO;
 
+import java.util.List;
+
 public interface OfferGroupServiceRemote {
+	
+	List<OfferGroupVO> findAllOfferGroup() throws Exception;
 
 	OfferGroupVO createOfferGroup(OfferGroupVO offerGroupVO) throws Exception;
 

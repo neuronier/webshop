@@ -15,18 +15,13 @@ public class OrdersVO implements Serializable {
 	private Long ordersId;
 	private Calendar date;
 	private Collection<OrderElementVO> orderElements;
+	private String status;
 	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public Long getOrders_id() {
-		return ordersId;
-	}
-	public void setOrdersId(Long ordersId) {
-		this.ordersId = ordersId;
 	}
 	public Calendar getDate() {
 		return date;
@@ -40,5 +35,18 @@ public class OrdersVO implements Serializable {
 	public void setOrderElements(Collection<OrderElementVO> orderElements) {
 		this.orderElements = orderElements;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Long getOrdersId() {
+		return ordersId;
+	}
+	public void setOrdersId(Long ordersId) {
+		this.ordersId = ordersId;
+	}
+	
 
 }

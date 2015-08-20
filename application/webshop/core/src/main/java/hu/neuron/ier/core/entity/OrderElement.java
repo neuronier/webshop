@@ -10,9 +10,6 @@ import javax.persistence.Table;
 @Table(name = "OrderElement")
 public class OrderElement extends BaseEntity{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6410356804561545056L;
 	
 	private ProductType productType;

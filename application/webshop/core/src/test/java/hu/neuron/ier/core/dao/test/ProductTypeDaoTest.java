@@ -6,6 +6,7 @@ import hu.neuron.ier.core.entity.ProductType;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +48,7 @@ public class ProductTypeDaoTest {
 	@Test
 	public void test2FindById() {
 		try {
-			productTypeDao.findOne(this.productType.getId());
+			productTypeDao.findOne(productType.getId());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
@@ -57,8 +58,9 @@ public class ProductTypeDaoTest {
 	@Test
 	public void test3FindProductByItemNumber() {
 		try {
-			ProductType productType = productTypeDao.findProductByItemNumber(this.productType
+			ProductType productType2 = productTypeDao.findProductTypeByItemNumber(productType
 					.getItemNumber());
+			Assert.assertEquals(productType.getId(), productType2.getId());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);

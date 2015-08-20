@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.SUPPORTS)
 public interface OrderElementDao extends JpaRepository<OrderElement, Long>{
 
-	List<OrderElement> findOrderElementsByProductType(ProductType productType) throws Exception;
-	
-	List<OrderElement> findOrderElementsById(Long id) throws Exception;
-	
+	List<OrderElement> findOrderElementByProductType(ProductType productType) throws Exception;
+		
 }

@@ -13,15 +13,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Orders")
-// @NamedQuery(name = "Orders.findOfferByID", query =
-// "SELECT o FROM Offer o  WHERE o.id = :id")
 public class Orders extends BaseEntity {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 891510375311558320L;
 	private Long ordersId;
 	private Calendar date;
 	@OneToMany(fetch = FetchType.LAZY)

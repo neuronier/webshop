@@ -11,68 +11,76 @@
 	<ui:define name="pageTitle">Rendelés</ui:define>
 	<br />
 	<ui:define name="content">
-		<div style="float: right">
+		<div style="float: right; width: auto;">
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
+				<p:fieldset legend="Rendelések felvétele" style="margin-bottom:20px">
+					<p:dataTable
+						style="width:100% ;margin-left:auto; margin-right:auto;"
+						id="singleDT" var="car" value="#{dtSelectionView.cars2}"
+						selectionMode="single" selection="#{dtSelectionView.selectedCar}"
+						rowKey="#{car.id}">
 
-				<p:dataTable style="width:50% ;margin-left:auto; margin-right:auto;"
-					id="singleDT" var="car" value="#{dtSelectionView.cars2}"
-					selectionMode="single" selection="#{dtSelectionView.selectedCar}"
-					rowKey="#{car.id}">
-					<f:facet name="header">
-            				Új rendelés felvétele
-        			</f:facet>
-					<p:column headerText="Id">
-						<h:outputText value="#{car.id}" />
-					</p:column>
-					<p:column headerText="Név">
-						<h:outputText value="#{car.year}" />
-					</p:column>
-					<f:facet name="footer">
-						<p:commandButton process="singleDT" update=":form:carDetail"
-							icon="ui-icon-search" value="View"
-							oncomplete="PF('carDialog').show()" />
-					</f:facet>
-				</p:dataTable>
-				<p:dialog header="Car Info" widgetVar="carDialog" modal="true"
-					showEffect="slide" hideEffect="explode" resizable="false">
-					<p:outputPanel id="carDetail" style="text-align:center;">
-						<p:panelGrid columns="2"
-							rendered="#{not empty dtSelectionView.selectedCar}"
-							columnClasses="label,value">
-							<f:facet name="header">
-								<p:graphicImage
-									name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif" />
-							</f:facet>
+						<p:column headerText="Id">
+							<h:outputText value="#{car.id}" />
+						</p:column>
+						<p:column headerText="Név">
+							<h:outputText value="#{car.year}" />
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton process="singleDT" update=":form:carDetail"
+								icon="ui-icon-search" value="View"
+								oncomplete="PF('carDialog').show()" />
+						</f:facet>
+					</p:dataTable>
+					<p:dialog header="Car Info" widgetVar="carDialog" modal="true"
+						showEffect="slide" hideEffect="explode" resizable="false">
+						<p:outputPanel id="carDetail" style="text-align:center;">
+							<p:panelGrid columns="2"
+								rendered="#{not empty dtSelectionView.selectedCar}"
+								columnClasses="label,value">
+								<f:facet name="header">
+									<p:graphicImage
+										name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif" />
+								</f:facet>
 
-							<h:outputText value="Id:" />
-							<h:outputText value="#{dtSelectionView.selectedCar.id}" />
+								<h:outputText value="Id:" />
+								<h:outputText value="#{dtSelectionView.selectedCar.id}" />
 
-							<h:outputText value="Year" />
-							<h:outputText value="#{dtSelectionView.selectedCar.year}" />
+								<h:outputText value="Year" />
+								<h:outputText value="#{dtSelectionView.selectedCar.year}" />
 
-							<h:outputText value="Color:" />
-							<h:outputText value="#{dtSelectionView.selectedCar.color}"
-								style="color:#{dtSelectionView.selectedCar.color}" />
+								<h:outputText value="Color:" />
+								<h:outputText value="#{dtSelectionView.selectedCar.color}"
+									style="color:#{dtSelectionView.selectedCar.color}" />
 
-							<h:outputText value="Price" />
-							<h:outputText value="$#{dtSelectionView.selectedCar.price}" />
-						</p:panelGrid>
-					</p:outputPanel>
-				</p:dialog>
+								<h:outputText value="Price" />
+								<h:outputText value="$#{dtSelectionView.selectedCar.price}" />
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
 
-				<p:dialog header="Selected Cars" widgetVar="multiCarDialog"
-					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
-					width="200">
-					<p:outputPanel id="multiCarDetail" style="text-align:center;">
-						<ui:repeat value="#{dtSelectionView.selectedCars}" var="car">
-							<h:outputText value="#{car.id} - #{car.brand}"
-								style="display:block" />
-						</ui:repeat>
-					</p:outputPanel>
-				</p:dialog>
-				<p:commandButton value="Hozzáad" />
-				<p:commandButton value="Rendelés leadása" />
+					<p:dialog header="Selected Cars" widgetVar="multiCarDialog"
+						modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+						width="200">
+						<p:outputPanel id="multiCarDetail" style="text-align:center;">
+							<ui:repeat value="#{dtSelectionView.selectedCars}" var="car">
+								<h:outputText value="#{car.id} - #{car.brand}"
+									style="display:block" />
+							</ui:repeat>
+						</p:outputPanel>
+					</p:dialog>
+					<p:outputLabel value="Item number: " for="acMinLength" />
+					<p:autoComplete id="acMinLength" minQueryLength="3"
+						value="#{autoCompleteView.txt2}"
+						completeMethod="#{autoCompleteView.completeText}" effect="fade" />
+					<p:commandButton value="Hozzáad"
+						style="margin-left: 10px; margin-right:auto;" />
+					<p:commandButton value="Kijelölt törlése"
+						style="margin-left: 10px; margin-right:auto;" />
+					<p:commandButton value="Rendelés leadása"
+						style="margin-left: 10px;" />
+				</p:fieldset>
 			</h:form>
 		</div>
 	</ui:define>

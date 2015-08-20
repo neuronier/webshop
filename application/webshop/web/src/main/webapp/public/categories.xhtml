@@ -18,35 +18,39 @@
 				<p:growl id="growl" life="2000" />
 				<p:fieldset legend="categories" style="margin-bottom:20px">
 					<p:dataTable id="categoryDataTableId" var="category"
-						value="#{offerGroupController.allOfferGroup}" sortMode="multiple">
+						value="#{offerGroupController.allOfferGroup}" sortMode="multiple"
+						rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
 
 						<p:column headerText="Name" sortBy="#{category.name}"
-							filterBy="#{category.name}" filterMatchMode="contains">
+							filterBy="#{category.name.toLowerCase()}" filterMatchMode="contains" >
 							<h:outputText value="#{category.name}" />
 						</p:column>
 
 						<p:column headerText="Description"
 							sortBy="#{category.description}"
-							filterBy="#{category.description}" filterMatchMode="contains">
+							filterBy="#{category.description.toLowerCase()}" filterMatchMode="contains">
 							<h:outputText value="#{category.description}" />
 						</p:column>
 
-						<p:column headerText="Parent Name" sortBy=""
-							filterBy="#{category.parentOfferGroup}"
+						<p:column headerText="Parent Name" sortBy="#{category.parentOfferGroup.name}"
+							filterBy="#{category.parentOfferGroup.name.toLowerCase()}"
 							filterMatchMode="contains">
 							<h:outputText value="#{category.parentOfferGroup.name}" />
 						</p:column>
+						<f:facet name="footer"></f:facet>
 					</p:dataTable>
 					<p:commandButton value="Create Category" id="btnCreateCategory"
-						update="growl" actionListener="#{buttonView.buttonAction}"
+						update="growl" 
 						styleClass="ui-priority-primary"
 						onclick="PF('createCategoryDialog').show();" />
 					<p:commandButton value="Edit Selected" id="btnEditCategory"
-						update="growl" actionListener="#{buttonView.buttonAction}"
+						update="growl" 
 						styleClass="ui-priority-primary"
 						onclick="PF('editCategoryDialog').show();" />
 					<p:commandButton value="Delete Selected" id="btnDeleteCategory"
-						update="growl" actionListener="#{buttonView.buttonAction}"
+						update="growl" 
 						styleClass="ui-priority-primary" disabled="true" />
 					<p:button value="Sort Categories" id="btnSortCategories"
 						styleClass="ui-priority-primary"

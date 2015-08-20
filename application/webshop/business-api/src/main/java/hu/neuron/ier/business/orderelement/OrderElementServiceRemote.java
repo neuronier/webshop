@@ -13,6 +13,4 @@ public interface OrderElementServiceRemote {
 	OrderElementVO updateOrderElementQuanty(Long id, int quanty) throws Exception;
 
 	List<OrderElementVO> getAllOrderElement() throws Exception;
-	
-	List<OrderElementVO> getOrderElementsById(Long id) throws Exception;
 }

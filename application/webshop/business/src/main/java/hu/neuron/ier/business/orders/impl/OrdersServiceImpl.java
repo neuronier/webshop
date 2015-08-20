@@ -65,8 +65,8 @@ public class OrdersServiceImpl implements OrdersServiceRemote, Serializable {
 	public OrdersVO updateOrderStatus(Long id, String status) throws Exception {
 		OrdersVO ordersVO = converter.toVO(ordersDao.findOne(id));
 		ordersVO.setStatus(status);
-		createOrder(ordersVO);
-		return ordersVO;
+		return createOrder(ordersVO);
+
 	}
 
 }

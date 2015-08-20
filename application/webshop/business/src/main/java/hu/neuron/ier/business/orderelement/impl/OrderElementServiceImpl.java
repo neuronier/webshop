@@ -1,17 +1,16 @@
 package hu.neuron.ier.business.orderelement.impl;
 
+import hu.neuron.ier.business.converter.OrderElementConverter;
+import hu.neuron.ier.business.orderelement.OrderElementServiceRemote;
+import hu.neuron.ier.business.vo.OrderElementVO;
+import hu.neuron.ier.core.dao.OrderElementDao;
+
 import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import hu.neuron.ier.business.converter.OrderElementConverter;
-import hu.neuron.ier.business.orderelement.OrderElementServiceRemote;
-import hu.neuron.ier.business.vo.OrderElementVO;
-import hu.neuron.ier.business.vo.OrdersVO;
-import hu.neuron.ier.core.dao.OrderElementDao;
 
 public class OrderElementServiceImpl implements OrderElementServiceRemote, Serializable {
 
@@ -47,12 +46,6 @@ public class OrderElementServiceImpl implements OrderElementServiceRemote, Seria
 	@Override
 	public List<OrderElementVO> getAllOrderElement() throws Exception {
 		List<OrderElementVO> vos = converter.toVO(orderElementDao.findAll());
-		return vos;
-	}
-
-	@Override
-	public List<OrderElementVO> getOrderElementsById(Long id) throws Exception {
-		List<OrderElementVO> vos = converter.toVO(orderElementDao.findOrderElementsById(id));
 		return vos;
 	}
 

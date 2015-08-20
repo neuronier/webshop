@@ -62,12 +62,8 @@ public class UserServiceImplTest {
 			userVO.setPassword("asdf");
 			userVO.setPhone("123");
 			userVO.setUserName("test");
-			userVO.setId(1l);
-			System.out.println(userVO);
 			userServiceImpl.saveUser(userVO);
-			userServiceImpl.registrationUser(userVO);
-			userVO = userServiceImpl.findUserByName("test");
-			System.out.println(userVO);
+			userVO = userServiceImpl.registrationUser(userVO);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -45,7 +45,6 @@ public class ClientServiceImplTest {
 	public void test1RegistrationClient() {
 		try {
 			clientVO = new ClientVO();
-			clientVO.setId(1l);
 			clientVO.setFullName("teszt");
 			clientVO.setEmail("teszt");
 			clientVO.setPassword("teszt");

@@ -10,6 +10,7 @@ import java.util.Properties;
 import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -19,6 +20,8 @@ import org.junit.runners.MethodSorters;
 public class OfferServiceImplTest {
 	private static OfferVO offerVO;
 	private static OfferGroupVO parentOfferGroup;
+	private EJBContainer ejbContainer;
+
 
 	@EJB(mappedName = "OfferService", name = "OfferService")
 	OfferServiceRemote offerService;
@@ -37,9 +40,10 @@ public class OfferServiceImplTest {
 		p.put("hu.neuron.ier.database.test.JdbcDriver", "org.hsqldb.jdbcDriver");
 		p.put("hu.neuron.ier.database.test.JdbcUrl", "jdbc:hsqldb:mem:aname");
 
-		EJBContainer ejbContainer = EJBContainer.createEJBContainer(p);
+		ejbContainer = EJBContainer.createEJBContainer(p);
 		ejbContainer.getContext().bind("inject", this);
 	}
+
 
 	@Test
 	public void test1CreateOffer() {
@@ -124,12 +128,17 @@ public class OfferServiceImplTest {
 	}
 
 	@Test
-	public void test9DeleteOffer() {
+	public void test91DeleteOffer() {
 		try {
 			offerService.deleteOffer(offerVO.getId());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@Test
+	public void test99closeEJBContainer() {
+		ejbContainer.close();
 	}
 
 }

@@ -8,12 +8,15 @@ import java.util.Properties;
 import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class UserServiceImplTest {
 
 	private UserVO userVO;
+	private EJBContainer ejbContainer;
+
 
 	@EJB(name = "UserService", mappedName = "UserService")
 	// UserServiceImpl userServiceImpl;
@@ -30,28 +33,9 @@ public class UserServiceImplTest {
 		p.put("hu.neuron.ier.database.test.JdbcDriver", "org.hsqldb.jdbcDriver");
 		p.put("hu.neuron.ier.database.test.JdbcUrl", "jdbc:hsqldb:mem:aname");
 
-		EJBContainer ejbContainer = EJBContainer.createEJBContainer(p);
+		ejbContainer = EJBContainer.createEJBContainer(p);
 		ejbContainer.getContext().bind("inject", this);
 	}
-
-	// @Before
-	// public void startTheContainer() throws Exception {
-	// final Properties p = new Properties();
-	//
-	// p.put("hu.neuron.ier.jpa.hibernate.hbm2ddl.auto", "update");
-	// p.put("hu.neuron.ier.jpa.hibernate.dialect",
-	// "org.hibernate.dialect.MySQLDialect");
-	//
-	// p.put("hu.neuron.ier.database", "new://Resource?type=DataSource");
-	// // p.put("hu.neuron.ier.database.JdbcDriver", "org.hsqldb.jdbcDriver");
-	// p.put("hu.neuron.ier.database.JdbcDriver", "com.mysql.jdbc.Driver");
-	// // p.put("hu.neuron.ier.database.JdbcUrl", "jdbc:hsqldb:mem:protected");
-	// p.put("hu.neuron.ier.database.JdbcUrl",
-	// "jdbc:mysql://localhost:3306/test");
-	//
-	// EJBContainer ejbContainer = EJBContainer.createEJBContainer(p);
-	// ejbContainer.getContext().bind("inject", this);
-	// }
 
 	@Test
 	public void test1() throws Exception {
@@ -67,6 +51,11 @@ public class UserServiceImplTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@Test
+	public void test99closeEJBContainer() {
+		ejbContainer.close();
 	}
 
 }

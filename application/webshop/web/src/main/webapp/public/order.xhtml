@@ -15,8 +15,8 @@
 					<p:dataTable id="ordersDataTableId" var="order"
 						value="#{orderController.orders}" sortMode="multiple">
 						<f:facet name="header">
-           Rendelések
-       </f:facet>
+           						Rendelések
+       					</f:facet>
 
 						<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
 							update=":form:msgs" />

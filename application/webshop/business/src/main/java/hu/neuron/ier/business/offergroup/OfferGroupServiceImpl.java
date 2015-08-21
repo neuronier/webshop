@@ -45,7 +45,27 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 
 	@Override
 	public void deleteOfferGroup(Long id) throws Exception {
-		offerGroupDao.delete(id);
+		OfferGroup og = offerGroupDao.findOne(id);
+		//függőségek megszüntetése
+		//gyermek offergroup elemek összegyűjtése
+		List<OfferGroup> childOffergroups = offerGroupDao.findOfferGroupByParentOfferGroup(og);
+		//gyermekek szülőmezőjének nullázása
+		for(OfferGroup ogroup : childOffergroups){
+			ogroup.setParentOfferGroup(null);;
+			offerGroupDao.save(ogroup);
+		}
+		
+		//gyermek offer elemek összegyűjtése
+		List<Offer> childOffers = offerDao.findOfferByParentOfferGroup(og);
+		//gyermekek szülőmezőjének nullázása
+		for(Offer o: childOffers){
+			o.setParentOfferGroup(null);
+			offerDao.save(o);
+		}
+		//mentés, hogy az adatbázisban is változzon
+		offerGroupDao.save(og);
+		//törlés függőségek nélkül
+		offerGroupDao.delete(og);
 	}
 
 	@Override

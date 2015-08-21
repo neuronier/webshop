@@ -17,9 +17,9 @@
 			<h:form id="categoryFormId">
 				<p:growl id="growl" life="2000" />
 				<p:fieldset legend="categories" style="margin-bottom:20px">
-					<p:dataTable id="categoryDataTableId" var="category"
+					<p:dataTable id="categoryDataTableId" var="category" selectionMode="single" selection="#{offerGroupController.selectedOfferGroup}" rowKey="#{category.id}"
 						value="#{offerGroupController.allOfferGroup}" sortMode="multiple"
-						rows="10" paginator="true"
+						rows="10" paginator="true" 
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15">
 
@@ -42,18 +42,18 @@
 						<f:facet name="footer"></f:facet>
 					</p:dataTable>
 					<p:commandButton value="Create Category" id="btnCreateCategory"
-						update="growl" 
-						styleClass="ui-priority-primary"
+						update="growl" icon="fa-plus"
+						
 						onclick="PF('createCategoryDialog').show();" />
 					<p:commandButton value="Edit Selected" id="btnEditCategory"
-						update="growl" 
-						styleClass="ui-priority-primary"
+						update="" icon="fa fa-fw fa-edit"
+						 disabled="#{offerGroupController.selection}"
 						onclick="PF('editCategoryDialog').show();" />
 					<p:commandButton value="Delete Selected" id="btnDeleteCategory"
-						update="growl" 
-						styleClass="ui-priority-primary" disabled="true" />
+						update="categoryFormId" icon="fa-remove"
+						 disabled="#{offerGroupController.selection}" action="#{offerGroupController.deleteSelected()}"/>
 					<p:button value="Sort Categories" id="btnSortCategories"
-						styleClass="ui-priority-primary"
+						icon="fa-cogs"
 						href="public/sortCategories.xhtml" />
 				</p:fieldset>
 			</h:form>

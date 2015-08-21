@@ -1,6 +1,7 @@
 package hu.neuron.ier.core.dao;
 
 import hu.neuron.ier.core.entity.Offer;
+import hu.neuron.ier.core.entity.OfferGroup;
 
 import java.util.List;
 
@@ -20,7 +21,5 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 	List<Offer> findOfferByAction(boolean action) throws Exception;
 	
 	List<Offer> findOfferByFeatured(boolean featured) throws Exception;
-	
-	@Query("SELECT u FROM Offer u WHERE u.name LIKE CONCAT('%', :key, '%')") 
-	List<Offer> searchOffer(@Param("key")String key) throws Exception;
-}
+	List<Offer> findOfferByParentOfferGroup(OfferGroup parent) throws Exception;
+	@Query("SELECT u FROM Offer u WHERE u.name LIKE CONCAT('%', :key, '%')") 	List<Offer> searchOffer(@Param("key")String key) throws Exception;}

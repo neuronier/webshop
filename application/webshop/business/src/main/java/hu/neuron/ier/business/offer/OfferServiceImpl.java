@@ -3,6 +3,7 @@ package hu.neuron.ier.business.offer;
 import hu.neuron.ier.business.converter.OfferConverter;
 import hu.neuron.ier.business.vo.OfferVO;
 import hu.neuron.ier.core.dao.OfferDao;
+import hu.neuron.ier.core.dao.OfferGroupDao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +28,9 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 
 	@Autowired
 	OfferDao offerDao;
+
+	@Autowired
+	OfferGroupDao offerGroupDao;
 
 	@EJB
 	OfferConverter converter;
@@ -53,14 +57,16 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 
 	@Override
 	public List<OfferVO> getActionOffers(boolean isAction) throws Exception {
-		List<OfferVO> vos = converter.toVO(offerDao.findOfferByAction(isAction));
+		List<OfferVO> vos = converter
+				.toVO(offerDao.findOfferByAction(isAction));
 
 		return vos;
 	}
 
 	@Override
 	public List<OfferVO> getFeaturedOffers(boolean isFeatured) throws Exception {
-		List<OfferVO> vos = converter.toVO(offerDao.findOfferByFeatured(isFeatured));
+		List<OfferVO> vos = converter.toVO(offerDao
+				.findOfferByFeatured(isFeatured));
 
 		return vos;
 	}
@@ -81,7 +87,8 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 	}
 
 	@Override
-	public OfferVO updateOfferDescription(Long id, String description) throws Exception {
+	public OfferVO updateOfferDescription(Long id, String description)
+			throws Exception {
 		OfferVO offerVO = converter.toVO(offerDao.findOne(id));
 		offerVO.setDescription(description);
 		createOffer(offerVO);
@@ -100,6 +107,14 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 	@Override
 	public List<OfferVO> searchOffers(String key) throws Exception {
 		return converter.toVO(offerDao.searchOffer(key));
+	}
+
+	@Override
+	public List<OfferVO> getOffersByParentOfferGroup(Long parentId)
+			throws Exception {
+		List<OfferVO> offers = converter.toVO(offerDao
+				.findOfferByParentOfferGroup(offerGroupDao.findOne(parentId)));
+		return offers;
 	}
 
 }

@@ -23,5 +23,7 @@ public interface OfferServiceRemote {
 	OfferVO updateOfferDescription(Long id, String description) throws Exception;
 
 	OfferVO updateOfferName(Long id, String name) throws Exception;
+	//kulcsszó alapján keres a leírásban és a névben
+	List<OfferVO> searchOffers(String key) throws Exception;
 
 }

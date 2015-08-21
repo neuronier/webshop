@@ -88,5 +88,10 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	public List<OfferGroupVO> findAllOfferGroup() throws Exception {
 		return converter.toVO(offerGroupDao.findAll());
 	}
+	
+	@Override
+	public List<OfferGroupVO> searchOfferGroups(String keyword) throws Exception {
+		return converter.toVO(offerGroupDao.searchOfferGroup(keyword));
+	}
 
 }

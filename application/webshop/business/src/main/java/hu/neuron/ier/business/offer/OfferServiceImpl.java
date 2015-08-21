@@ -96,5 +96,10 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 		return offerVO;
 
 	}
+	
+	@Override
+	public List<OfferVO> searchOffers(String key) throws Exception {
+		return converter.toVO(offerDao.searchOffer(key));
+	}
 
 }

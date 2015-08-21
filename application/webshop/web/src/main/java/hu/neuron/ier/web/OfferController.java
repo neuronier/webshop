@@ -1,6 +1,5 @@
 package hu.neuron.ier.web;
 
-
 import hu.neuron.ier.business.offer.OfferServiceRemote;
 import hu.neuron.ier.business.vo.OfferVO;
 
@@ -27,35 +26,28 @@ public class OfferController implements Serializable {
 
 	@EJB(name = "OfferService", mappedName = "OfferService")
 	private OfferServiceRemote offerService;
-	
-	List<OfferVO> list ;
+
+	List<OfferVO> list;
 	private Long id;
 	private Long newCost;
 	private Long originalCost;
 	private String name;
 	private String description;
-	
-	public List<OfferVO> createOffers(){
+
+	public List<OfferVO> createOffers() {
 		try {
-			
+
 			list = new ArrayList<OfferVO>();
-		        
-		        	
-		        	list = offerService.getFeaturedOffers(true);
-		        	
-		            
-		            
-		        
-			
+
+			list = offerService.getFeaturedOffers(true);
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return list;
-		
-       
-            
+
 	}
-	
+
 	public List<OfferVO> getOffers() {
 		return list;
 	}
@@ -67,6 +59,7 @@ public class OfferController implements Serializable {
 	public OfferServiceRemote getOfferService() {
 		return offerService;
 	}
+
 	public void setOfferService(OfferServiceRemote offerService) {
 		this.offerService = offerService;
 	}
@@ -74,45 +67,41 @@ public class OfferController implements Serializable {
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Long getNewCost() {
 		return newCost;
 	}
+
 	public void setNewCost(Long newCost) {
 		this.newCost = newCost;
 	}
+
 	public Long getOriginalCost() {
 		return originalCost;
 	}
+
 	public void setOriginalCost(Long originalCost) {
 		this.originalCost = originalCost;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	
+
 }
-	
-	
-
-	
-
-	
-
-	
-
-	
-	

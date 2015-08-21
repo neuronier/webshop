@@ -110,8 +110,8 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	}
 	
 	@Override
-	public List<OfferGroupVO> searchOfferGroups(String keyword) throws Exception {
-		return converter.toVO(offerGroupDao.searchOfferGroup(keyword));
+	public List<OfferGroupVO> searchOfferGroups(String key) throws Exception {
+		return converter.toVO(offerGroupDao.searchOfferGroup(key));
 	}
-
+	
 }

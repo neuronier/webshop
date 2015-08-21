@@ -43,11 +43,6 @@ public class ShoppingCartServiceImplTest {
 		ejbContainer = EJBContainer.createEJBContainer(p);
 		ejbContainer.getContext().bind("inject", this);
 	}
-	
-	@After
-	public void closeContainer() throws Exception{
-		ejbContainer.close();
-	}
 
 	@Test
 	public void test1AddOffer() {
@@ -60,6 +55,10 @@ public class ShoppingCartServiceImplTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
+	}
+	
+	@Test
+	public void test99closeEJBContainer() {
+		ejbContainer.close();
 	}
 }

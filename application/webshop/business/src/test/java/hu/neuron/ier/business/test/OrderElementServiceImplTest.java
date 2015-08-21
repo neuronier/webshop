@@ -21,6 +21,8 @@ public class OrderElementServiceImplTest {
 
 	private static OrderElementVO orderElementVO;
 	private static ProductTypeVO productTypeVO;
+	private EJBContainer ejbContainer;
+
 
 	@EJB(mappedName = "OrderElementService", name = "OrderElementService")
 	OrderElementServiceRemote orderElementService;
@@ -38,7 +40,7 @@ public class OrderElementServiceImplTest {
 		p.put("hu.neuron.ier.database.test.JdbcDriver", "org.hsqldb.jdbcDriver");
 		p.put("hu.neuron.ier.database.test.JdbcUrl", "jdbc:hsqldb:mem:aname");
 
-		EJBContainer ejbContainer = EJBContainer.createEJBContainer(p);
+		ejbContainer = EJBContainer.createEJBContainer(p);
 		ejbContainer.getContext().bind("inject", this);
 	}
 
@@ -83,6 +85,11 @@ public class OrderElementServiceImplTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@Test
+	public void test99closeEJBContainer() {
+		ejbContainer.close();
 	}
 
 }

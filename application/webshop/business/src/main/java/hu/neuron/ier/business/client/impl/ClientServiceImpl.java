@@ -67,7 +67,7 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 		shoppingCart = shoppingCartDao.save(shoppingCart);
 		// ügyfélhez hozzáadás
 		client.setShoppingCart(shoppingCart);
-		clientDao.save(client);
+		client = clientDao.save(client);
 
 		// itt két lehetőség is van, a client id-ja vagy a clientId-ja
 		roleDao.addRoleToClient(role.getId(), client.getId());

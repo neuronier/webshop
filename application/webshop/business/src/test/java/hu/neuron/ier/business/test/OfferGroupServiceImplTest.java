@@ -11,7 +11,9 @@ import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -44,11 +46,6 @@ public class OfferGroupServiceImplTest {
 
 		ejbContainer = EJBContainer.createEJBContainer(p);
 		ejbContainer.getContext().bind("inject", this);
-	}
-	
-	@After
-	public void closeContainer() throws Exception{
-		ejbContainer.close();
 	}
 
 	@Test
@@ -125,6 +122,11 @@ public class OfferGroupServiceImplTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@Test
+	public void test99closeEJBContainer() {
+		ejbContainer.close();
 	}
 
 }

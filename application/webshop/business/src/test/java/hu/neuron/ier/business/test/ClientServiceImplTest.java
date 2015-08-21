@@ -11,7 +11,9 @@ import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -43,10 +45,6 @@ public class ClientServiceImplTest {
 		ejbContainer.getContext().bind("inject", this);
 	}
 	
-	@After
-	public void closeContainer() throws Exception{
-		ejbContainer.close();
-	}
 
 	@Test
 	public void test1RegistrationClient() {
@@ -58,7 +56,6 @@ public class ClientServiceImplTest {
 			clientVO.setPhone("teszt");
 			clientVO.setUserName("teszt");
 			clientVO = clientService.registrationClient(clientVO);
-
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -104,6 +101,11 @@ public class ClientServiceImplTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@Test
+	public void test99closeEJBContainer() {
+		ejbContainer.close();
 	}
 
 }

@@ -43,11 +43,7 @@ public class OfferServiceImplTest {
 		ejbContainer = EJBContainer.createEJBContainer(p);
 		ejbContainer.getContext().bind("inject", this);
 	}
-	
-	@After
-	public void closeContainer() throws Exception{
-		ejbContainer.close();
-	}
+
 
 	@Test
 	public void test1CreateOffer() {
@@ -132,12 +128,17 @@ public class OfferServiceImplTest {
 	}
 
 	@Test
-	public void test9DeleteOffer() {
+	public void test91DeleteOffer() {
 		try {
 			offerService.deleteOffer(offerVO.getId());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@Test
+	public void test99closeEJBContainer() {
+		ejbContainer.close();
 	}
 
 }

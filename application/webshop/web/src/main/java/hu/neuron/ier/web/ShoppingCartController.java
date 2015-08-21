@@ -38,4 +38,23 @@ public class ShoppingCartController implements Serializable {
 		this.offers = offers;
 	}
 
+	public void addOfferToShoppingCart(OfferVO offerVO) {
+		
+	}
+
+	public OfferVO findOfferInShoppingCart(Long id) {
+		OfferVO offerVO = new OfferVO();
+		for (OfferVO vo : offers) {
+			if (vo.getId() == id) {
+				offerVO = vo;
+			}
+		}
+		return offerVO;
+	}
+
+	public void deleteOfferFromShoppingCart(Long id) {
+		OfferVO offerVO = findOfferInShoppingCart(id);
+		offers.remove(offerVO);
+	}
+
 }

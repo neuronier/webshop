@@ -22,8 +22,7 @@
 					<p:dataTable style="width:80%;"
 						value="#{shoppingCartController.offers}" var="cart">
 						<p:column width="110px">
-							<p:graphicImage library="images"
-								name="#{cart.name}-big.jpg" />
+							<p:graphicImage library="images" name="#{cart.name}-big.jpg" />
 						</p:column>
 
 						<p:column headerText="Item">
@@ -39,7 +38,8 @@
 
 						</p:column>
 						<p:column width="110px">
-							<p:button value="Törlés"></p:button>
+							<p:commandButton value="Törlés"
+								action="#{shoppingCartController.deleteOfferFromShoppingCart(cart.id)}"></p:commandButton>
 						</p:column>
 
 					</p:dataTable>

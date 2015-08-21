@@ -22,4 +22,8 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 	
 	List<Offer> findOfferByFeatured(boolean featured) throws Exception;
 	List<Offer> findOfferByParentOfferGroup(OfferGroup parent) throws Exception;
-	@Query("SELECT u FROM Offer u WHERE u.name LIKE CONCAT('%', :key, '%')") 	List<Offer> searchOffer(@Param("key")String key) throws Exception;}
+	
+	@Query("SELECT u FROM Offer u WHERE u.name LIKE CONCAT('%', :key, '%')") 
+	List<Offer> searchOffer(@Param("key")String key) throws Exception;
+	
+}

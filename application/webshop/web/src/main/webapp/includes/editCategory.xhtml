@@ -13,22 +13,22 @@
 				<table>
 				<tr>
 				<td><h:outputText value="Name: " name="outTxtNameNm"></h:outputText></td>
-				<td><h:inputText id="categoryName" required="true" value=""
+				<td><h:inputText id="categoryName" required="true" value="#{offerGroupController.name}"
 						requiredMessage="Please enter Category name"></h:inputText></td>
 						<h:outputLabel id="outLblCategoryNameId" for="categoryName"
 						name="outLblCategoryNameNm"></h:outputLabel>
 				</tr>
 				<tr>
 				<td><h:outputText value="Description: " name="outTxtDescriptionNm"></h:outputText></td>
-				<td><h:inputText id="categoryDescription" required="true" value=""
+				<td><h:inputText id="categoryDescription" required="false" value="#{offerGroupController.description}"
 						requiredMessage="Please enter Category description"></h:inputText></td>
 						<h:outputLabel id="outLblCategoryDescriptionId" for="categoryDescription"
 						name="outLblCategoryDescriptionNm"></h:outputLabel>
 				</tr>
 				</table>
 
-				<h:commandButton id="editCategorySave"  value="Save" action="close()"
-					styleClass="loginPanelBtn"></h:commandButton>
+				<h:commandButton id="editCategorySave"  value="Save" action="#{offerGroupController.updateSelected() }"
+					styleClass="loginPanelBtn" update="categoryDataTableId"></h:commandButton>
 
 			</h:form>
 		</h:panelGroup>

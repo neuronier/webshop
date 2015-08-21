@@ -33,7 +33,7 @@
 
 				<p:panel header="#{offer.id}" style="text-align:center">
 					<h:panelGrid columns="1" style="width:100%">
-						<p:graphicImage name="images/#{offer.name}.gif"/>
+						<p:graphicImage library="images" name="#{offer.name}.jpg"/>
 
 						<h:outputText value="#{offer.name}" />
 
@@ -56,11 +56,14 @@
 						rendered="#{not empty dataGridView.selectedOffer}"
 						columnClasses="label,value">
 						<f:facet name="header">
-							<p:graphicImage name="images/#{dataGridView.selectedOffer.name}-big.gif"/>
+							<p:graphicImage library="images" name="#{dataGridView.selectedOffer.name}-big.jpg"/>
 						</f:facet>
 
 						<h:outputText value="Name" />
 						<h:outputText value="#{dataGridView.selectedOffer.name}" />
+						
+						<h:outputText value="Description" />
+						<h:outputText value="#{dataGridView.selectedOffer.description}" />
 
 						<h:outputText value="Old Price" />
 						<h:outputText value="#{dataGridView.selectedOffer.originalCost}" />

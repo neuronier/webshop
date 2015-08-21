@@ -20,7 +20,7 @@
 				<p:fieldset name="header" legend="#{out.shoppingCart}">
 
 					<p:dataTable style="width:80%;"
-						value="shoppingCartController.offers" var="cart">
+						value="#{shoppingCartController.offers}" var="cart">
 						<p:column width="110px">
 							<p:graphicImage library="images"
 								name="#{cart.name}-big.jpg" />

@@ -35,7 +35,7 @@
 					<h:panelGrid columns="1" style="width:100%">
 						<p:graphicImage library="images" name="#{offer.name}.jpg"/>
 
-						<h:outputText value="#{offer.name}" />
+						<h:outputText value="#{offer.description}" />
 
 						<p:commandLink update=":form:offerDetail"
 							oncomplete="PF('offerDialog').show()" title="View Detail">
@@ -59,8 +59,6 @@
 							<p:graphicImage library="images" name="#{dataGridView.selectedOffer.name}-big.jpg"/>
 						</f:facet>
 
-						<h:outputText value="Name" />
-						<h:outputText value="#{dataGridView.selectedOffer.name}" />
 						
 						<h:outputText value="Description" />
 						<h:outputText value="#{dataGridView.selectedOffer.description}" />

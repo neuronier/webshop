@@ -91,7 +91,7 @@ public class CreateShema {
 
 				offerGroup.setName("Lap-topok");
 				offerGroup1.setName("Telefonok");
-				offerGroup2.setName("Akkumulátor Töltő");
+				offerGroup2.setName("Akkumulátor Töltö");
 				offerGroup3.setName("Elektronikus eszközök"); //parent
 
 				offerGroup.setDescription("Hordozható számítógépek");
@@ -109,7 +109,7 @@ public class CreateShema {
 				offerGroup2.setParentOfferGroup(offerGroup3);
 
 				Offer dto = new Offer();
-				dto.setDescription("1 db Lenovo");
+				dto.setDescription("1 db Lenovo laptop");
 				dto.setFeatured(true);
 				dto.setName("LenovoOffer");
 				dto.setOriginalCost(140000L);
@@ -131,7 +131,7 @@ public class CreateShema {
 				offerDAO.save(dto1);
 
 				Offer dto2 = new Offer();
-				dto2.setDescription("2 db Nexus telefon töltővel");
+				dto2.setDescription("2 db Nexus telefon töltövel");
 				dto2.setFeatured(true);
 				dto2.setName("NexusOffer");
 				dto2.setOriginalCost(80000L);
@@ -142,7 +142,7 @@ public class CreateShema {
 
 
 				Offer dto3 = new Offer();
-				dto3.setDescription("1 db Hama akkumulátor töltő 4 db elemmel");
+				dto3.setDescription("1 db Hama akkumulátor töltö 4 db elemmel");
 				dto3.setFeatured(true);
 				dto3.setName("HamaOffer");
 				dto3.setOriginalCost(4000L);

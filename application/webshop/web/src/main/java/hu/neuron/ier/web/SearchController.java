@@ -24,6 +24,7 @@ public class SearchController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	List<OfferVO> offers;
 	List<OfferGroupVO> offerGroups;
+	
 	private String key;
 	private String name;
 	private String newCost;
@@ -41,9 +42,30 @@ public class SearchController implements Serializable {
 		try {
 			// offerGroups = offerGroupService.searchOfferGroups(keyword);
 			offers =  new ArrayList<OfferVO>();
-
-            
-			offers = offerService.searchOffers(key);
+			offerGroups =  new ArrayList<OfferGroupVO>();
+			
+			offerGroups = offerGroupService.searchOfferGroups(key);
+            for (OfferGroupVO offerGroupVO : offerGroups) {
+            	List<OfferVO> childOffers = new ArrayList<OfferVO>();
+            	childOffers=offerService.getOffersByParentOfferGroup(offerGroupVO.getId());
+            	for (OfferVO childOfferVO : childOffers) {
+            		if (!(offers.contains(childOfferVO))) {
+            			offers.add(childOfferVO);
+            		}
+            		
+				}
+            	
+            	
+			}
+//           	List<OfferVO> myOffers = new ArrayList<OfferVO>();
+           
+			offerService.searchOffers(key) ;
+			for (OfferVO myOfferVO : offerService.searchOffers(key)) {
+        		if (!(offers.contains(myOfferVO))) {
+        			offers.add(myOfferVO);
+        		}
+        		
+			}
 
 		} catch (Exception e) {
 

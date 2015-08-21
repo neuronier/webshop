@@ -8,7 +8,6 @@ import hu.neuron.ier.business.orders.OrdersServiceRemote;
 
 
 
-import hu.neuron.ier.business.vo.OfferVO;
 import hu.neuron.ier.business.vo.OrdersVO;
 import hu.neuron.ier.core.dao.OrdersDao;
 

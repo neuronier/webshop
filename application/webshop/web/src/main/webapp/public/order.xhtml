@@ -12,8 +12,8 @@
 
 				<p:growl id="msgs" showDetail="true" />
 				<p:fieldset legend="Raktári rendelések" style="margin-bottom:20px">
-					<p:dataTable id="cars1" var="car" value="#{dtEditView.cars1}"
-						editable="true" style="margin-bottom:20px">
+					<p:dataTable id="ordersDataTableId" var="order"
+						value="#{orderController.orders}" sortMode="multiple">
 						<f:facet name="header">
            Rendelések
        </f:facet>
@@ -26,10 +26,10 @@
 						<p:column headerText="Id">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{car.id}" />
+									<h:outputText value="#{order.ordersId}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText id="modelInput" value="#{car.id}"
+									<p:inputText id="modelInput" value="#{order.ordersId}"
 										style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
@@ -38,10 +38,10 @@
 						<p:column headerText="Dátum">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{car.year}" />
+									<h:outputText value="#{order.date}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{car.year}" style="width:100%"
+									<p:inputText value="#{order.date}" style="width:100%"
 										label="Year" />
 								</f:facet>
 							</p:cellEditor>
@@ -50,10 +50,10 @@
 						<p:column headerText="Státusz">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{car.brand}" />
+									<h:outputText value="#{order.status}" />
 								</f:facet>
 								<f:facet name="input">
-									<h:selectOneMenu value="#{car.brand}" style="width:100%">
+									<h:selectOneMenu value="#{order.status}" style="width:100%">
 										<f:selectItems value="#{dtEditView.brands}" var="man"
 											itemLabel="#{man}" itemValue="#{man}" />
 									</h:selectOneMenu>

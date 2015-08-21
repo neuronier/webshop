@@ -5,6 +5,8 @@ import hu.neuron.ier.core.entity.OfferGroup;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,4 +17,7 @@ public interface OfferGroupDao extends JpaRepository<OfferGroup, Long> {
 
 	List<OfferGroup> findOfferGroupByName(String name) throws Exception;
 	List<OfferGroup> findOfferGroupByParentOfferGroup(OfferGroup parentOfferGroup) throws Exception;
+	
+	@Query("SELECT u FROM OfferGroup u WHERE u.name = :keyword")
+	List<OfferGroup> searchOfferGroup(@Param("keyword")String keyword) throws Exception;
 }

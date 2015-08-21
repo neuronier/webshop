@@ -24,6 +24,7 @@ public interface OfferServiceRemote {
 
 	OfferVO updateOfferName(Long id, String name) throws Exception;
 	
-	List<OfferVO> getOffersByParentOfferGroup(Long parentId) throws Exception;
-
+	List<OfferVO> getOffersByParentOfferGroup(Long parentId) throws Exception;	//kulcssz� alapj�n keres a le�r�sban �s a n�vben	
+	
+	List<OfferVO> searchOffers(String key) throws Exception;
 }

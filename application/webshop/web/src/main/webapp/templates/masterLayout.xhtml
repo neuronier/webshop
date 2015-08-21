@@ -44,8 +44,14 @@
 				url="/public/shoppingCart.xhtml" />
 
 			<f:facet name="options">
-				<p:inputText placeholder="Search" />
-				<p:button
+			<h:form>
+				<p:inputText placeholder="Search" value="#{searchController.key}" id="searchId" />
+				<p:commandButton icon="ui-icon-search" action="/public/searchResults.xhtml?faces-redirect=true">
+					<f:ajax execute="searchId"/>
+				</p:commandButton>
+			</h:form>
+				
+			<p:button
 					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
 					value="Selfcare" href="/public/clientSelfCare.xhtml" />
 				<p:button

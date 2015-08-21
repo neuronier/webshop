@@ -13,7 +13,7 @@
 				<p:growl id="msgs" showDetail="true" />
 				<p:fieldset legend="Raktári rendelések" style="margin-bottom:20px">
 					<p:dataTable id="ordersDataTableId" var="order"
-						value="#{orderController.orders}" sortMode="multiple">
+						value="#{orderController.orders}" sortMode="multiple" rowKey="#{order.id}">
 						<f:facet name="header">
            						Rendelések
        					</f:facet>

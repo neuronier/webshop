@@ -135,13 +135,6 @@ public class OfferGroupController implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		OfferGroupVO offerGroupVO = getSelectedOfferGroup();
 		try {
-			offerGroupVO.setParentOfferGroup(null);
-			List<OfferVO> childOffers = offerService.getOffersByParentOfferGroup(offerGroupVO.getId());
-			for(OfferVO offer : childOffers){
-				offer.setParentOfferGroup(null);
-				offerService.createOffer(offer);
-			}
-			offerGroupService.createOfferGroup(offerGroupVO);
 			offerGroupService.deleteOfferGroup(offerGroupVO.getId());
 			selection = false;
 			getAll();

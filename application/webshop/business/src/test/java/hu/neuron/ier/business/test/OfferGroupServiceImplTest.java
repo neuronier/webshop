@@ -112,6 +112,7 @@ public class OfferGroupServiceImplTest {
 	@Test
 	public void test7deleteOfferGroup() {
 		try {
+			offerGroupService.deleteOfferGroup(parentOfferGroup2.getId());
 			offerGroupService.deleteOfferGroup(offerGroup.getId());
 		} catch (Exception e) {
 			throw new RuntimeException(e);

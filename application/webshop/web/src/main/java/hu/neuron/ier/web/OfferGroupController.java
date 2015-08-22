@@ -34,15 +34,6 @@ public class OfferGroupController implements Serializable {
 	private String description = "";
 	private List<OfferGroupVO> allOfferGroup = null;
 	private OfferGroupVO selectedOfferGroup = null;
-	private Boolean selection = false;
-
-	public Boolean getSelection() {
-		return selection;
-	}
-
-	public void setSelection(Boolean selection) {
-		this.selection = selection;
-	}
 
 	public String getName() {
 		return name;
@@ -123,7 +114,7 @@ public class OfferGroupController implements Serializable {
 			offerGroupService.createOfferGroup(offerGroupVO);
 			setName("");
 			setDescription("");
-			selection = false;
+			selectedOfferGroup = null;
 			getAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -136,7 +127,7 @@ public class OfferGroupController implements Serializable {
 		OfferGroupVO offerGroupVO = getSelectedOfferGroup();
 		try {
 			offerGroupService.deleteOfferGroup(offerGroupVO.getId());
-			selection = false;
+			selectedOfferGroup = null;
 			getAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -145,15 +136,12 @@ public class OfferGroupController implements Serializable {
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		selection = true;
 		setName(getSelectedOfferGroup().getName());
 		setDescription(getSelectedOfferGroup().getDescription());
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
-		selection = false;
-		setName("");
-		setDescription("");
+		selectedOfferGroup = null;
 	}
 
 }

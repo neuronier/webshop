@@ -24,7 +24,8 @@ import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 @Remote(OfferGroupServiceRemote.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @Interceptors(SpringBeanAutowiringInterceptor.class)
-public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializable {
+public class OfferGroupServiceImpl implements OfferGroupServiceRemote,
+		Serializable {
 
 	private static final long serialVersionUID = -5417875507641978550L;
 
@@ -38,38 +39,43 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	OfferGroupConverter converter;
 
 	@Override
-	public OfferGroupVO createOfferGroup(OfferGroupVO offerGroupVO) throws Exception {
-		OfferGroupVO vo = converter.toVO(offerGroupDao.save(converter.toEntity(offerGroupVO)));
+	public OfferGroupVO createOfferGroup(OfferGroupVO offerGroupVO)
+			throws Exception {
+		OfferGroupVO vo = converter.toVO(offerGroupDao.save(converter
+				.toEntity(offerGroupVO)));
 		return vo;
 	}
 
 	@Override
 	public void deleteOfferGroup(Long id) throws Exception {
 		OfferGroup og = offerGroupDao.findOne(id);
-		//függőségek megszüntetése
-		//gyermek offergroup elemek összegyűjtése
-		List<OfferGroup> childOffergroups = offerGroupDao.findOfferGroupByParentOfferGroup(og);
-		//gyermekek szülőmezőjének nullázása
-		for(OfferGroup ogroup : childOffergroups){
-			ogroup.setParentOfferGroup(null);;
+		// függőségek megszüntetése
+		// gyermek offergroup elemek összegyűjtése
+		List<OfferGroup> childOffergroups = offerGroupDao
+				.findOfferGroupByParentOfferGroup(og);
+		// gyermekek szülőmezőjének nullázása
+		for (OfferGroup ogroup : childOffergroups) {
+			ogroup.setParentOfferGroup(null);
+			;
 			offerGroupDao.save(ogroup);
 		}
-		
-		//gyermek offer elemek összegyűjtése
+
+		// gyermek offer elemek összegyűjtése
 		List<Offer> childOffers = offerDao.findOfferByParentOfferGroup(og);
-		//gyermekek szülőmezőjének nullázása
-		for(Offer o: childOffers){
+		// gyermekek szülőmezőjének nullázása
+		for (Offer o : childOffers) {
 			o.setParentOfferGroup(null);
 			offerDao.save(o);
 		}
-		//mentés, hogy az adatbázisban is változzon
+		// mentés, hogy az adatbázisban is változzon
 		offerGroupDao.save(og);
-		//törlés függőségek nélkül
+		// törlés függőségek nélkül
 		offerGroupDao.delete(og);
 	}
 
 	@Override
-	public OfferGroupVO updateOfferGroupName(Long id, String name) throws Exception {
+	public OfferGroupVO updateOfferGroupName(Long id, String name)
+			throws Exception {
 		OfferGroup og = offerGroupDao.findOne(id);
 		og.setName(name);
 		OfferGroupVO vo = converter.toVO(offerGroupDao.save(og));
@@ -77,7 +83,8 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	}
 
 	@Override
-	public OfferGroupVO updateOfferGroupDescription(Long id, String description) throws Exception {
+	public OfferGroupVO updateOfferGroupDescription(Long id, String description)
+			throws Exception {
 		OfferGroup og = offerGroupDao.findOne(id);
 		og.setDescription(description);
 		OfferGroupVO vo = converter.toVO(offerGroupDao.save(og));
@@ -85,7 +92,8 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	}
 
 	@Override
-	public OfferGroupVO offerGroupToOfferGroup(Long id, Long parentId) throws Exception {
+	public OfferGroupVO offerGroupToOfferGroup(Long id, Long parentId)
+			throws Exception {
 		OfferGroup parent = offerGroupDao.findOne(parentId);
 		OfferGroup og = offerGroupDao.findOne(id);
 		og.setParentOfferGroup(parent);
@@ -94,7 +102,8 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	}
 
 	@Override
-	public OfferGroupVO offerToOfferGroup(Long offerId, Long offerGroupId) throws Exception {
+	public OfferGroupVO offerToOfferGroup(Long offerId, Long offerGroupId)
+			throws Exception {
 
 		Offer offer = offerDao.findOne(offerId);
 		OfferGroup og = offerGroupDao.findOne(offerGroupId);
@@ -108,10 +117,29 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote, Serializa
 	public List<OfferGroupVO> findAllOfferGroup() throws Exception {
 		return converter.toVO(offerGroupDao.findAll());
 	}
-	
+
 	@Override
 	public List<OfferGroupVO> searchOfferGroups(String key) throws Exception {
 		return converter.toVO(offerGroupDao.searchOfferGroup(key));
 	}
-	
+
+	/**
+	 * Metódus az összes olyan ajánlatcsoport lekérdezéséhez, aminek nincs szülő
+	 * csoportja
+	 */
+	@Override
+	public List<OfferGroupVO> findAllParentOfferGroups() throws Exception {
+
+		return converter.toVO(offerGroupDao
+				.findOfferGroupByParentOfferGroup(null));
+	}
+
+	@Override
+	public List<OfferGroupVO> findOfferGroupByParentOfferGroup(
+			OfferGroupVO parentOfferGroup) throws Exception {
+
+		return converter.toVO(offerGroupDao
+				.findOfferGroupByParentOfferGroup(converter.toEntity(parentOfferGroup)));
+	}
+
 }

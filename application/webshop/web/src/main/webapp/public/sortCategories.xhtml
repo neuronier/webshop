@@ -7,10 +7,10 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="pageTitle">Sort Categories</ui:define>
 	<ui:define name="content">
-		<div style="float: right">
+		<div align="center">
 			<h:form id="sortCategoriesForm">
 				<p:growl id="msgs" showDetail="true" />
-				<p:fieldset legend="Kategóriák sorrendje" style="width=80%">
+				<p:fieldset legend="Kategóriák sorrendje" >
 					<h:panelGrid columns="3">
 						<p:tree id="tree1" value="#{treeDNDView.root1}" var="node"
 							selectionMode="single" selection="#{treeDNDView.selectedNode1}"

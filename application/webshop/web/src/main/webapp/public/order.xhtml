@@ -7,66 +7,62 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="pageTitle">Rendelések</ui:define>
 	<ui:define name="content">
-		<div style="float: right">
+		<div class="whiteLetter" align="center">
 			<h:form id="form">
-
 				<p:growl id="msgs" showDetail="true" />
 				<p:fieldset legend="Raktári rendelések" style="margin-bottom:20px">
-					<p:dataTable id="ordersDataTableId" var="order"
-						value="#{orderController.orders}" sortMode="multiple" rowKey="#{order.id}">
-						<f:facet name="header">
-           						Rendelések
-       					</f:facet>
+					<p:dataTable id="eventsDT" var="order"
+						value="#{orderController.orders}" widgetVar="carsTable"
+						selectionMode="single"
+						selection="#{orderController.selectedOrder}" rowKey="#{order.id}"
+						emptyMessage="Valami nincs" stlye="width:100%;">
+						<p:ajax event="rowSelect"
+							listener="#{orderController.onRowSelect}" update=":form:msgs" />
+						<p:ajax event="rowUnselect"
+							listener="#{orderController.onRowUnselect}" update=":form:msgs" />
 
-						<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
-							update=":form:msgs" />
-						<p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}"
-							update=":form:msgs" />
-
-						<p:column headerText="Id">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{order.ordersId}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText id="modelInput" value="#{order.ordersId}"
-										style="width:100%" />
-								</f:facet>
-							</p:cellEditor>
+						<p:column headerText="Id" filterMatchMode="contains">
+							<h:outputText value="#{order.ordersId}" />
 						</p:column>
 
-						<p:column headerText="Dátum">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{order.date}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{order.date}" style="width:100%"
-										label="Year" />
-								</f:facet>
-							</p:cellEditor>
+						<p:column filterBy="#{order.date.getTime()}" headerText="Year"
+							filterMatchMode="lte">
+							<f:facet name="filter">
+								<p:spinner onchange="PF('carsTable').filter()"
+									styleClass="year-spinner">
+									<f:converter converterId="javax.faces.Integer" />
+								</p:spinner>
+							</f:facet>
+							<h:outputText value="#{order.date.getTime()}" />
 						</p:column>
 
-						<p:column headerText="Státusz">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{order.status}" />
-								</f:facet>
-								<f:facet name="input">
-									<h:selectOneMenu value="#{order.status}" style="width:100%">
-										<f:selectItems value="#{dtEditView.brands}" var="man"
-											itemLabel="#{man}" itemValue="#{man}" />
-									</h:selectOneMenu>
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
 
-						<p:column style="width:32px">
-							<p:rowEditor />
+						<p:column filterBy="#{car.sold}" headerText="Status"
+							filterMatchMode="equals">
+							<f:facet name="filter">
+								<p:selectOneButton onchange="PF('carsTable').filter()">
+									<f:converter converterId="javax.faces.Boolean" />
+									<f:selectItem itemLabel="All" itemValue="" />
+									<f:selectItem itemLabel="Sold" itemValue="true" />
+									<f:selectItem itemLabel="Sale" itemValue="false" />
+								</p:selectOneButton>
+							</f:facet>
+							<h:outputText value="#{car.sold ? 'Sold': 'Sale'}" />
 						</p:column>
 					</p:dataTable>
 					<p:button value="Új rendelés" href="/public/newOrder.xhtml"></p:button>
+					<p:button value="Módosítás" href="/public/newOrder.xhtml"></p:button>
+					<p:button value="Törlés" href="/public/newOrder.xhtml"></p:button>
 				</p:fieldset>
+				<p:dialog header="Selected Cars" widgetVar="multiCarDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+					width="200">
+					<p:outputPanel id="multiCarDetail" style="text-align:center;">
+						<ui:repeat value="#{orderController.selectedOrders}" var="order">
+							<h:outputText value="#{orders.id}" style="display:block" />
+						</ui:repeat>
+					</p:outputPanel>
+				</p:dialog>
 			</h:form>
 		</div>
 	</ui:define>

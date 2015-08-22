@@ -32,7 +32,13 @@ public class AdminController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** The manage user facade service. */
-
+	
+	private String fullName;
+	private String email;
+	private String phone;
+	private String userName;
+	private String password;
+	
 	@EJB(name = "UserService", mappedName = "UserService")
 	private UserServiceRemote userService;
 	
@@ -50,6 +56,24 @@ public class AdminController implements Serializable {
 
 	/** The user roles. */
 	private Set<RoleVO> userRoles = new HashSet<>();
+	
+	
+	public void createNewUser(){
+		UserVO userVO = new UserVO();
+		
+		
+		try {
+			userVO.setFullName(fullName);
+			userVO.setEmail(password);
+			userVO.setUserName(userName);
+			userVO.setPhone(phone);
+			userVO.setEmail(email);
+
+			userService.saveUser(userVO);
+		} catch (Exception e) {
+			
+		}
+	}
 
 	/**
 	 * Completes the text.
@@ -258,6 +282,54 @@ public class AdminController implements Serializable {
 
 	public void setUserService(UserServiceRemote userService) {
 		this.userService = userService;
+	}
+	
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public RoleServiceRemote getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(RoleServiceRemote roleService) {
+		this.roleService = roleService;
 	}
 
 }

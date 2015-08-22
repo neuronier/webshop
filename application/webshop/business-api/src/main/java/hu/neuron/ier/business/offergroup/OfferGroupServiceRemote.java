@@ -23,5 +23,5 @@ public interface OfferGroupServiceRemote {
 	OfferGroupVO offerToOfferGroup(Long offerId, Long offerGroupId) throws Exception;
 	
 	//kulcsszó alapján keres a leírásban és a névben
-	List<OfferGroupVO> searchOfferGroups(String keyword) throws Exception; 
+	List<OfferGroupVO> searchOfferGroups(String key) throws Exception; 
 }

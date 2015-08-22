@@ -10,29 +10,30 @@
 		<div style="float: right">
 			<h:form id="sortCategoriesForm">
 				<p:growl id="msgs" showDetail="true" />
-				<h:panelGrid columns="3">
-					<p:tree id="tree1" value="#{treeDNDView.root1}" var="node"
-						selectionMode="single" selection="#{treeDNDView.selectedNode1}"
-						draggable="true" droppable="true" dragdropScope="demo">
-						<p:ajax event="dragdrop" listener="#{treeDNDView.onDragDrop}"
-							update=":sortCategoriesForm:msgs" />
-						<p:treeNode>
-							<h:outputText value="#{node}" />
-						</p:treeNode>
-					</p:tree>
+				<p:fieldset legend="Kategóriák sorrendje" style="width=80%">
+					<h:panelGrid columns="3">
+						<p:tree id="tree1" value="#{treeDNDView.root1}" var="node"
+							selectionMode="single" selection="#{treeDNDView.selectedNode1}"
+							draggable="true" droppable="true" dragdropScope="demo">
+							<p:ajax event="dragdrop" listener="#{treeDNDView.onDragDrop}"
+								update=":sortCategoriesForm:msgs" />
+							<p:treeNode>
+								<h:outputText value="#{node}" />
+							</p:treeNode>
+						</p:tree>
+						<p:graphicImage library="images" name="transfer.png" />
 
-<!-- ide menne egy kép -->
-					<p:tree id="tree2" value="#{treeDNDView.root2}" var="node"
-						selectionMode="single" selection="#{treeDNDView.selectedNode2}"
-						draggable="true" droppable="true" dragdropScope="demo">
-						<p:ajax event="dragdrop" listener="#{treeDNDView.onDragDrop}"
-							update=":sortCategoriesForm:msgs" />
-						<p:treeNode>
-							<h:outputText value="#{node}" />
-						</p:treeNode>
-					</p:tree>
-				</h:panelGrid>
-
+						<p:tree id="tree2" value="#{treeDNDView.root2}" var="node"
+							selectionMode="single" selection="#{treeDNDView.selectedNode2}"
+							draggable="true" droppable="true" dragdropScope="demo">
+							<p:ajax event="dragdrop" listener="#{treeDNDView.onDragDrop}"
+								update=":sortCategoriesForm:msgs" />
+							<p:treeNode>
+								<h:outputText value="#{node}" />
+							</p:treeNode>
+						</p:tree>
+					</h:panelGrid>
+				</p:fieldset>
 			</h:form>
 		</div>
 	</ui:define>

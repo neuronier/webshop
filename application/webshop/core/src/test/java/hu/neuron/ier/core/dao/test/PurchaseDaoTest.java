@@ -5,6 +5,8 @@ import hu.neuron.ier.core.dao.PurchaseDao;
 import hu.neuron.ier.core.entity.Client;
 import hu.neuron.ier.core.entity.Purchase;
 
+import java.util.Calendar;
+
 import org.apache.log4j.Logger;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -26,6 +28,7 @@ public class PurchaseDaoTest {
 
 	private static Purchase purchase;
 	private static Client client;
+	private static Calendar date;
 
 	@Autowired
 	PurchaseDao purchaseDao;
@@ -39,7 +42,57 @@ public class PurchaseDaoTest {
 			purchase.setClient(client);
 			purchase.setFullCost(1l);
 			purchase.setStatus("ads");
-			purchaseDao.save(purchase);
+			date = new Calendar() {
+
+				@Override
+				public void roll(int field, boolean up) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public int getMinimum(int field) {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public int getMaximum(int field) {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public int getLeastMaximum(int field) {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public int getGreatestMinimum(int field) {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				protected void computeTime() {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				protected void computeFields() {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void add(int field, int amount) {
+					// TODO Auto-generated method stub
+
+				}
+			};
+			purchase = purchaseDao.save(purchase);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
@@ -60,7 +113,7 @@ public class PurchaseDaoTest {
 	@Test
 	public void test3FindByClient() {
 		try {
-			purchaseDao.findByClient(client);
+			purchaseDao.findByClient(purchase.getClient());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
@@ -78,7 +131,25 @@ public class PurchaseDaoTest {
 	}
 
 	@Test
-	public void test4Delete() {
+	public void test4findByDate() {
+		try {
+			purchaseDao.findByDate(purchase.getDate());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Test
+	public void test5findByStatus() {
+		try {
+			purchaseDao.findByStatus(purchase.getStatus());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Test
+	public void test6Delete() {
 		try {
 			purchaseDao.delete(purchase);
 		} catch (Exception e) {

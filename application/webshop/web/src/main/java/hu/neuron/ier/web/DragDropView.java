@@ -47,8 +47,6 @@ public class DragDropView implements Serializable {
 
 	private List<TreeNode> allNode;
 
-	private List<OfferGroupVO> allOfferGroup;
-
 	public List<TreeNode> getAllNode() {
 		return allNode;
 	}
@@ -66,15 +64,10 @@ public class DragDropView implements Serializable {
 		createTree(null, root1);
 	}
 
-	public void getAllOfferGroup() {
-		try {
-			allOfferGroup = offerGroupServiceRemote.findAllOfferGroup();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+	/**
+	 * Megkeresi az összes olyan ajánlatcsoportot aminek nincs szülője
+	 * @return az ajánlatcsoportok listájával tér vissza
+	 */
 	public List<OfferGroupVO> getAllParentOfferGroup() {
 		List<OfferGroupVO> parents = new ArrayList<OfferGroupVO>();
 		try {
@@ -86,17 +79,28 @@ public class DragDropView implements Serializable {
 		return parents;
 	}
 	
+	/**
+	 * Rekurzívan felépíti az ajánlatcsoportok fáját
+	 * @param parentOfferGroup A szülő ajánlatcsoport
+	 * @param parentNode A szülőcsomópont a fában
+	 */
 	public void createTree(OfferGroupVO parentOfferGroup, TreeNode parentNode){
 		try {
+			//össszes közvetlen gyermek lekérdezése
 			List<OfferGroupVO> lista = offerGroupServiceRemote.findOfferGroupByParentOfferGroup(parentOfferGroup);
 			TreeNode node;
+			//ha nincs gyermek akkor vége
 			if(lista.size() == 0){
 				return;
 			}
-			else{
+			else{ //különben be kell járni
 				for(OfferGroupVO ogv : lista){
+					//minden gyermeket hozzáadunk a fához
 					node = new DefaultTreeNode(ogv, parentNode);
+					node.setRowKey(((OfferGroupVO)(node.getData())).getName());
+					//felvesszük a listába
 					allNode.add(node);
+					//rekurzívan meghívjuk saját magára a metódust, hogy a gyermekeit is felvehessük
 					createTree(ogv, node);
 				}
 			}

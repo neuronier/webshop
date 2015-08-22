@@ -1,12 +1,16 @@
 package hu.neuron.ier.core;
 
+import hu.neuron.ier.core.dao.ClientDao;
 import hu.neuron.ier.core.dao.OfferDao;
 import hu.neuron.ier.core.dao.OfferGroupDao;
 import hu.neuron.ier.core.dao.RoleDao;
+import hu.neuron.ier.core.dao.ShoppingCartDao;
 import hu.neuron.ier.core.dao.UserDao;
+import hu.neuron.ier.core.entity.Client;
 import hu.neuron.ier.core.entity.Offer;
 import hu.neuron.ier.core.entity.OfferGroup;
 import hu.neuron.ier.core.entity.Role;
+import hu.neuron.ier.core.entity.ShoppingCart;
 import hu.neuron.ier.core.entity.User;
 
 import java.util.ArrayList;
@@ -30,6 +34,11 @@ public class CreateShema {
 	public OfferDao offerDAO;
 	@Autowired
 	public OfferGroupDao offerGroupDAO;
+	@Autowired
+	public ShoppingCartDao shoppingCartDao;
+	@Autowired
+	public ClientDao clientDao;
+
 	public void insertRoles() {
 		Role dto = null;
 		try {
@@ -52,10 +61,10 @@ public class CreateShema {
 			logger.error(e.getMessage(), e);
 		}
 	}
-	
+
 	public void insertUsersAndAddRole() {
 		try {
-			if (userDAO.findUserByName("admin") == null) {
+			if (userDAO.findUserByName("manager") == null) {
 				List<Role> roles = new ArrayList<Role>();
 				Role role;
 				User dto = new User();
@@ -64,7 +73,6 @@ public class CreateShema {
 				dto.setEmail("manager@email.hu");
 				dto.setPhone("4421123");
 				dto.setFullName("Full Name");
-				
 
 				role = roleDAO.findRoleByName("ROLE_ADMIN");
 				roles.add(role);
@@ -78,12 +86,12 @@ public class CreateShema {
 			logger.error(e.getMessage(), e);
 		}
 	}
-	
-	public void saveOffers(){
-		
+
+	public void saveOffers() {
+
 		try {
-			if (offerDAO.findOfferByName("LenovoOffer").isEmpty() ){
-				
+			if (offerDAO.findOfferByName("LenovoOffer").isEmpty()) {
+
 				OfferGroup offerGroup = new OfferGroup();
 				OfferGroup offerGroup1 = new OfferGroup();
 				OfferGroup offerGroup2 = new OfferGroup();
@@ -92,17 +100,17 @@ public class CreateShema {
 				offerGroup.setName("Lap-topok");
 				offerGroup1.setName("Telefonok");
 				offerGroup2.setName("Akkumulátor Töltö");
-				offerGroup3.setName("Elektronikus eszközök"); //parent
+				offerGroup3.setName("Elektronikus eszközök"); // parent
 
 				offerGroup.setDescription("Hordozható számítógépek");
 				offerGroup1.setDescription("Okos és nem okos telefonok");
 				offerGroup2.setDescription("Akkumulátor töltésre használatos eszközök");
 				offerGroup3.setDescription("Elektronikusan müködő eszközök");
 
-				offerGroup=offerGroupDAO.save(offerGroup);
-				offerGroup1=offerGroupDAO.save(offerGroup1);
-				offerGroup2=offerGroupDAO.save(offerGroup2);
-				offerGroup3=offerGroupDAO.save(offerGroup3);
+				offerGroup = offerGroupDAO.save(offerGroup);
+				offerGroup1 = offerGroupDAO.save(offerGroup1);
+				offerGroup2 = offerGroupDAO.save(offerGroup2);
+				offerGroup3 = offerGroupDAO.save(offerGroup3);
 
 				offerGroup.setParentOfferGroup(offerGroup3);
 				offerGroup1.setParentOfferGroup(offerGroup3);
@@ -118,7 +126,6 @@ public class CreateShema {
 
 				dto.setParentOfferGroup(offerGroup);
 				offerDAO.save(dto);
-
 
 				Offer dto1 = new Offer();
 				dto1.setDescription("1 db iPhone okostelefon ajándék tokkal");
@@ -140,7 +147,6 @@ public class CreateShema {
 				dto2.setParentOfferGroup(offerGroup1);
 				offerDAO.save(dto2);
 
-
 				Offer dto3 = new Offer();
 				dto3.setDescription("1 db Hama akkumulátor töltö 4 db elemmel");
 				dto3.setFeatured(true);
@@ -152,9 +158,35 @@ public class CreateShema {
 				offerDAO.save(dto3);
 			}
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void insertClientsAndAddRole() {
+		try {
+			if (clientDao.findByUserName("asdf") == null) {
+				Role role = roleDAO.findRoleByName("ROLE_CLIENT");
+				List<Role> roles = new ArrayList<Role>();
+				roles.add(role);
+				ShoppingCart shoppingCart = new ShoppingCart();
+				shoppingCart = shoppingCartDao.save(shoppingCart);
+
+				Client client = new Client();
+				client.setEmail("email");
+				client.setFullName("fullName");
+				client.setPassword("asdf");
+				client.setPhone("123");
+				client.setRoles(roles);
+				client.setShoppingCart(shoppingCart);
+				client.setUserName("asdf");
+
+				clientDao.save(client);
+			}
+
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 }

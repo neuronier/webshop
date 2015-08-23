@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Component
 @Transactional
@@ -69,7 +70,9 @@ public class CreateShema {
 				Role role;
 				User dto = new User();
 				dto.setUserName("manager");
-				dto.setPassword("pass");
+				BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+				String encPassword = bCryptPasswordEncoder.encode("pass");
+				dto.setPassword(encPassword);
 				dto.setEmail("manager@email.hu");
 				dto.setPhone("4421123");
 				dto.setFullName("Full Name");

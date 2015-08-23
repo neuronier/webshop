@@ -17,15 +17,22 @@
     <ui:define name="content">
     
     	<p:dialog header="Effects" widgetVar="createUser" showEffect="explode"
-			hideEffect="bounce" mheight="100" modal="true">
+			hideEffect="explode" mheight="100" modal="true">
 			<h:form>
+			<h:panelGrid columns="2" cellpadding="5">
+			<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+			
 				<h:outputLabel for="userName" value="Name:" style="font-weight:bold" />
 				<p:inputText id="userName" required="true"
 					value="#{adminController.userName}" />
 				 
 				<h:outputLabel for="password" value="Password:" style="font-weight:bold" />	
-				<p:inputText id="password" required="true"
-					value="#{adminController.password}" />
+				<p:password id="password" required="true"
+					match="passwordid" value="#{adminController.password}" />
+					
+				<h:outputLabel for="passwordid" value="Pass again:" style="font-weight:bold" />	
+				<p:password id="passwordid" required="true"
+					value="#{adminController.password2}" />
 				
 				<h:outputLabel for="fullName" value="Full Name:" style="font-weight:bold" />		
 				<p:inputText id="fullName" required="true"
@@ -38,10 +45,16 @@
 				<h:outputLabel for="phone" value="Phone:" style="font-weight:bold" />
 				<p:inputText id="phone" required="true"
 					value="#{adminController.phone}" />
+				</h:panelGrid>	
+				<div id="createBtnPanelId">	
+				
 				<p:commandButton value="Create" id="create"
 					actionListener="#{adminController.createNewUser}"
-					update=":growl, :adminForm" icon="ui-icon-disk"
+					update=":growl, :adminForm" icon="ui-icon-check"
 					oncomplete="PF('createUser').hide();" />
+				</div>
+			
+			</h:panelGrid>
 			</h:form>
 		</p:dialog>
 		

@@ -12,6 +12,7 @@
 
 	<ui:define name="content">
 		<h:form id="form">
+			<p:fieldset legend="role" style="margin-bottom:20px">
 			<p:dataTable var="role" value="#{roleController.lazyRoleModel}"
 				paginator="true" rows="10"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
@@ -49,7 +50,7 @@
 					</div>
 				</div>
 			</div>
-
+		</p:fieldset>
 		</h:form>
 		<p:dialog header="Effects" widgetVar="createRole" showEffect="explode"
 			hideEffect="bounce" mheight="100" modal="true">

@@ -51,9 +51,10 @@
 			</h:form>
 		</p:dialog>
 
-
+		
 		<h:form id="offerForm">
 			<p:growl id="msgs" showDetail="true" />
+			<p:fieldset legend="Ajánlatok" style="margin-bottom:20px">
 			<p:dataTable id="offerTable" var="currentOffer"
 				value="#{offerController.lazyOfferModel}" selectionMode="single"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
@@ -62,10 +63,10 @@
 				emptyMessage="#{out.empty_message}">
 
 				<p:ajax event="rowSelect" listener="#{offerController.onRowSelect}"
-					update=":offerForm,:offerCommandsForm" />
+					update=":offerForm" />
 				<p:ajax event="rowUnselect"
 					listener="#{offerController.onRowUnselect}"
-					update=":offerForm,:offerCommandsForm" />
+					update=":offerForm" />
 
 				<p:column headerText="name">
 					<h:outputText value="#{currentOffer.name}" />
@@ -88,14 +89,16 @@
 					<h:outputText value="#{currentOffer.originalCost}" />
 				</p:column>
 			</p:dataTable>
-		</h:form>
-		
-		<h:form id="offerCommandsForm">
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:commandButton value="Update Offer" type="button" disabled="#{offerController.selectedOffer == null}"
 					onclick="PF('updateOffer').show();" />
 			</h:panelGrid>
+			</p:fieldset>
 		</h:form>
+		
+		
+			
+		
 
 	</ui:define>
 </ui:composition>

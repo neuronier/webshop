@@ -1,6 +1,7 @@
 package hu.neuron.ier.web;
 
 
+import hu.neuron.ier.business.client.ClientServiceRemote;
 import hu.neuron.ier.business.role.RoleServiceRemote;
 import hu.neuron.ier.business.user.UserServiceRemote;
 import hu.neuron.ier.business.vo.RoleVO;
@@ -20,6 +21,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * Controller for the admin site.
@@ -32,7 +34,24 @@ public class AdminController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** The manage user facade service. */
+	
+	private String fullName;
+	private String email;
+	private String phone;
+	private String userName;
+	private String password;
+	private String password2;
+	
+	public String getPassword2() {
+		return password2;
+	}
 
+	public void setPassword2(String password2) {
+		this.password2 = password2;
+	}
+	@EJB(name = "ClientService", mappedName = "ClientService")
+	private ClientServiceRemote clientService;
+	
 	@EJB(name = "UserService", mappedName = "UserService")
 	private UserServiceRemote userService;
 	
@@ -50,6 +69,43 @@ public class AdminController implements Serializable {
 
 	/** The user roles. */
 	private Set<RoleVO> userRoles = new HashSet<>();
+	
+	
+	public void createNewUser(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		UserVO userVO = new UserVO();
+		
+		try {
+			if (!password.equals(getPassword2())) {
+				context.addMessage(null, new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, "Error!",
+						"Password not match"));
+				
+			} else if ((userService.findUserByName(userName)) != null || (clientService.findClientByName(userName) != null)) {
+				context.addMessage(null, new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, "Error!",
+						"Sorry we already have a user with this name"));
+				
+			}
+			userVO.setUserName(userName);
+			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+			String encPassword = bCryptPasswordEncoder.encode(password);
+			userVO.setPassword(encPassword);
+			userVO.setFullName(fullName);
+			userVO.setPhone(phone);
+			userVO.setEmail(email);
+
+			userService.saveUser(userVO);
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			context.addMessage(null, new FacesMessage(
+					FacesMessage.SEVERITY_INFO, "Info",
+					"Creating new user is successful!"));
+		} catch (Exception e) {e.printStackTrace();
+		context.addMessage(null, new FacesMessage(
+				FacesMessage.SEVERITY_ERROR, "Error!", e.getMessage()));
+			
+		}
+	}
 
 	/**
 	 * Completes the text.
@@ -258,6 +314,54 @@ public class AdminController implements Serializable {
 
 	public void setUserService(UserServiceRemote userService) {
 		this.userService = userService;
+	}
+	
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public RoleServiceRemote getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(RoleServiceRemote roleService) {
+		this.roleService = roleService;
 	}
 
 }

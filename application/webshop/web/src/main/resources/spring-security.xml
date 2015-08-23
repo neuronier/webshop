@@ -5,11 +5,13 @@
 
 	<security:http disable-url-rewriting="false" authentication-manager-ref="authenticationManager">
 		<security:access-denied-handler
-			error-page="/public/accessdenied.jsp" />
+			error-page="/public/accesdenied.xhtml" />
 		<security:csrf disabled="true" />
 		<security:headers disabled="true" />
-		<security:intercept-url pattern="/secured/**"
-			access="hasAnyRole('USER','ADMIN')" /> 
+		<security:intercept-url pattern="/secured"
+			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<security:intercept-url pattern="/secured/admin/**"
+			access="hasRole('ROLE_ADMIN')" />	 
 		<security:form-login login-page="/public/login.xhtml"
 			login-processing-url="/login" default-target-url="/index.xhtml"
 			authentication-failure-url="/public/login.xhtml?error=1"

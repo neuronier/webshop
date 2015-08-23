@@ -104,7 +104,22 @@
         <dependent-module archiveName="aspectjweaver-1.8.5.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/aspectj/aspectjweaver/1.8.5/aspectjweaver-1.8.5.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="trontastic-1.0.10.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/primefaces/themes/trontastic/1.0.10/trontastic-1.0.10.jar">
+        <dependent-module archiveName="spring-security-web-4.0.1.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/security/spring-security-web/4.0.1.RELEASE/spring-security-web-4.0.1.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-web-4.1.6.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-web/4.1.6.RELEASE/spring-web-4.1.6.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-config-4.0.1.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/security/spring-security-config/4.0.1.RELEASE/spring-security-config-4.0.1.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-core-4.0.1.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/security/spring-security-core/4.0.1.RELEASE/spring-security-core-4.0.1.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-taglibs-3.2.7.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/security/spring-security-taglibs/3.2.7.RELEASE/spring-security-taglibs-3.2.7.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-acl-3.2.7.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/springframework/security/spring-security-acl/3.2.7.RELEASE/spring-security-acl-3.2.7.RELEASE.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

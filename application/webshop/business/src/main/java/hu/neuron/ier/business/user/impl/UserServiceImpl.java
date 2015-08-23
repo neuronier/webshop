@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserServiceRemote, Serializable {
 	public UserVO registrationUser(UserVO userVO) throws Exception {
 		User user = userDao.save(userConverter.toEntity(userVO));
 		Role role = roleDao.findRoleByName("ROLE_USER");
+		
 		roleDao.addRoleToUser(user.getId(), role.getId());
 		return userConverter.toVO(user);
 	}

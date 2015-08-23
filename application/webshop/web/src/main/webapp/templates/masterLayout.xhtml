@@ -28,15 +28,24 @@
 		<p:menubar style="margin:10px">
 			<p:menuitem value="#{out.home}" url="/" />
 
-
+			<sec:authorize ifAllGranted="ROLE_ADMIN">
 			<p:submenu label="Admin" icon="ui-icon-gear">
-				<p:menuitem value="Users" url="/secured/users.xhtml"
+				<p:menuitem value="Felhasználók" url="/secured/admin/users.xhtml"
 					icon="fa fa-user" />
-				<p:menuitem value="Role" url="/secured/roles.xhtml"
+				<p:menuitem value="Role" url="/secured/admin/roles.xhtml"
 					icon="fa fa-user" />
-				<p:menuitem value="Categories" url="/public/categories.xhtml"
-					action="#{offerGroupController.getAll}" />
 			</p:submenu>
+			
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+			<p:submenu label="User" icon="ui-icon-gear">
+				<p:menuitem value="Kategóriák" url="/secured/categories.xhtml" action="#{offerGroupController.getAll()}"
+					 />
+				<p:menuitem value="Rendelés" url="/secured/order.xhtml" action="#{orderController.createOrders()}"/>	 
+			</p:submenu>
+			
+			</sec:authorize>
+			
 
 			<p:menuitem value="Rendelés" url="/public/order.xhtml"
 				action="#{orderController.createOrders}" />

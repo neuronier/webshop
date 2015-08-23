@@ -49,22 +49,26 @@
 						</p:column>
 						<f:facet name="footer"></f:facet>
 					</p:dataTable>
+
 					<p:commandButton value="Create Category" id="btnCreateCategory"
-						update="growl" icon="fa-plus"
+						update="growl" icon="ui-icon-plusthick"
 						onclick="PF('createCategoryDialog').show();" />
+
 					<p:button value="Sort Categories" id="btnSortCategories"
-						icon="fa-cogs" href="/public/sortCategories.xhtml" />
+						icon="ui-icon-wrench" href="/public/sortCategories.xhtml" />
+
 					<p:commandButton value="Edit Selected" id="btnEditCategory"
-						icon="fa fa-fw fa-edit"
+						icon="ui-icon-pencil"
 						disabled="#{offerGroupController.selectedOfferGroup == null}"
 						onclick="PF('editCategoryDialog').show();" />
+
 					<p:commandButton value="Delete Selected" id="btnDeleteCategory"
-						update="categoryFormId" icon="fa-remove"
+						update="categoryFormId" icon="ui-icon-minusthick"
 						disabled="#{offerGroupController.selectedOfferGroup == null}"
 						action="#{offerGroupController.deleteSelected()}" />
-					
+
 					<p:commandButton value="Add Offer to Selected" id="btnAddOffer"
-						icon="fa fa-fw fa-edit"
+						icon="ui-icon-suitcase"
 						disabled="#{offerGroupController.selectedOfferGroup == null}"
 						action="#{offerGroupController.setupOffers()}"
 						update=":addOfferFormId" onclick="PF('addOffersDialog').show();" />

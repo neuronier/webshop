@@ -52,18 +52,23 @@
 			</sec:authorize>
 			
 
+			<p:menuitem value="Rendelés" url="/public/order.xhtml"
+				action="#{orderController.createOrders}" />
+
 			<p:menuitem value="#{out.shoppingCart}"
 				url="/public/shoppingCart.xhtml" />
 
 			<f:facet name="options">
-			<h:form>
-				<p:inputText placeholder="Search" value="#{searchController.key}" id="searchId" />
-				<p:commandButton icon="ui-icon-search" action="/public/searchResults.xhtml?faces-redirect=true">
-					<f:ajax execute="searchId"/>
-				</p:commandButton>
-			</h:form>
-				
-			<p:button
+				<h:form>
+					<p:inputText placeholder="Search" value="#{searchController.key}"
+						id="searchId" />
+					<p:commandButton icon="ui-icon-search"
+						action="/public/searchResults.xhtml?faces-redirect=true">
+						<f:ajax execute="searchId" />
+					</p:commandButton>
+				</h:form>
+
+				<p:button
 					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
 					value="Selfcare" href="/public/clientSelfCare.xhtml" />
 				<p:button
@@ -79,26 +84,12 @@
 			</f:facet>
 		</p:menubar>
 		<div id="categoryMenuDiv" style="float: left; margin: 10px">
-			<h:form>
+			<h:form id="categoryMenuFormId">
 				<p:growl autoUpdate="true" />
 
-				<p:panelMenu style="width:200px;">
-					<p:submenu label="Telefon">
-						<p:submenu label="OkosTelefon">
-							<p:menuitem value="Apple" />
-							<p:menuitem value="Microsoft" />
-							<p:menuitem value="Samsung" />
-						</p:submenu>
-						<p:submenu label="NemOkosTelefon">
-							<p:menuitem value="3210" />
-							<p:menuitem value="3310" />
-						</p:submenu>
-					</p:submenu>
-					<p:submenu label="Laptop">
-						<p:menuitem value="ASUS" />
-						<p:menuitem value="HP" />
-					</p:submenu>
-				</p:panelMenu>
+				<p:panelMenu style="width:200px;"
+					model="#{categoryMenuController.model}" />
+
 			</h:form>
 		</div>
 		<div id="contentDiv" style="margin: 10px">

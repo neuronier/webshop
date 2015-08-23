@@ -9,14 +9,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.TransferEvent;
 import org.primefaces.event.UnselectEvent;
+import org.primefaces.model.DualListModel;
+import org.springframework.ui.context.Theme;
 
 /**
  * Vezérlő osztály az ajánlatcsoporttal kapcsolatos funkciókhoz.
@@ -25,8 +32,9 @@ import org.primefaces.event.UnselectEvent;
  *
  */
 @ViewScoped
+@FacesConverter("offerVoConverter")
 @ManagedBean(name = "offerGroupController")
-public class OfferGroupController implements Serializable {
+public class OfferGroupController implements Serializable, Converter {
 
 	private static final long serialVersionUID = 7624392370791189825L;
 
@@ -34,6 +42,25 @@ public class OfferGroupController implements Serializable {
 	private String description = "";
 	private List<OfferGroupVO> allOfferGroup = null;
 	private OfferGroupVO selectedOfferGroup = null;
+	private DualListModel<OfferVO> offers = null;
+	private List<OfferVO> offerSource;
+	private List<OfferVO> offerTarget;
+
+	public List<OfferVO> getOfferSource() {
+		return offerSource;
+	}
+
+	public void setOfferSource(List<OfferVO> offerSource) {
+		this.offerSource = offerSource;
+	}
+
+	public List<OfferVO> getOfferTarget() {
+		return offerTarget;
+	}
+
+	public void setOfferTarget(List<OfferVO> offerTarget) {
+		this.offerTarget = offerTarget;
+	}
 
 	public String getName() {
 		return name;
@@ -65,6 +92,14 @@ public class OfferGroupController implements Serializable {
 
 	public void setSelectedOfferGroup(OfferGroupVO selectedOfferGroup) {
 		this.selectedOfferGroup = selectedOfferGroup;
+	}
+
+	public DualListModel<OfferVO> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(DualListModel<OfferVO> offers) {
+		this.offers = offers;
 	}
 
 	@EJB(name = "OfferGroupService", mappedName = "OfferGroupService")
@@ -135,6 +170,57 @@ public class OfferGroupController implements Serializable {
 		}
 	}
 
+	@PostConstruct
+	public void initOffers() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		// Offers
+		offerSource = new ArrayList<OfferVO>();
+		offerTarget = new ArrayList<OfferVO>();
+		offers = new DualListModel<OfferVO>(offerSource, offerTarget);
+	}
+
+	public void setupOffers() {
+		try {
+			offerSource = offerService.getOffersByParentOfferGroup(-1L);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			offerTarget = offerService
+					.getOffersByParentOfferGroup(selectedOfferGroup.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		offers = new DualListModel<OfferVO>(offerSource, offerTarget);
+
+	}
+
+	public void addOffers() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		OfferGroupVO ogVO = getSelectedOfferGroup();
+		for (OfferVO ovo : offers.getTarget()) {
+			ovo.setParentOfferGroup(ogVO);
+			try {
+				offerService.createOffer(ovo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		for (OfferVO ovo : offers.getSource()) {
+			ovo.setParentOfferGroup(null);
+			try {
+				offerService.createOffer(ovo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		selectedOfferGroup = null;
+	}
+
 	public void onRowSelect(SelectEvent event) {
 		setName(getSelectedOfferGroup().getName());
 		setDescription(getSelectedOfferGroup().getDescription());
@@ -142,6 +228,49 @@ public class OfferGroupController implements Serializable {
 
 	public void onRowUnselect(UnselectEvent event) {
 		selectedOfferGroup = null;
+	}
+
+	public void onTransfer(TransferEvent event) {
+
+	}
+
+	public void onSelect(SelectEvent event) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Item Selected", event.getObject().toString()));
+	}
+
+	public void onUnselect(UnselectEvent event) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Item Unselected", event.getObject().toString()));
+	}
+
+	public void onReorder() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"List Reordered", null));
+	}
+
+	@Override
+	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
+		OfferVO offerVO = new OfferVO();
+		try {
+			offerVO = offerService.getOfferById(Long.valueOf(arg2));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return offerVO;
+	}
+
+	@Override
+	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
+
+		return ((OfferVO) arg2).getId().toString();
 	}
 
 }

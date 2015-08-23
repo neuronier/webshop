@@ -1,22 +1,19 @@
 package hu.neuron.ier.web;
 
 import hu.neuron.ier.business.orders.OrdersServiceRemote;
-import hu.neuron.ier.business.vo.OrderElementVO;
+
 import hu.neuron.ier.business.vo.OrdersVO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
-import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 @ViewScoped
 @ManagedBean(name = "orderController")
@@ -27,81 +24,50 @@ public class OrderController implements Serializable {
 	@EJB(name = "OrdersService", mappedName = "OrdersService")
 	OrdersServiceRemote ordersService;
 
-	private Long id;
-	private Long ordersId;
-	private Calendar date;
-	private Collection<OrderElementVO> orderElements;
-	private String status;
-	private List<OrdersVO> orders;
+	private List<OrdersVO> orders = new ArrayList<OrdersVO>();
+	
+	private List<OrdersVO> selectedOrders;
+	private OrdersVO selectedOrder;
 
-	public Long getId() {
-		return id;
+	public void updateOrders() throws Exception {
+		orders.addAll(ordersService.getAllOrders());
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getOrdersId() {
-		return ordersId;
-	}
-
-	public void setOrdersId(Long ordersId) {
-		this.ordersId = ordersId;
-	}
-
-	public Calendar getDate() {
-		return date;
-	}
-
-	public void setDate(Calendar date) {
-		this.date = date;
-	}
-
-	public Collection<OrderElementVO> getOrderElements() {
-		return orderElements;
-	}
-
-	public void setOrderElements(Collection<OrderElementVO> orderElements) {
-		this.orderElements = orderElements;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public List<OrdersVO> getOrders() {
+	public List<OrdersVO> getOrders() throws Exception {
+		this.updateOrders();
 		return orders;
 	}
 
 	public void setOrders(List<OrdersVO> orders) {
 		this.orders = orders;
 	}
+ 
+    public OrdersVO getSelectedOrder() {
+        return selectedOrder;
+    }
+ 
+    public void setSelectedOrder(OrdersVO selectedOrder) {
+        this.selectedOrder = selectedOrder;
+    }
+ 
+    public List<OrdersVO> getSelectedOrders() {
+        return selectedOrders;
+    }
+ 
+    public void setSelectedCars(List<OrdersVO> selectedOrders) {
+        this.selectedOrders = selectedOrders;
+    }
+    
+    public void onRowSelect(SelectEvent event) {
+    	String id = String.valueOf(((OrdersVO) event.getObject()).getId());
+        FacesMessage msg = new FacesMessage("Car Selected", id);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+ 
+    public void onRowUnselect(UnselectEvent event) {
+    	String id = String.valueOf(((OrdersVO) event.getObject()).getId());
+        FacesMessage msg = new FacesMessage("Car Unselected", id);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
-	public List<OrdersVO> createOrders() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		try {
-			orders = new ArrayList<OrdersVO>();
-			orders = ordersService.getAllOrders();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return orders;
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Car Edited",
-				((OrdersVO) event.getObject()).getId().toString());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edit Cancelled",
-				((OrdersVO) event.getObject()).getId().toString());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
 }

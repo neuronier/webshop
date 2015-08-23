@@ -104,4 +104,10 @@ public class OfferVO implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return name + "_" + id;
+	}
+	
+
 }

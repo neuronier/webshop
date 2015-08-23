@@ -117,4 +117,12 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 		return offers;
 	}
 
+	@Override
+	public OfferVO getOfferById(Long id) throws Exception {
+		
+		return converter.toVO(offerDao.findOne(id));
+	}
+	
+	
+
 }

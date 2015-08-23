@@ -1,6 +1,7 @@
 package hu.neuron.ier.core.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -8,10 +9,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "OrderElement")
-public class OrderElement extends BaseEntity{
+public class OrderElement extends BaseEntity {
 
 	private static final long serialVersionUID = 6410356804561545056L;
-	
+	@ManyToOne
 	private ProductType productType;
 	private int quanty;
 
@@ -31,6 +32,4 @@ public class OrderElement extends BaseEntity{
 		this.productType = productType;
 	}
 
-	
-	
 }

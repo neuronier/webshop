@@ -10,7 +10,7 @@
 		<div align="center">
 			<h:form id="sortCategoriesForm">
 				<p:growl id="msgs" showDetail="true" />
-				<p:fieldset legend="Kategóriák sorrendje" >
+				<p:fieldset legend="Kategóriák sorrendje">
 					<h:panelGrid columns="3">
 						<p:tree id="tree1" value="#{treeDNDView.root1}" var="node"
 							selectionMode="single" selection="#{treeDNDView.selectedNode1}"
@@ -33,7 +33,10 @@
 							</p:treeNode>
 						</p:tree>
 					</h:panelGrid>
-					<p:commandButton value="Vissza a kategóriákhoz" icon="fa fa-arrow-left" action="/public/categories.xhtml"></p:commandButton>
+					<p:commandButton value="Vissza a kategóriákhoz"
+						icon="ui-icon-arrowreturnthick-1-w"
+						action="/public/categories.xhtml"
+						update="categoryMenuFormId"></p:commandButton>
 				</p:fieldset>
 			</h:form>
 		</div>

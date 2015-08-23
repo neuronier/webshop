@@ -13,9 +13,14 @@
 				<h:panelGrid columns="2" cellpadding="5">
 					<p:pickList id="addOfferPickList"
 						value="#{offerGroupController.offers}" var="offer"
-						itemLabel="#{offer.name}" itemValue="#{offer}" converter="#{offerGroupController}"/>
+						itemLabel="#{offer.name}" itemValue="#{offer}"
+						converter="#{offerGroupController}">
+						<f:facet name="sourceCaption">Available</f:facet>
+						<f:facet name="targetCaption">Added</f:facet>
+					</p:pickList>
 					<p:commandButton id="btnAddOfferSave" value="Save"
-						action="#{offerGroupController.addOffers()}" oncomplete="PF('addOffersDialog').hide()"
+						icon="ui-icon-check" action="#{offerGroupController.addOffers()}"
+						oncomplete="PF('addOffersDialog').hide()"
 						update=":categoryFormId:categoryDataTableId, :categoryFormId:btnEditCategory, :categoryFormId:btnDeleteCategory, :categoryFormId:btnAddOffer">
 					</p:commandButton>
 

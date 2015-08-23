@@ -227,18 +227,7 @@ public class AdminController implements Serializable {
 		this.userRoles = userRoles;
 	}
 
-	/**
-	 * Gets the manage user facade service.
-	 *
-	 * @return the manage user facade service
-	 */
-
-	/**
-	 * Sets the manage user facade service.
-	 *
-	 * @param manageUserFacadeService
-	 *            the new manage user facade service
-	 */
+	
 
 	/**
 	 * Gets the selected user.

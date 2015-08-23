@@ -1,11 +1,15 @@
 package hu.neuron.ier.business.offer;
 
 import hu.neuron.ier.business.converter.OfferConverter;
+import hu.neuron.ier.business.user.UserServiceRemote;
 import hu.neuron.ier.business.vo.OfferVO;
+import hu.neuron.ier.business.vo.UserVO;
 import hu.neuron.ier.core.dao.OfferDao;
 import hu.neuron.ier.core.dao.OfferGroupDao;
+import hu.neuron.ier.core.entity.Offer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,6 +20,11 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 @Stateless(mappedName = "OfferService", name = "OfferService")
@@ -28,6 +37,9 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 
 	@Autowired
 	OfferDao offerDao;
+	
+	@EJB
+	UserServiceRemote offerService;
 
 	@Autowired
 	OfferGroupDao offerGroupDao;
@@ -123,6 +135,48 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 		return converter.toVO(offerDao.findOne(id));
 	}
 	
+	@Override
+	public List<OfferVO> getOfferList() throws Exception {
+		List<OfferVO> vos = converter.toVO(offerDao.findAll());
+
+		return vos;
+	}
 	
+	@Override
+	public List<OfferVO> getOfferList(int page, int pageSize, String sortField, int dir,
+			String filter, String filterColumnName) throws Exception {
+
+		Direction direction = dir == 1 ? Sort.Direction.ASC : Sort.Direction.DESC;
+		PageRequest pageRequest = new PageRequest(page, pageSize, new Sort(new Order(direction,
+				sortField)));
+		List<OfferVO> vos = new ArrayList<OfferVO>(pageSize);
+		Page<Offer> entities;
+
+		if (filter.length() != 0 && filterColumnName.equals("name")) {
+			entities = offerDao.findByNameStartsWith(filter, pageRequest);
+		} else {
+			entities = offerDao.findAll(pageRequest);
+		}
+
+		if (entities != null && entities.getSize() > 0) {
+			List<Offer> contents = entities.getContent();
+			for (Offer offer : contents) {
+				vos.add(converter.toVO(offer));
+			}
+		}
+		return vos;
+	}
+	
+	@Override
+	public int getRowNumber() throws Exception {
+
+		return (int) offerDao.count();
+	}
+	
+	@Override
+	public OfferVO saveOffer(OfferVO selectedOffer) throws Exception {
+		OfferVO vo = converter.toVO(offerDao.save(converter.toEntity(selectedOffer)));
+		return vo;
+	}
 
 }

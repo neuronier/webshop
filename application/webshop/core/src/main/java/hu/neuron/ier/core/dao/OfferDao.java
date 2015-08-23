@@ -2,9 +2,12 @@ package hu.neuron.ier.core.dao;
 
 import hu.neuron.ier.core.entity.Offer;
 import hu.neuron.ier.core.entity.OfferGroup;
+import hu.neuron.ier.core.entity.User;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +28,7 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 	
 	@Query("SELECT u FROM Offer u WHERE u.name LIKE CONCAT('%', :key, '%')") 
 	List<Offer> searchOffer(@Param("key")String key) throws Exception;
+	
+	Page<Offer> findByNameStartsWith(String filter,Pageable pageable);
 	
 }

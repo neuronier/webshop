@@ -137,9 +137,31 @@
                         update=":adminForm:msgs,:adminCommandsForm,:updateUserDialog" /> 
 
                 <p:column headerText="#{out.userform_username}"
-                          sortBy="#{currentUser.userName}" filterBy="#{currentUser.userName}">
+                          sortBy="#{currentUser.userName}" >
                     <h:outputText value="#{currentUser.userName}" />
                 </p:column>
+                
+                <p:column headerText="#{out.userform_username}"
+                          sortBy="#{currentUser.userName}" >
+                    <h:outputText value="#{currentUser.userName}" />
+                </p:column>
+                
+                <p:column headerText="Full name"
+                          sortBy="#{currentUser.fullName}" >
+                    <h:outputText value="#{currentUser.fullName}" />
+                </p:column>
+                
+                <p:column headerText="Phone"
+                          sortBy="#{currentUser.phone}" >
+                    <h:outputText value="#{currentUser.phone}" />
+                </p:column>
+                
+                <p:column headerText="Email"
+                          sortBy="#{currentUser.email}" >
+                    <h:outputText value="#{currentUser.email}" />
+                </p:column>
+                
+                
                
 
             </p:dataTable>

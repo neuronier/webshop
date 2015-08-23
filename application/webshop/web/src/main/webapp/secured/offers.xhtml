@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml">
+
+
+	<ui:define name="pageTitle">#{out.admin_title}</ui:define>
+	<ui:define name="header"> -> #{out.admin_title}</ui:define>
+
+	<ui:define name="head-extra">
+		<!-- custom css -->
+	</ui:define>
+
+	<ui:define name="content">
+
+		<p:dialog header="Effects" widgetVar="updateOffer"
+			showEffect="explode" hideEffect="explode" mheight="100" modal="true">
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+
+						<h:outputLabel for="newCostId" value="New cost:"
+							style="font-weight:bold" />
+						<p:inputText id="newCostId" required="true"
+							value="#{offerController.newCost}" />
+
+						<h:outputLabel for="actionID" value="Akciós"
+							style="font-weight:bold" />
+						<p:selectBooleanCheckbox id="actionID"
+							value="#{offerController.action}" />
+
+						<h:outputLabel for="featuredID" value="Kiemelt"
+							style="font-weight:bold" />
+						<p:selectBooleanCheckbox id="featuredID"
+							value="#{offerController.featured}" />
+
+					</h:panelGrid>
+
+					<div id="updateBtnPanelId">
+
+						<p:commandButton value="Update" id="update"
+							actionListener="#{offerController.updateOffer}"
+							update=":growl, :offerForm" icon="ui-icon-check"
+							oncomplete="PF('updateOffer').hide();" />
+					</div>
+
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+		<h:form id="offerForm">
+			<p:growl id="msgs" showDetail="true" />
+			<p:dataTable id="offerTable" var="currentOffer"
+				value="#{offerController.lazyOfferModel}" selectionMode="single"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" lazy="true" paginator="true" rows="10"
+				selection="#{offerController.selectedOffer}"
+				emptyMessage="#{out.empty_message}">
+
+				<p:ajax event="rowSelect" listener="#{offerController.onRowSelect}"
+					update=":offerForm,:offerCommandsForm" />
+				<p:ajax event="rowUnselect"
+					listener="#{offerController.onRowUnselect}"
+					update=":offerForm,:offerCommandsForm" />
+
+				<p:column headerText="name">
+					<h:outputText value="#{currentOffer.name}" />
+				</p:column>
+
+				<p:column headerText="Price">
+
+					<h:outputText value="#{currentOffer.newCost}" />
+				</p:column>
+
+				<p:column headerText="Akciós">
+					<h:outputText value="#{currentOffer.action}" />
+				</p:column>
+
+				<p:column headerText="Kiemelt">
+					<h:outputText value="#{currentOffer.featured}" />
+				</p:column>
+
+				<p:column headerText="Eredeti ar">
+					<h:outputText value="#{currentOffer.originalCost}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+		<h:form id="offerCommandsForm">
+			<h:panelGrid columns="4" cellpadding="5">
+				<p:commandButton value="Update Offer" type="button" disabled="#{offerController.selectedOffer == null}"
+					onclick="PF('updateOffer').show();" />
+			</h:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

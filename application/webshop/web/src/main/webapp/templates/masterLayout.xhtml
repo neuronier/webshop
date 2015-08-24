@@ -29,36 +29,31 @@
 			<p:menuitem value="#{out.home}" url="/" />
 
 			<sec:authorize ifAllGranted="ROLE_ADMIN">
-			<p:submenu label="Admin" icon="ui-icon-gear">
-				<p:menuitem value="Felhasználók" url="/secured/admin/users.xhtml"
-					icon="fa fa-user" />
-				<p:menuitem value="Role" url="/secured/admin/roles.xhtml"
-					icon="fa fa-user" />
-			</p:submenu>
-			
+				<p:submenu label="Admin" icon="ui-icon-gear">
+					<p:menuitem value="Felhasználók" url="/secured/admin/users.xhtml"
+						icon="fa fa-user" />
+					<p:menuitem value="Role" url="/secured/admin/roles.xhtml"
+						icon="fa fa-user" />
+				</p:submenu>
+
 			</sec:authorize>
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-			<p:submenu label="User" icon="ui-icon-gear">
-				<p:menuitem value="Kategóriák" url="/secured/categories.xhtml" action="#{offerGroupController.getAll()}"
-					 />
-				<p:menuitem value="Rendelés" url="/secured/order.xhtml" action="#{orderController.createOrders()}"/>	 
-				<p:menuitem value="Ajánlatok"
-				url="/secured/offers.xhtml" />
-			</p:submenu>
-			
-			
-			
-			
-			</sec:authorize>
-			
+				<p:submenu label="User" icon="ui-icon-gear">
+					<p:menuitem value="Kategóriák" url="/secured/categories.xhtml"
+						action="#{offerGroupController.getAll()}" />
+					<p:menuitem value="Rendelés" url="/secured/order.xhtml"
+						action="#{orderController.createOrders()}" />
+					<p:menuitem value="Ajánlatok" url="/secured/offers.xhtml" />
+				</p:submenu>
 
-			
+			</sec:authorize>
 
 			<p:menuitem value="#{out.shoppingCart}"
 				url="/public/shoppingCart.xhtml" />
 
 			<f:facet name="options">
-				<h:form>
+				<div  class='lfloat' >
+				<h:form >
 					<p:inputText placeholder="Search" value="#{searchController.key}"
 						id="searchId" />
 					<p:commandButton icon="ui-icon-search"
@@ -66,10 +61,12 @@
 						<f:ajax execute="searchId" />
 					</p:commandButton>
 				</h:form>
-
-				<p:button
+				</div>
+				<div  style="float: left" >
+				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="Bejelentkezve, mint " />
+				<p:commandLink
 					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
-					value="Selfcare" href="/public/clientSelfCare.xhtml" />
+					value="#{request.userPrincipal.name} " action="/public/clientSelfCare.xhtml" />
 				<p:button
 					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}"
 					href="/public/login.xhtml" value="#{out.login}"
@@ -80,6 +77,7 @@
 					href="/public/registration.xhtml" />
 				<p:button rendered="#{not empty request.remoteUser}" href="/logout"
 					value="Logout" icon="ui-icon-circle-close" />
+				</div>
 			</f:facet>
 		</p:menubar>
 		<div id="categoryMenuDiv" style="float: left; margin: 10px">

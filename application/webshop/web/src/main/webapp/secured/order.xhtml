@@ -9,60 +9,65 @@
 	<ui:define name="content">
 		<div class="whiteLetter" align="center">
 			<h:form id="form">
-				<p:growl id="msgs" showDetail="true" />
+				<p:growl id="msgs" life="2000" />
 				<p:fieldset legend="Raktári rendelések" style="margin-bottom:20px">
 					<p:dataTable id="eventsDT" var="order"
 						value="#{orderController.orders}" widgetVar="carsTable"
 						selectionMode="single"
 						selection="#{orderController.selectedOrder}" rowKey="#{order.id}"
-						emptyMessage="Valami nincs" stlye="width:100%;">
-						<p:ajax event="rowSelect"
-							listener="#{orderController.onRowSelect}" update=":form:msgs" />
-						<p:ajax event="rowUnselect"
-							listener="#{orderController.onRowUnselect}" update=":form:msgs" />
-
-						<p:column headerText="Id" filterMatchMode="contains">
+						emptyMessage="Valami nincs" stlye="width:100%;" rows="10" paginator="true">
+							 <p:ajax event="rowSelect" update=":form"/>
+						<p:column headerText="OrdersId"
+							sortBy="#{order.odersId}"
+							filterBy="#{order.ordersId}"
+							filterMatchMode="contains">
 							<h:outputText value="#{order.ordersId}" />
 						</p:column>
 
-						<p:column filterBy="#{order.date.getTime()}" headerText="Year"
-							filterMatchMode="lte">
-							<f:facet name="filter">
-								<p:spinner onchange="PF('carsTable').filter()"
-									styleClass="year-spinner">
-									<f:converter converterId="javax.faces.Integer" />
-								</p:spinner>
-							</f:facet>
+						<p:column filterBy="#{order.date.getTime()}" headerText="Datum"
+							sortBy="#{order.date.getTime()}"
+							filterMatchMode="contains">
 							<h:outputText value="#{order.date.getTime()}" />
 						</p:column>
 
-
-						<p:column filterBy="#{car.sold}" headerText="Status"
+						<p:column filterBy="#{order.status}" headerText="Status"
 							filterMatchMode="equals">
 							<f:facet name="filter">
 								<p:selectOneButton onchange="PF('carsTable').filter()">
 									<f:converter converterId="javax.faces.Boolean" />
-									<f:selectItem itemLabel="All" itemValue="" />
-									<f:selectItem itemLabel="Sold" itemValue="true" />
-									<f:selectItem itemLabel="Sale" itemValue="false" />
+									<f:selectItem itemLabel="Mind" itemValue="" />
+									<f:selectItem itemLabel="Kész" itemValue="Kész" />
+									<f:selectItem itemLabel="Folyamatban" itemValue="Folyamatban" />
 								</p:selectOneButton>
 							</f:facet>
-							<h:outputText value="#{car.sold ? 'Sold': 'Sale'}" />
+							<h:outputText value="#{order.status ? 'Kész': 'Folyamatban'}" />
 						</p:column>
 					</p:dataTable>
-					<p:button value="Új rendelés" href="/public/newOrder.xhtml"></p:button>
-					<p:button value="Módosítás" href="/public/newOrder.xhtml"></p:button>
-					<p:button value="Törlés" href="/public/newOrder.xhtml"></p:button>
+					
+					<p:button value="Új Rendelés" href="/secured/newOrder.xhtml"></p:button>
+					<p:button value="Módosítás" href="/secured/newOrder.xhtml"></p:button>
+					<p:commandButton value="Törlés" update="eventsDT"
+						action="#{orderController.deleteSelected}"
+						styleClass="ui-priority-primary" />
 				</p:fieldset>
-				<p:dialog header="Selected Cars" widgetVar="multiCarDialog"
-					modal="true" appendTo="@(body)" showEffect="fade" hideEffect="fade" resizable="false"
-					width="200">
-					<p:outputPanel id="multiCarDetail" style="text-align:center;">
-						<ui:repeat value="#{orderController.selectedOrders}" var="order">
-							<h:outputText value="#{orders.id}" style="display:block" />
-						</ui:repeat>
-					</p:outputPanel>
-				</p:dialog>
+				
+				<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+					<h:outputText style="color: white;" value="Id:"
+						name="outTxtUserNameNm" />
+					<p:inputText id="id"
+						value="#{orderController.id}"
+						requiredMessage="Please enter username" />
+
+					<h:outputText style="color: white;" value="Státusz:" />
+					<p:inputText id="status" value="#{orderController.status}"
+						label="status"/>
+				</h:panelGrid>
+
+				<div id="loginBtnPanelId">
+					<p:commandButton id="btnLoginId" value="Rendelés"
+						update="form" action="#{orderController.addOrder()}"
+						styleClass="loginPanelBtn" icon="ui-icon-check" />
+				</div>
 			</h:form>
 		</div>
 	</ui:define>

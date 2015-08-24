@@ -46,7 +46,7 @@
 					</p:dataGrid>
 
 					<p:dialog header="Offer Info" widgetVar="offerDialog" modal="true"
-						showEffect="fade" hideEffect="fade" resizable="false">
+						showEffect="fade" appendTo="@(body)" hideEffect="fade" resizable="false">
 						<p:outputPanel id="offerDetail" style="text-align:center;">
 							<p:panelGrid columns="2"
 								rendered="#{not empty dataGridView.selectedOffer}"

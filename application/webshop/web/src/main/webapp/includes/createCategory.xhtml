@@ -7,7 +7,7 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 
 	<p:dialog header="Create Category" widgetVar="createCategoryDialog" showEffect="slide"
-		hideEffect="clip"  resizable="false" height="100">
+		hideEffect="clip"  appendTo="@(body)" resizable="false" height="100">
 		<h:panelGroup>
 			<h:form id="createCategoryFormId" prependId="false">
 				<table>

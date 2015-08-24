@@ -18,8 +18,7 @@
 			username-parameter="username" password-parameter="password" />
 		<security:logout logout-url="/logout"
 			logout-success-url="/index.xhtml" />
-		<security:remember-me  key="key"
-			remember-me-parameter="remember-me" token-validity-seconds="86400" user-service-ref="customClientDetailsService"/>
+		
 	</security:http>
 
 <!-- 	<security:authentication-manager id="authenticationManager"> -->

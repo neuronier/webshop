@@ -20,7 +20,8 @@
 				<p:fieldset name="header" legend="#{out.shoppingCart}">
 
 					<p:dataTable style="width:80%;"
-						value="#{shoppingCartController.offers}" var="cart">
+						value="#{shoppingCartController.offers}" var="cart"
+						onExpandStart="#{shoppingCartController.loadTable()}">
 						<p:column width="110px">
 							<p:graphicImage library="images" name="#{cart.name}-big.jpg" />
 						</p:column>
@@ -38,14 +39,17 @@
 
 						</p:column>
 						<p:column width="110px">
-							<p:commandButton value="Törlés"
-								action="#{shoppingCartController.deleteOfferFromShoppingCart(cart.id)}"></p:commandButton>
+							<p:commandButton value="Törlés" update="form"
+								actionListener="#{shoppingCartController.deleteOfferFromShoppingCart(cart.id)}">
+
+							</p:commandButton>
 						</p:column>
 
 					</p:dataTable>
 
 
-					<p:button value="Összes törlése" style="float: left"></p:button>
+					<p:button value="Összes törlése" style="float: left"
+						onclick="#{shoppingCartController.deleteAllOfferFromShoppingCart()}" />
 					<p:button value="Fizetés" style="float: left"></p:button>
 				</p:fieldset>
 			</h:form>

@@ -10,9 +10,9 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "shoppingCartController")
 public class ShoppingCartController implements Serializable {
 
@@ -25,21 +25,8 @@ public class ShoppingCartController implements Serializable {
 
 	private List<OfferVO> offers = new ArrayList<OfferVO>();
 
-	public void updateOffers() throws Exception {
-		offers.addAll(offerService.getAllOffers());
-	}
-
-	public List<OfferVO> getOffers() throws Exception {
-		this.updateOffers();
-		return offers;
-	}
-
-	public void setOffers(List<OfferVO> offers) {
-		this.offers = offers;
-	}
-
 	public void addOfferToShoppingCart(OfferVO offerVO) {
-		
+		offers.add(offerVO);
 	}
 
 	public OfferVO findOfferInShoppingCart(Long id) {
@@ -52,9 +39,21 @@ public class ShoppingCartController implements Serializable {
 		return offerVO;
 	}
 
-	public void deleteOfferFromShoppingCart(Long id) {
-		OfferVO offerVO = findOfferInShoppingCart(id);
+	public void deleteOfferFromShoppingCart(Long selectedId) throws Exception {
+		OfferVO offerVO = findOfferInShoppingCart(selectedId);
 		offers.remove(offerVO);
+	}
+
+	public void deleteAllOfferFromShoppingCart() throws Exception {
+		offers.removeAll(offers);
+	}
+
+	public List<OfferVO> getOffers() {
+		return offers;
+	}
+
+	public void setOffers(List<OfferVO> offers) {
+		this.offers = offers;
 	}
 
 }

@@ -26,41 +26,47 @@
 
 		<h:outputStylesheet library="default" name="css/masterLayout.css" />
 		<p:menubar style="margin:10px">
-			<p:menuitem value="#{out.home}" url="/" />
+			<p:menuitem value="#{out.home}" url="/" icon="ui-icon-home"/>
 
 			<sec:authorize ifAllGranted="ROLE_ADMIN">
-			<p:submenu label="Admin" icon="ui-icon-gear">
-				<p:menuitem value="Felhasználók" url="/secured/admin/users.xhtml"
-					icon="fa fa-user" />
-				<p:menuitem value="Role" url="/secured/admin/roles.xhtml"
-					icon="fa fa-user" />
-			</p:submenu>
-			
+				<p:submenu label="Admin" icon="ui-icon-gear">
+					<p:menuitem value="Felhasználók" url="/secured/admin/users.xhtml"
+						icon="fa fa-user" />
+					<p:menuitem value="Role" url="/secured/admin/roles.xhtml"
+						icon="fa fa-user" />
+				</p:submenu>
+
 			</sec:authorize>
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-			<p:submenu label="User" icon="ui-icon-gear">
-				<p:menuitem value="Kategóriák" url="/secured/categories.xhtml" action="#{offerGroupController.getAll()}"
-					 />
-				<p:menuitem value="Rendelés" url="/secured/order.xhtml" action="#{orderController.createOrders()}"/>	 
-			</p:submenu>
-			
+				<p:submenu label="User" icon="ui-icon-gear">
+					<p:menuitem value="Kategóriák" url="/secured/categories.xhtml"
+						action="#{offerGroupController.getAll()}" />
+					<p:menuitem value="Rendelés" url="/secured/order.xhtml"
+						action="#{orderController.createOrders()}" />
+					<p:menuitem value="Ajánlatok" url="/secured/offers.xhtml" />
+				</p:submenu>
+
 			</sec:authorize>
-			
 
 			<p:menuitem value="#{out.shoppingCart}"
-				url="/public/shoppingCart.xhtml" />
+				url="/public/shoppingCart.xhtml" icon="ui-icon-cart" />
 
 			<f:facet name="options">
-			<h:form>
-				<p:inputText placeholder="Search" value="#{searchController.key}" id="searchId" />
-				<p:commandButton icon="ui-icon-search" action="/public/searchResults.xhtml?faces-redirect=true">
-					<f:ajax execute="searchId"/>
-				</p:commandButton>
-			</h:form>
-				
-			<p:button
+				<div  class='lfloat' >
+				<h:form >
+					<p:inputText placeholder="Search" value="#{searchController.key}"
+						id="searchId" />
+					<p:commandButton icon="ui-icon-search"
+						action="/public/searchResults.xhtml?faces-redirect=true">
+						<f:ajax execute="searchId" />
+					</p:commandButton>
+				</h:form>
+				</div>
+				<div  style="float: left" >
+				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="Bejelentkezve, mint " />
+				<p:commandLink
 					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
-					value="Selfcare" href="/public/clientSelfCare.xhtml" />
+					value="#{request.userPrincipal.name} " action="/public/clientSelfCare.xhtml" />
 				<p:button
 					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}"
 					href="/public/login.xhtml" value="#{out.login}"
@@ -71,29 +77,16 @@
 					href="/public/registration.xhtml" />
 				<p:button rendered="#{not empty request.remoteUser}" href="/logout"
 					value="Logout" icon="ui-icon-circle-close" />
+				</div>
 			</f:facet>
 		</p:menubar>
 		<div id="categoryMenuDiv" style="float: left; margin: 10px">
-			<h:form>
+			<h:form id="categoryMenuFormId">
 				<p:growl autoUpdate="true" />
 
-				<p:panelMenu style="width:200px;">
-					<p:submenu label="Telefon">
-						<p:submenu label="OkosTelefon">
-							<p:menuitem value="Apple" />
-							<p:menuitem value="Microsoft" />
-							<p:menuitem value="Samsung" />
-						</p:submenu>
-						<p:submenu label="NemOkosTelefon">
-							<p:menuitem value="3210" />
-							<p:menuitem value="3310" />
-						</p:submenu>
-					</p:submenu>
-					<p:submenu label="Laptop">
-						<p:menuitem value="ASUS" />
-						<p:menuitem value="HP" />
-					</p:submenu>
-				</p:panelMenu>
+				<p:panelMenu style="width:200px;"
+					model="#{categoryMenuController.model}" />
+
 			</h:form>
 		</div>
 		<div id="contentDiv" style="margin: 10px">

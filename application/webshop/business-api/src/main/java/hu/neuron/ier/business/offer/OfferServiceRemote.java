@@ -1,6 +1,7 @@
 package hu.neuron.ier.business.offer;
 
 import hu.neuron.ier.business.vo.OfferVO;
+import hu.neuron.ier.business.vo.UserVO;
 
 import java.util.List;
 
@@ -29,4 +30,15 @@ public interface OfferServiceRemote {
 	List<OfferVO> searchOffers(String key) throws Exception;
 	
 	OfferVO getOfferById(Long id) throws Exception;
+	
+	public List<OfferVO> getOfferList() throws Exception;
+	
+	List<OfferVO> getOfferList(int page, int pageSize, String sortField, int dir,
+			String filter, String filterColumnName) throws Exception;
+	
+	int getRowNumber() throws Exception;
+
+	OfferVO saveOffer(OfferVO selectedOffer) throws Exception;
+	
+	
 }

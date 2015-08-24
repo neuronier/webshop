@@ -27,8 +27,9 @@
 				</tr>
 				</table>
 
-				<h:commandButton id="createCategorySave" value="Save" action="#{offerGroupController.createOfferGroup()}"
-					styleClass="loginPanelBtn" update="categoryDataTableId" onclick="#{offerGroupController.getAll()}"></h:commandButton>
+				<h:commandButton id="createCategorySave" value="Save" action="#{offerGroupController.createOfferGroup}"
+					styleClass="loginPanelBtn" update="categoryDataTableId, categoryMenuFormId" onclick="#{offerGroupController.getAll()}" 
+					actionListener="#{categoryMenuController.init()}"></h:commandButton>
 
 			</h:form>
 		</h:panelGroup>

@@ -17,7 +17,13 @@ body {
 	background-repeat: no-repeat;
 	/* 				background-color: green; */
 }
-
+.ui-widget {
+    font-size: 90%;
+ }
 .whiteLetter{
         color: white;
+}
+
+.lfloat {
+ float:left;
 }

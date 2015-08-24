@@ -22,6 +22,8 @@
 	</h:head>
 
 	<h:body>
+		<p:layout fullPage="true">
+		<p:layoutUnit position="north">
 		<p:growl id="growl" showDetail="true" autoUpdate="true" />
 
 		<h:outputStylesheet library="default" name="css/masterLayout.css" />
@@ -29,27 +31,27 @@
 			<p:menuitem value="#{out.home}" url="/" icon="ui-icon-home"/>
 
 			<sec:authorize ifAllGranted="ROLE_ADMIN">
-				<p:submenu label="Admin" icon="ui-icon-gear">
+				
 					<p:menuitem value="Felhasználók" url="/secured/admin/users.xhtml"
 						icon="fa fa-user" />
 					<p:menuitem value="Role" url="/secured/admin/roles.xhtml"
 						icon="fa fa-user" />
-				</p:submenu>
+				
 
 			</sec:authorize>
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-				<p:submenu label="User" icon="ui-icon-gear">
+				
 					<p:menuitem value="Kategóriák" url="/secured/categories.xhtml"
 						action="#{offerGroupController.getAll()}" />
 					<p:menuitem value="Rendelés" url="/secured/order.xhtml"
 						action="#{orderController.createOrders()}" />
 					<p:menuitem value="Ajánlatok" url="/secured/offers.xhtml" />
-				</p:submenu>
+					
 
 			</sec:authorize>
 
-			<p:menuitem value="#{out.shoppingCart}"
-				url="/public/shoppingCart.xhtml" icon="ui-icon-cart" />
+			<p:menuitem 
+				url="/public/shoppingCart.xhtml" value="#{out.shoppingCart}" icon="ui-icon-cart" />	
 
 			<f:facet name="options">
 				<div  class='lfloat' >
@@ -64,41 +66,51 @@
 				</div>
 				<div  style="float: left" >
 				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="Bejelentkezve, mint " />
-				<p:commandLink
+				[<p:commandLink
 					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
-					value="#{request.userPrincipal.name} " action="/public/clientSelfCare.xhtml" />
+					value="#{request.userPrincipal.name}" action="/public/clientSelfCare.xhtml" />]
+				
 				<p:button
 					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}"
-					href="/public/login.xhtml" value="#{out.login}"
-					icon="ui-icon-locked" type="button" />
+					href="/public/login.xhtml" value="#{out.login}" type="button"
+					icon="ui-icon-locked"  />
 				<p:button
 					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('registration.xhtml')}"
-					type="button" value="#{out.signup}" icon="ui-icon-gear"
+					 value="#{out.signup}" type="button"
 					href="/public/registration.xhtml" />
-				<p:button rendered="#{not empty request.remoteUser}" href="/logout"
-					value="Logout" icon="ui-icon-circle-close" />
+				<p:button rendered="#{not empty request.remoteUser}" type="button" href="/logout"
+					value="Kijelentkezés"  />
 				</div>
 			</f:facet>
 		</p:menubar>
-		<div id="categoryMenuDiv" style="float: left; margin: 10px">
-			<h:form id="categoryMenuFormId">
-				<p:growl autoUpdate="true" />
+		</p:layoutUnit>
+			<p:layoutUnit position="center" style="z-index: -1;">
+				<div id="categoryMenuDiv" style="float: left; margin: 10px">
+					<h:form id="categoryMenuFormId">
+						<p:growl autoUpdate="true" />
 
-				<p:panelMenu style="width:200px;"
-					model="#{categoryMenuController.model}" />
+						<p:panelMenu style="width:200px;"
+							model="#{categoryMenuController.model}" />
 
-			</h:form>
-		</div>
-		<div id="contentDiv" style="margin: 10px">
-			<div class="ui-wrap-content" style="height: 100%;">
-				<div id="content">
-					<div id="contentInside">
-						<ui:insert name="content" />
+					</h:form>
+				</div>
+
+
+				<div id="contentDiv" style="margin: 10px">
+					<div class="ui-wrap-content" style="height: 100%;">
+						<div id="content">
+							<div id="contentInside">
+								<ui:insert name="content" />
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-
+			</p:layoutUnit>
+			<p:layoutUnit position="south">
+				
+				<div style="float: center">IER Webshop 2015</div>
+			</p:layoutUnit>
+		</p:layout>
 	</h:body>
 
 </f:view>

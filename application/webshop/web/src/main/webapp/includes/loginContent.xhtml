@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 
-	<p:dialog header="Login" widgetVar="loginDialog" showEffect="explode"
+	<p:dialog header="Login" widgetVar="loginDialog" appendTo="@(body)"  showEffect="explode"
 		hideEffect="bounce" height="100">
 		<h:panelGroup>
 			<h:form id="loginFormId" prependId="false">

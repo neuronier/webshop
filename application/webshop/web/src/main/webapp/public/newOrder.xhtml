@@ -34,7 +34,7 @@
 						</f:facet>
 					</p:dataTable>
 					<p:dialog header="Car Info" widgetVar="carDialog" modal="true"
-						showEffect="slide" hideEffect="explode" resizable="false">
+						showEffect="slide" appendTo="@(body)" hideEffect="explode" resizable="false">
 						<p:outputPanel id="carDetail" style="text-align:center;">
 							<p:panelGrid columns="2"
 								rendered="#{not empty dtSelectionView.selectedCar}"
@@ -61,7 +61,7 @@
 					</p:dialog>
 
 					<p:dialog header="Selected Cars" widgetVar="multiCarDialog"
-						modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+						modal="true" appendTo="@(body)"  showEffect="fade" hideEffect="fade" resizable="false"
 						width="200">
 						<p:outputPanel id="multiCarDetail" style="text-align:center;">
 							<ui:repeat value="#{dtSelectionView.selectedCars}" var="car">

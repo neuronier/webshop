@@ -55,7 +55,7 @@
 					<p:button value="Törlés" href="/public/newOrder.xhtml"></p:button>
 				</p:fieldset>
 				<p:dialog header="Selected Cars" widgetVar="multiCarDialog"
-					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+					modal="true" appendTo="@(body)" showEffect="fade" hideEffect="fade" resizable="false"
 					width="200">
 					<p:outputPanel id="multiCarDetail" style="text-align:center;">
 						<ui:repeat value="#{orderController.selectedOrders}" var="order">

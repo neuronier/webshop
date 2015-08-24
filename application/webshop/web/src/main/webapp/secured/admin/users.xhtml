@@ -17,7 +17,7 @@
     <ui:define name="content">
     
     	<p:dialog header="Effects" widgetVar="createUser" showEffect="explode"
-			hideEffect="explode" mheight="100" modal="true">
+			hideEffect="explode" mheight="100" modal="true" appendTo="@(body)" >
 			<h:form>
 			<h:panelGrid columns="2" cellpadding="5">
 			<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
@@ -58,9 +58,9 @@
 			</h:form>
 		</p:dialog>
 		
-        <p:dialog id="updateUserDialog" width="50%"
+        <p:dialog id="updateUserDialog" appendTo="@(body)" width="50%"
                   header="#{out.userform_user}" widgetVar="dlg_edit"
-                  modal="true" resizable="false">
+                  modal="true" resizable="false" appendToBody="true">
             <h:form id="dialogForm">
                 <div class="ui-grid ui-grid-responsive ui-grid-row ui-grid-col-2">
                     <h:panelGrid columns="2" style="width:100%" cellpadding="5">

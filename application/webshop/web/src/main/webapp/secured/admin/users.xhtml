@@ -99,7 +99,7 @@
                             <h:outputText value="#{role.name}" />
                         </p:column> 
                     </p:dataTable>
-
+					<h:panelGrid columns="4" cellpadding="5">
                     <p:commandButton update=":adminForm" ajax="false"
                                      validateClient="true" action="#{adminController.updateUser()}"
                                      icon="ui-icon-eject" title="#{orders_create_dialog_create}"
@@ -115,12 +115,13 @@
                                      action="#{adminController.unselect()}" icon="ui-icon-close"
                                      value="#{out.userform_cancel}">
                     </p:commandButton>
-
+					</h:panelGrid>
 
                 </div>
             </h:form>
         </p:dialog>
         <h:form id="adminForm">
+        	<p:fieldset legend="Felhasználók" style="margin-bottom:20px">
             <p:growl id="msgs" showDetail="true" />
             <p:dataTable id="userTable" var="currentUser"
                          value="#{adminBean.userModel}" selectionMode="single"
@@ -130,21 +131,18 @@
                          emptyMessage="#{out.empty_message}">
 
                 <p:ajax event="rowSelect" listener="#{adminController.onRowSelect}" 
-                        update=":adminForm:msgs,:adminCommandsForm,:updateUserDialog" /> 
+                        update=":adminForm:msgs,:updateUserDialog" /> 
                         
                 <p:ajax event="rowUnselect" 
                         listener="#{adminController.onRowUnselect}" 
-                        update=":adminForm:msgs,:adminCommandsForm,:updateUserDialog" /> 
+                        update=":adminForm:msgs,:updateUserDialog" /> 
 
                 <p:column headerText="#{out.userform_username}"
                           sortBy="#{currentUser.userName}" >
                     <h:outputText value="#{currentUser.userName}" />
                 </p:column>
                 
-                <p:column headerText="#{out.userform_username}"
-                          sortBy="#{currentUser.userName}" >
-                    <h:outputText value="#{currentUser.userName}" />
-                </p:column>
+              
                 
                 <p:column headerText="Full name"
                           sortBy="#{currentUser.fullName}" >
@@ -165,19 +163,21 @@
                
 
             </p:dataTable>
-        </h:form>
-        <h:form id="adminCommandsForm">
             <h:panelGrid columns="4" cellpadding="5">
                 <p:commandButton icon="ui-icon-arrowrefresh-1-n"
                                  value="#{out.orders_buttons_details}"
                                  title="#{out.orders_buttons_details}" type="button"
                                  onclick="PF('dlg_edit').show()"
-                                 disabled="#{adminController.selectedUser == null}">
+                                 >
                 </p:commandButton>
                 <p:commandButton value="Create User" type="button"
 							onclick="PF('createUser').show();" />
             </h:panelGrid>
+            </p:fieldset>
         </h:form>
+        
+            
+     
         
     </ui:define>
 </ui:composition>

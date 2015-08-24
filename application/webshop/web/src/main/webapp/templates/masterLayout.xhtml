@@ -26,7 +26,7 @@
 
 		<h:outputStylesheet library="default" name="css/masterLayout.css" />
 		<p:menubar style="margin:10px">
-			<p:menuitem value="#{out.home}" url="/" />
+			<p:menuitem value="#{out.home}" url="/" icon="ui-icon-home"/>
 
 			<sec:authorize ifAllGranted="ROLE_ADMIN">
 				<p:submenu label="Admin" icon="ui-icon-gear">
@@ -49,7 +49,7 @@
 			</sec:authorize>
 
 			<p:menuitem value="#{out.shoppingCart}"
-				url="/public/shoppingCart.xhtml" />
+				url="/public/shoppingCart.xhtml" icon="ui-icon-cart" />
 
 			<f:facet name="options">
 				<div  class='lfloat' >

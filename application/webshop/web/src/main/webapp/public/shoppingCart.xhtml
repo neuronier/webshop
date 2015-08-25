@@ -20,29 +20,30 @@
 				<p:fieldset name="header" legend="#{out.shoppingCart}">
 
 					<p:dataTable style="width:80%;"
-						value="#{shoppingCartController.offers}" var="cart"
+						value="#{shoppingCartController.offers}" var="offer"
 						onExpandStart="#{shoppingCartController.loadTable()}">
 						<p:column width="110px">
-							<p:graphicImage library="images" name="#{cart.name}-big.jpg" />
+							<h:outputText style="align:center"
+								value="#{shoppingCartController.offerCounter(offer)} x" />
+							<p:graphicImage library="images" name="#{offer.name}-big.jpg" />
 						</p:column>
 
 						<p:column headerText="Item">
-							<h:outputText value="Id: #{cart.id}" />
+							<h:outputText value="Id: #{offer.id}" />
 							<br />
-							<h:outputText value="Name: #{cart.name}" />
+							<h:outputText value="Name: #{offer.name}" />
 							<br />
-							<h:outputText value="Description: #{cart.description}" />
+							<h:outputText value="Description: #{offer.description}" />
 							<br />
-							<h:outputText value="New cost: #{cart.newCost}" />
+							<h:outputText value="New cost: #{offer.newCost}" />
 							<br />
-							<h:outputText value="Original cost: #{cart.originalCost}" />
+							<h:outputText value="Original cost: #{offer.originalCost}" />
 
 						</p:column>
 						<p:column width="110px">
 							<p:commandButton value="Törlés" update="form"
-								actionListener="#{shoppingCartController.deleteOfferFromShoppingCart(cart.id)}">
+								action="#{shoppingCartController.deleteOfferFromShoppingCart(offer.id)}" />
 
-							</p:commandButton>
 						</p:column>
 
 					</p:dataTable>

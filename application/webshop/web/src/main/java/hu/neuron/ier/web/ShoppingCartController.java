@@ -1,8 +1,6 @@
 package hu.neuron.ier.web;
 
 import hu.neuron.ier.business.client.ClientSelfCareServiceRemote;
-import hu.neuron.ier.business.offer.OfferServiceRemote;
-import hu.neuron.ier.business.shoppingcart.ShoppingCartRemote;
 import hu.neuron.ier.business.vo.ClientVO;
 import hu.neuron.ier.business.vo.OfferVO;
 
@@ -26,17 +24,17 @@ public class ShoppingCartController implements Serializable {
 
 	private ClientVO currentClient;
 
-	@EJB(name = "ShoppingCartService", mappedName = "ShoppingCartService")
-	private ShoppingCartRemote shoppingCartService;
-	@EJB(mappedName = "OfferService", name = "OfferService")
-	private OfferServiceRemote offerService;
 	@EJB(name = "ClientSelfCareService", mappedName = "ClientSelfCareService")
 	private ClientSelfCareServiceRemote clientSelfCareService;
 
 	private List<OfferVO> offers = new ArrayList<OfferVO>();
+	private List<OfferVO> offersToShow = new ArrayList<OfferVO>();
 
 	public void addOfferToShoppingCart(OfferVO offerVO) {
 		offers.add(offerVO);
+		if (!offersToShow.contains(offerVO)) {
+			offersToShow.add(offerVO);
+		}
 
 	}
 
@@ -53,10 +51,14 @@ public class ShoppingCartController implements Serializable {
 	public void deleteOfferFromShoppingCart(Long selectedId) throws Exception {
 		OfferVO offerVO = findOfferInShoppingCart(selectedId);
 		offers.remove(offerVO);
+		if (offerCounter(offerVO) == 0) {
+			offersToShow.remove(offerVO);
+		}
 	}
 
 	public void deleteAllOfferFromShoppingCart() throws Exception {
 		offers.removeAll(offers);
+		offersToShow.removeAll(offersToShow);
 	}
 
 	public int offerCounter(OfferVO offerVO) {
@@ -84,12 +86,29 @@ public class ShoppingCartController implements Serializable {
 		currentClient.getShoppingCart().getOffers().addAll(offers);
 	}
 
+	public int totalPrice() {
+		int price = 0;
+		for (OfferVO offerVO : offers) {
+			price += offerVO.getNewCost();
+		}
+
+		return price;
+	}
+
 	public List<OfferVO> getOffers() {
 		return offers;
 	}
 
 	public void setOffers(List<OfferVO> offers) {
 		this.offers = offers;
+	}
+
+	public List<OfferVO> getOffersToShow() {
+		return offersToShow;
+	}
+
+	public void setOffersToShow(List<OfferVO> offersToShow) {
+		this.offersToShow = offersToShow;
 	}
 
 }

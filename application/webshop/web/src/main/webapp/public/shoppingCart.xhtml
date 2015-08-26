@@ -20,8 +20,7 @@
 				<p:fieldset name="header" legend="#{out.shoppingCart}">
 
 					<p:dataTable style="width:80%;"
-						value="#{shoppingCartController.offers}" var="offer"
-						onExpandStart="#{shoppingCartController.loadTable()}">
+						value="#{shoppingCartController.offers}" var="offer">
 						<p:column width="110px">
 							<h:outputText style="align:center"
 								value="#{shoppingCartController.offerCounter(offer)} x" />
@@ -51,7 +50,8 @@
 
 					<p:button value="Összes törlése" style="float: left"
 						onclick="#{shoppingCartController.deleteAllOfferFromShoppingCart()}" />
-					<p:button value="Fizetés" style="float: left"></p:button>
+					<p:button value="Fizetés" style="float: left"
+						href="/public/payment.xhtml"></p:button>
 				</p:fieldset>
 			</h:form>
 

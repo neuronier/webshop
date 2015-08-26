@@ -62,7 +62,7 @@ public class ShoppingCartController implements Serializable {
 	public int offerCounter(OfferVO offerVO) {
 		int count = 0;
 		for (OfferVO offer : offers) {
-			if (offer == offerVO) {
+			if (offer.getId() == offerVO.getId()) {
 				count++;
 			}
 		}

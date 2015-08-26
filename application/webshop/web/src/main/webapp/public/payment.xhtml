@@ -24,9 +24,20 @@
 					<p:wizard>
 						<p:tab title="Szállítási adatok">
 							<p:fieldset name="header" legend="Felhasználó adatai">
-								<p:dataTable style="width:80%;">
+								<p:panelGrid columns="2" >
+									<h:outputText value="#{out.name}:" />
+									<h:outputText value="#{paymentController.clientFullName}:" />
+									<h:outputText value="Phone:" />
 
-								</p:dataTable>
+									<h:outputText value="E-mail:" />
+
+									<h:outputText value="Számlázási cím:" />
+
+
+									<h:outputText value="Szállítási cím:" />
+
+
+								</p:panelGrid>
 							</p:fieldset>
 						</p:tab>
 

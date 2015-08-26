@@ -29,17 +29,21 @@ public class PaymentController implements Serializable {
 	private ClientServiceRemote clientSelfCareService;
 
 	private ClientVO currentClient = new ClientVO();
-
-	private String clientFullName = currentClient.getFullName();
-	private String clientPhone = currentClient.getPhone();
-	private String clientEmail = currentClient.getEmail();
-	private String clientBillingAddress = currentClient.getBillingAddress().toString();
-	private String clientDeliveryAddress = currentClient.getDeliveryAddress().toString();
+	private String clientFullName;
+	private String clientPhone;
+	private String clientEmail;
+	private String clientBillingAddress;
+	private String clientDeliveryAddress;
 
 	@PostConstruct
 	public void init() {
 		currentClient = clientSelfCareService.findClientByName(SecurityContextHolder.getContext()
 				.getAuthentication().getName());
+		clientFullName = currentClient.getFullName();
+		clientPhone = currentClient.getPhone();
+		clientEmail = currentClient.getEmail();
+		clientBillingAddress = currentClient.getBillingAddress().toString();
+		clientDeliveryAddress = currentClient.getDeliveryAddress().toString();
 	}
 
 	public int totalPrice() {

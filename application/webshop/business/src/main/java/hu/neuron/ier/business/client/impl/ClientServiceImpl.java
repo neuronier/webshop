@@ -59,7 +59,7 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	}
 
 	@Override
-	public ClientVO registrationClient(ClientVO clientVO) throws Exception {
+	public ClientVO registrationClient(ClientVO clientVO) {
 		Client client = clientConverter.toEntity(clientVO);
 		Role role = roleDao.findRoleByName("ROLE_CLIENT");
 		// jogok lekérdezése
@@ -89,7 +89,7 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	}
 
 	@Override
-	public List<ClientVO> getClientList() throws Exception {
+	public List<ClientVO> getClientList() {
 
 		return clientConverter.toVo(clientDao.findAll());
 	}

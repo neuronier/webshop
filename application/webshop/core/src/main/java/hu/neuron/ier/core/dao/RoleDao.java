@@ -28,7 +28,7 @@ public interface RoleDao extends JpaRepository<Role, Long>{
 	void addRoleToClient(Long roleId, Long clientId) throws Exception;
 
 	@Query("select r from Role r where r.name=?1")
-	Role findRoleByName(String name) throws Exception;
+	Role findRoleByName(String name) ;
 
 	Page<Role> findByNameStartsWith(String filter, Pageable pageRequest);
 }

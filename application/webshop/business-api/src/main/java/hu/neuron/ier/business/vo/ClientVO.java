@@ -8,7 +8,7 @@ public class ClientVO implements Serializable {
 	private static final long serialVersionUID = 14889140889828633L;
 
 	private Long id;
-	private Long clientId;
+	private String clientId;
 	private String userName;
 	private String password;
 	private String fullName;
@@ -91,11 +91,11 @@ public class ClientVO implements Serializable {
 		this.roles = roles;
 	}
 
-	public Long getClientId() {
+	public String getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(Long clientId) {
+	public void setClientId(String clientId) {
 		this.clientId = clientId;
 	}
 

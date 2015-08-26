@@ -13,34 +13,27 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
+
 
 @ViewScoped
 @ManagedBean(name = "orderController")
 public class OrderController implements Serializable {
 	
+	private int darab;
 	private Long id;
 	private String status;
 	private Calendar date;
+	private List<String> statusMenu = new ArrayList<String>();
 
 	@ManagedProperty("#{orderSet}")
     private OrderSessionBean orderSet;
-
-	public OrderSessionBean getOrderSet() {
-		return orderSet;
-	}
-
-	public void setOrderSet(OrderSessionBean orderSet) {
-		this.orderSet = orderSet;
-	}
 
 	private static final long serialVersionUID = 4095137963841851711L;
 
@@ -53,15 +46,12 @@ public class OrderController implements Serializable {
 	@EJB(name = "ProductTypeService", mappedName = "ProductTypeService")
 	ProductTypeServiceRemote productTypeService;
 	
-	
-	
 	private List<ProductTypeVO> productTypes = new ArrayList<ProductTypeVO>();
 	private List<OrderElementVO> orderElements = new ArrayList<OrderElementVO>();
+	private List<OrderElementVO> actualElements = new ArrayList<OrderElementVO>();
 	private List<OrdersVO> orders = new ArrayList<OrdersVO>();
 	
 	private List<OrdersVO> selectedOrders;
-	
-	
 	private ProductTypeVO selectedProduct;
 	private OrderElementVO selectedElement;
 	
@@ -79,13 +69,12 @@ public class OrderController implements Serializable {
 		this.orders = orders;
 	}
 	
-	
 	public void updateProductTypes() throws Exception {
 		productTypes.clear();
 		productTypes.addAll(productTypeService.getAllProductType());
 	}
 
-	public List<ProductTypeVO> getProducts() throws Exception {
+	public List<ProductTypeVO> getProductTypes() throws Exception {
 		this.updateProductTypes();
 		return productTypes;
 	}
@@ -94,12 +83,18 @@ public class OrderController implements Serializable {
 		this.productTypes = productTypes;
 	}
 	
-	
-	
-	
-	
+	public void updateOrderElements() throws Exception {
+		orderElements.clear();
+		orderElements.addAll(orderElementService.getAllOrderElement());
+	}
+
+	public List<OrderElementVO> getOrderElements() throws Exception {
+		this.updateOrderElements();
+		return orderElements;
+	}
 
 	public OrdersVO getSelectedOrder() {
+		System.out.println(orderSet.getSettedOrder());
 		return orderSet.getSettedOrder();
 	}
 
@@ -110,13 +105,45 @@ public class OrderController implements Serializable {
 	public List<OrdersVO> getSelectedOrders() {
 		return selectedOrders;
 	}
-
-	public void setSelectedCars(List<OrdersVO> selectedOrders) {
-		this.selectedOrders = selectedOrders;
+	
+	
+	public void addItem() throws Exception{
+		ProductTypeVO productVO = getSelectedProduct();
+		OrderElementVO orderElement =new OrderElementVO();
+		orderElement.setProductType(productVO);
+		orderElement.setQuanty(darab);
+		orderElementService.createOrderElement(orderElement);
+		orderElements.add(orderElement);
+		updateOrderElements();
 	}
 	
+	public void addOrder(){
+		OrdersVO orderVO = new OrdersVO();
+		orderVO.setStatus("Új");
+		orderVO.setOrderElements(orderElements);
+		try {
+			ordersService.createOrder(orderVO);
+			updateOrders();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteSelectedElement(){
+		OrderElementVO orderElement = getSelectedElement();
+		try {
+			orderElementService.deleteOrderElement(orderElement.getId());
+			selectedElement=null;
+			updateOrderElements();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public void deleteSelected() {
-		FacesContext context = FacesContext.getCurrentInstance();
 		OrdersVO orderVO = getSelectedOrder();
 		try {
 			ordersService.deleteOrders(orderVO.getId());
@@ -128,7 +155,7 @@ public class OrderController implements Serializable {
 		}
 	}
 	
-	public void addOrder(){
+	public void addOrderr(){
 		OrdersVO orderVO = new OrdersVO();
 		orderVO.setOrdersId(id);
 		orderVO.setStatus(status);
@@ -165,26 +192,16 @@ public class OrderController implements Serializable {
 	public void setDate(Calendar date) {
 		this.date = date;
 	}
-	
-	
 
 	public void setSelectedOrders(List<OrdersVO> selectedOrders) {
 		this.selectedOrders = selectedOrders;
-	}
-
-	public List<OrderElementVO> getOrderElements() {
-		return orderElements;
 	}
 
 	public void setOrderElements(List<OrderElementVO> orderElements) {
 		this.orderElements = orderElements;
 	}
 
-	public List<ProductTypeVO> getProductTypes() {
-		return productTypes;
-	}
-
-	public void setProductTypes(List<ProductTypeVO> productTypes) {
+	public void setProductTypes(List<ProductTypeVO> productTypes){
 		this.productTypes = productTypes;
 	}
 
@@ -194,6 +211,8 @@ public class OrderController implements Serializable {
 	
 	public void setSelectedProduct(ProductTypeVO selectedProduct) {
 		this.selectedProduct = selectedProduct;
+		ProductTypeVO productVO = selectedProduct;
+		System.out.println(productVO.getItemNumber());
 	}
 
 	public OrderElementVO getSelectedElement() {
@@ -204,5 +223,36 @@ public class OrderController implements Serializable {
 		this.selectedElement = selectedElement;
 	}
 	
+	public OrderSessionBean getOrderSet() {
+		return orderSet;
+	}
+
+	public void setOrderSet(OrderSessionBean orderSet) {
+		this.orderSet = orderSet;
+	}
+
+	public List<String> getStatusMenu() {
+		statusMenu.add("Új");
+		statusMenu.add("Kész");
+		statusMenu.add("Folyamatban");
+		return statusMenu;
+	}
+
+	public void setStatusMenu(List<String> statusMenu) {
+		this.statusMenu = statusMenu;
+	}
 	
+	public void onRowSelect(SelectEvent event) {
+		String id = String.valueOf(((OrderElementVO) event.getObject()).getId());
+        FacesMessage msg = new FacesMessage("Rendelt id", id);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+	public int getDarab() {
+		return darab;
+	}
+
+	public void setDarab(int darab) {
+		this.darab = darab;
+	}
 }

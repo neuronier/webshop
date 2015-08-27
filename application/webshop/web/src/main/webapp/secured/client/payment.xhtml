@@ -92,7 +92,8 @@
 									<h:inputText required="true" />
 								</h:panelGrid>
 								<br />
-								<p:button value="Fizetés" />
+								<p:commandButton value="Fizetés"
+									actionListener="#{paymentController.paying()}" onsuccess="window.location.href = '/webshopApp';"/>
 
 
 							</p:fieldset>

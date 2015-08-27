@@ -13,7 +13,7 @@ public class PurchasedOfferSw extends BaseEntity {
 	private Offer offer;
 	@ManyToOne
 	private Purchase purchase;
-	private int quanty;
+	private Long quanty;
 
 	public Offer getOffer() {
 		return offer;
@@ -31,11 +31,11 @@ public class PurchasedOfferSw extends BaseEntity {
 		this.purchase = purchase;
 	}
 
-	public int getQuanty() {
+	public Long getQuanty() {
 		return quanty;
 	}
 
-	public void setQuanty(int quanty) {
+	public void setQuanty(Long quanty) {
 		this.quanty = quanty;
 	}
 

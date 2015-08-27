@@ -1,16 +1,22 @@
 package hu.neuron.ier.business.purchase.impl;
 
 import hu.neuron.ier.business.converter.ClientConverter;
+import hu.neuron.ier.business.converter.OfferConverter;
 import hu.neuron.ier.business.converter.PurchaseConverter;
+import hu.neuron.ier.business.converter.PurchasedOfferSwConverter;
 import hu.neuron.ier.business.purchase.PurchaseServiceRemote;
 import hu.neuron.ier.business.vo.ClientVO;
+import hu.neuron.ier.business.vo.OfferVO;
 import hu.neuron.ier.business.vo.PurchaseVO;
 import hu.neuron.ier.core.dao.ClientDao;
 import hu.neuron.ier.core.dao.PurchaseDao;
+import hu.neuron.ier.core.dao.PurchasedOfferSwDao;
+import hu.neuron.ier.core.entity.PurchasedOfferSw;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -34,11 +40,17 @@ public class PurchaseServiceImpl implements PurchaseServiceRemote, Serializable 
 	PurchaseDao purchaseDao;
 	@Autowired
 	ClientDao clientDao;
+	@Autowired
+	PurchasedOfferSwDao purchasedOfferSwDao;
 
 	@EJB
 	PurchaseConverter purchaseConverter;
 	@EJB
 	ClientConverter clientConverter;
+	@EJB
+	PurchasedOfferSwConverter purchasedOfferSwConverter;
+	@EJB
+	OfferConverter offerConverter;
 
 	@Override
 	public PurchaseVO createPurchase(PurchaseVO purchaseVO) throws Exception {
@@ -76,6 +88,22 @@ public class PurchaseServiceImpl implements PurchaseServiceRemote, Serializable 
 	public List<PurchaseVO> getPurchaseByStatus(String status) throws Exception {
 		List<PurchaseVO> vos = purchaseConverter.toVO(purchaseDao.findByStatus(status));
 		return vos;
+	}
+
+	@Override
+	public void addOffersToPurchace(Map<OfferVO, Long> map, PurchaseVO purchaseVO) {
+		try {
+			for (OfferVO offerVO : map.keySet()) {
+				PurchasedOfferSw offerSw = new PurchasedOfferSw();
+				offerSw.setOffer(offerConverter.toEntity(offerVO));
+				offerSw.setPurchase(purchaseConverter.toEntity(purchaseVO));
+				offerSw.setQuanty(map.get(offerVO));
+				purchasedOfferSwDao.save(offerSw);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

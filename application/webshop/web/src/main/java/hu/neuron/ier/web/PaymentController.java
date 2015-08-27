@@ -1,12 +1,17 @@
 package hu.neuron.ier.web;
 
 import hu.neuron.ier.business.client.ClientServiceRemote;
+import hu.neuron.ier.business.purchase.PurchaseServiceRemote;
 import hu.neuron.ier.business.vo.ClientVO;
 import hu.neuron.ier.business.vo.OfferVO;
+import hu.neuron.ier.business.vo.PurchaseVO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,6 +32,9 @@ public class PaymentController implements Serializable {
 
 	@EJB(mappedName = "ClientService", name = "ClientService")
 	private ClientServiceRemote clientSelfCareService;
+
+	@EJB(mappedName = "PurchaseService", name = "PurchaseService")
+	PurchaseServiceRemote purchaseService;
 
 	private ClientVO currentClient = new ClientVO();
 	private String clientFullName;
@@ -55,6 +63,25 @@ public class PaymentController implements Serializable {
 		}
 
 		return price;
+	}
+
+	public void paying() {
+		PurchaseVO purchaseVO = new PurchaseVO();
+		purchaseVO.setClientVO(currentClient);
+		purchaseVO.setDate(Calendar.getInstance());
+		purchaseVO.setFullCost(Integer.valueOf(totalPrice()).longValue());
+		try {
+			purchaseVO = purchaseService.createPurchase(purchaseVO);
+			Map<OfferVO, Long> map = new HashMap<OfferVO, Long>();
+			for (OfferVO offerVO : shoppingCartController.getOffers()) {
+				map.put(offerVO, shoppingCartController.offerCounter(offerVO));
+			}
+			purchaseService.addOffersToPurchace(map, purchaseVO);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
 	}
 
 	public ShoppingCartController getShoppingCartController() {

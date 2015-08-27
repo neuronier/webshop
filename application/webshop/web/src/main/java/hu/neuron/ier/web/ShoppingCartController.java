@@ -1,6 +1,7 @@
 package hu.neuron.ier.web;
 
 import hu.neuron.ier.business.client.ClientSelfCareServiceRemote;
+import hu.neuron.ier.business.purchase.PurchaseServiceRemote;
 import hu.neuron.ier.business.vo.ClientVO;
 import hu.neuron.ier.business.vo.OfferVO;
 
@@ -27,6 +28,10 @@ public class ShoppingCartController implements Serializable {
 	@EJB(name = "ClientSelfCareService", mappedName = "ClientSelfCareService")
 	private ClientSelfCareServiceRemote clientSelfCareService;
 
+	@EJB(mappedName = "PurchaseService", name = "PurchaseService")
+	PurchaseServiceRemote purchaseService;
+	
+	
 	private List<OfferVO> offers = new ArrayList<OfferVO>();
 	private List<OfferVO> offersToShow = new ArrayList<OfferVO>();
 
@@ -61,10 +66,10 @@ public class ShoppingCartController implements Serializable {
 		offersToShow.removeAll(offersToShow);
 	}
 
-	public int offerCounter(OfferVO offerVO) {
-		int count = 0;
+	public Long offerCounter(OfferVO offerVO) {
+		Long count =new Long(0);
 		for (OfferVO offer : offers) {
-			if (offer.getId() == offerVO.getId()) {
+			if (offer.getId().equals(offerVO.getId())) {
 				count++;
 			}
 		}
@@ -94,6 +99,8 @@ public class ShoppingCartController implements Serializable {
 
 		return price;
 	}
+
+	
 
 	public List<OfferVO> getOffers() {
 		return offers;

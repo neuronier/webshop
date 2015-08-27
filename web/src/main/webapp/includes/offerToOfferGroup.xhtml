@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<p:dialog header="Add Offers" widgetVar="addOffersDialog"
+		showEffect="clip" appendTo="@(body)" hideEffect="clip" resizable="false">
+		<h:panelGroup>
+			<h:form id="addOfferFormId">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:pickList id="addOfferPickList"
+						value="#{offerGroupController.offers}" var="offer"
+						itemLabel="#{offer.name}" itemValue="#{offer}"
+						converter="#{offerGroupController}">
+						<f:facet name="sourceCaption">Available</f:facet>
+						<f:facet name="targetCaption">Added</f:facet>
+					</p:pickList>
+					<p:commandButton id="btnAddOfferSave" value="Save"
+						icon="ui-icon-check" action="#{offerGroupController.addOffers()}"
+						oncomplete="PF('addOffersDialog').hide()"
+						update=":categoryFormId:categoryDataTableId, :categoryFormId:btnEditCategory, :categoryFormId:btnDeleteCategory, :categoryFormId:btnAddOffer">
+					</p:commandButton>
+
+
+				</h:panelGrid>
+			</h:form>
+		</h:panelGroup>
+
+	</p:dialog>
+</ui:composition>

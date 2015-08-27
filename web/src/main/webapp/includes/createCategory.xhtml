@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<p:dialog header="Create Category" widgetVar="createCategoryDialog" showEffect="slide"
+		hideEffect="clip"  appendTo="@(body)" resizable="false" height="100">
+		<h:panelGroup>
+			<h:form id="createCategoryFormId" prependId="false">
+				<table>
+				<tr>
+				<td><h:outputText value="Name: " name="outTxtNewNameNm"></h:outputText></td>
+				<td><h:inputText id="newCategoryName" required="true" value="#{offerGroupController.name}"
+						requiredMessage="Please enter Category name"></h:inputText></td>
+						<h:outputLabel id="outLblNewCategoryNameId" for="newCategoryName"
+						name="outLblNewCategoryNameNm"></h:outputLabel>
+				</tr>
+				<tr>
+				<td><h:outputText value="Description: " name="outTxtNewDescriptionNm"></h:outputText></td>
+				<td><h:inputText id="newCategoryDescription" required="false" value="#{offerGroupController.description}"
+						requiredMessage="Please enter Category description"></h:inputText></td>
+						<h:outputLabel id="outLblNewCategoryDescriptionId" for="newCategoryDescription"
+						name="outLblNewCategoryDescriptionNm"></h:outputLabel>
+				</tr>
+				</table>
+
+				<h:commandButton id="createCategorySave" value="Save" action="#{offerGroupController.createOfferGroup}"
+					styleClass="loginPanelBtn" update="categoryDataTableId, categoryMenuFormId" onclick="#{offerGroupController.getAll()}" 
+					actionListener="#{categoryMenuController.init()}"></h:commandButton>
+
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+
+
+</ui:composition>

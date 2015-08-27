@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="pageTitle">Rendelések</ui:define>
+	<ui:define name="content">
+		<div class="whiteLetter" align="center">
+			<h:form id="form">
+				<p:growl id="msgs" life="2000" />
+				<p:fieldset legend="Raktári rendelések" style="margin-bottom:20px">
+					<p:dataTable id="eventsDT" var="order"
+						value="#{orderController.orders}" widgetVar="carsTable"
+						selectionMode="single"
+						selection="#{orderController.selectedOrder}" rowKey="#{order.id}"
+						emptyMessage="Valami nincs" stlye="width:100%;" rows="10" paginator="true">
+							 <p:ajax event="rowSelect" update=":form"/>
+						<p:column headerText="OrdersId"
+							sortBy="#{order.odersId}"
+							filterBy="#{order.ordersId}"
+							filterMatchMode="contains">
+							<h:outputText value="#{order.ordersId}" />
+						</p:column>
+
+						<p:column filterBy="#{order.date.getTime()}" headerText="Datum"
+							sortBy="#{order.date.getTime()}"
+							filterMatchMode="contains">
+							<h:outputText value="#{order.date.getTime()}" />
+						</p:column>
+
+						<p:column filterBy="#{order.status}" headerText="Status"
+							filterMatchMode="equals">
+							<f:facet name="filter">
+								<p:selectOneButton onchange="PF('carsTable').filter()">
+									<f:converter converterId="javax.faces.Boolean" />
+									<f:selectItem itemLabel="Mind" itemValue="" />
+									<f:selectItem itemLabel="Kész" itemValue="Kész" />
+									<f:selectItem itemLabel="Folyamatban" itemValue="Folyamatban" />
+								</p:selectOneButton>
+							</f:facet>
+							<h:outputText value="#{order.status ? 'Kész': 'Folyamatban'}" />
+						</p:column>
+					</p:dataTable>
+					
+					<p:button value="Új Rendelés" href="/secured/newOrder.xhtml"></p:button>
+					<p:button value="Módosítás" href="/secured/newOrder.xhtml"></p:button>
+					<p:commandButton value="Törlés" update="eventsDT"
+						action="#{orderController.deleteSelected}"
+						styleClass="ui-priority-primary" />
+				</p:fieldset>
+				
+				<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+					<h:outputText style="color: white;" value="Id:"
+						name="outTxtUserNameNm" />
+					<p:inputText id="id"
+						value="#{orderController.id}"
+						requiredMessage="Please enter username" />
+
+					<h:outputText style="color: white;" value="Státusz:" />
+					<p:inputText id="status" value="#{orderController.status}"
+						label="status"/>
+				</h:panelGrid>
+
+				<div id="loginBtnPanelId">
+					<p:commandButton id="btnLoginId" value="Rendelés"
+						update="form" action="#{orderController.addOrder()}"
+						styleClass="loginPanelBtn" icon="ui-icon-check" />
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

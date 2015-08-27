@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="head-extra">
+		<!-- 		custom css -->
+	</ui:define>
+	<ui:define name="pageTitle">Categories</ui:define>
+	<ui:define name="content">
+		<ui:include src="/includes/editCategory.xhtml"></ui:include>
+		<ui:include src="/includes/createCategory.xhtml"></ui:include>
+		<ui:include src="/includes/offerToOfferGroup.xhtml"></ui:include>
+		<div align="center">
+			<h:form id="categoryFormId">
+				<p:growl id="growl" life="2000" />
+				<p:fieldset legend="categories" style="margin-bottom:20px">
+					<p:dataTable id="categoryDataTableId" var="category"
+						selectionMode="single"
+						selection="#{offerGroupController.selectedOfferGroup}"
+						rowKey="#{category.id}"
+						value="#{offerGroupController.allOfferGroup}" sortMode="multiple"
+						rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+						<p:ajax event="rowSelect"
+							listener="#{offerGroupController.onRowSelect}"
+							update=":editCategoryFormId, :categoryFormId:btnEditCategory, :categoryFormId:btnDeleteCategory, :categoryFormId:btnAddOffer" />
+						<p:column headerText="Name" sortBy="#{category.name}"
+							filterBy="#{category.name.toLowerCase()}"
+							filterMatchMode="contains">
+							<h:outputText value="#{category.name}" />
+						</p:column>
+
+						<p:column headerText="Description"
+							sortBy="#{category.description}"
+							filterBy="#{category.description.toLowerCase()}"
+							filterMatchMode="contains">
+							<h:outputText value="#{category.description}" />
+						</p:column>
+
+						<p:column headerText="Parent Name"
+							sortBy="#{category.parentOfferGroup.name}"
+							filterBy="#{category.parentOfferGroup.name.toLowerCase()}"
+							filterMatchMode="contains">
+							<h:outputText value="#{category.parentOfferGroup.name}" />
+						</p:column>
+						<f:facet name="footer"></f:facet>
+					</p:dataTable>
+
+					<p:commandButton value="Create Category" id="btnCreateCategory"
+						update="growl" icon="ui-icon-plusthick"
+						onclick="PF('createCategoryDialog').show();" />
+
+					<p:button value="Sort Categories" id="btnSortCategories"
+						icon="ui-icon-wrench" href="/public/sortCategories.xhtml" />
+
+					<p:commandButton value="Edit Selected" id="btnEditCategory"
+						icon="ui-icon-pencil"
+						disabled="#{offerGroupController.selectedOfferGroup == null}"
+						onclick="PF('editCategoryDialog').show();" />
+
+					<p:commandButton value="Delete Selected" id="btnDeleteCategory"
+						update="categoryFormId" icon="ui-icon-minusthick"
+						disabled="#{offerGroupController.selectedOfferGroup == null}"
+						action="#{offerGroupController.deleteSelected()}" />
+
+					<p:commandButton value="Add Offer to Selected" id="btnAddOffer"
+						icon="ui-icon-suitcase"
+						disabled="#{offerGroupController.selectedOfferGroup == null}"
+						action="#{offerGroupController.setupOffers()}"
+						update=":addOfferFormId" onclick="PF('addOffersDialog').show();" />
+				</p:fieldset>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

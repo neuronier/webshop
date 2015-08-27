@@ -65,11 +65,11 @@
 				</h:form>
 				</div>
 				<div  style="float: left" >
-				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="Bejelentkezve, mint " />
-				[<p:commandLink
+				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="Bejelentkezve, mint [" />
+				<p:commandLink
 					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
-					value="#{request.userPrincipal.name}" action="/public/clientSelfCare.xhtml" />]
-				
+					value="#{request.userPrincipal.name}" action="/public/clientSelfCare.xhtml" />
+				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="]" />
 				<p:button
 					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}"
 					href="/public/login.xhtml" value="#{out.login}" type="button"

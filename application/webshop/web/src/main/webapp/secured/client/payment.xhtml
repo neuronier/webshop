@@ -26,19 +26,24 @@
 							<p:fieldset name="header" legend="Felhasználó adatai">
 								<h:panelGrid columns="2">
 									<h:outputText value="#{out.name}:" />
-									<h:outputText value="#{paymentController.clientFullName}" />
+									<h:inputText value="#{paymentController.clientFullName}" />
 
 									<h:outputText value="Phone:" />
-									<h:outputText value="#{paymentController.clientPhone}" />
+									<h:inputText value="#{paymentController.clientPhone}" />
 
 									<h:outputText value="E-mail:" />
-									<h:outputText value="#{paymentController.clientEmail}" />
+									<h:inputText value="#{paymentController.clientEmail}" />
 
-									<h:outputText value="Számlázási cím:" />
-									<h:inputText value="#{paymentController.clientBillingAddress}" />
+									<h:outputText value="Szállítási irányítószám:" />
+									<h:inputText value="#{paymentController.billingPostcode}" />
+									<h:outputText value="Szállítási város:" />
+									<h:inputText value="#{paymentController.billingCity}" />
+									<h:outputText value="Szállítási utca:" />
+									<h:inputText value="#{paymentController.billingStreet}" />
+									<h:outputText value="Szállítási házszám:" />
+									<h:inputText value="#{paymentController.billingHouse}" />
 
-									<h:outputText value="Szállítási cím:" />
-									<h:inputText value="#{paymentController.clientDeliveryAddress}" />
+
 
 								</h:panelGrid>
 							</p:fieldset>
@@ -93,7 +98,8 @@
 								</h:panelGrid>
 								<br />
 								<p:commandButton value="Fizetés"
-									actionListener="#{paymentController.paying()}" onsuccess="window.location.href = '/webshopApp';"/>
+									actionListener="#{paymentController.paying()}"
+									onsuccess="window.location.href = '/webshopApp';" />
 
 
 							</p:fieldset>

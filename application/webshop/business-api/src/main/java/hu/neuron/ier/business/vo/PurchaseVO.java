@@ -8,7 +8,7 @@ public class PurchaseVO implements Serializable {
 	private static final long serialVersionUID = 4139648747904199370L;
 
 	private Long id;
-	private ClientVO clientVO;
+	private ClientVO client;
 	private Calendar date;
 	private Long fullCost;
 	private String status;
@@ -21,12 +21,12 @@ public class PurchaseVO implements Serializable {
 		this.id = id;
 	}
 
-	public ClientVO getClientVO() {
-		return clientVO;
+	public ClientVO getClient() {
+		return client;
 	}
 
-	public void setClientVO(ClientVO clientVO) {
-		this.clientVO = clientVO;
+	public void setClient(ClientVO client) {
+		this.client = client;
 	}
 
 	public Calendar getDate() {

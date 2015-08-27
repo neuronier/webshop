@@ -1,7 +1,9 @@
 package hu.neuron.ier.web;
 
+import hu.neuron.ier.business.address.AddressServiceRemote;
 import hu.neuron.ier.business.client.ClientServiceRemote;
 import hu.neuron.ier.business.purchase.PurchaseServiceRemote;
+import hu.neuron.ier.business.vo.AddressVO;
 import hu.neuron.ier.business.vo.ClientVO;
 import hu.neuron.ier.business.vo.OfferVO;
 import hu.neuron.ier.business.vo.PurchaseVO;
@@ -31,27 +33,49 @@ public class PaymentController implements Serializable {
 	private ShoppingCartController shoppingCartController;
 
 	@EJB(mappedName = "ClientService", name = "ClientService")
-	private ClientServiceRemote clientSelfCareService;
+	private ClientServiceRemote clientService;
 
 	@EJB(mappedName = "PurchaseService", name = "PurchaseService")
 	PurchaseServiceRemote purchaseService;
+
+	@EJB(mappedName = "AddressService", name = "AddressService")
+	AddressServiceRemote addressService;
 
 	private ClientVO currentClient = new ClientVO();
 	private String clientFullName;
 	private String clientPhone;
 	private String clientEmail;
-	private String clientBillingAddress;
-	private String clientDeliveryAddress;
+	private AddressVO clientBillingAddress;
+	private AddressVO clientDeliveryAddress;
+
+	private long billingPostcode;
+	private String billingCity;
+	private String billingStreet;
+	private String billingHouse;
+	private long deliveryPostcode;
+	private String deliveryCity;
+	private String deliveryStreet;
+	private String deliveryHouse;
 
 	@PostConstruct
 	public void init() {
-		currentClient = clientSelfCareService.findClientByName(SecurityContextHolder.getContext()
+		currentClient = clientService.findClientByName(SecurityContextHolder.getContext()
 				.getAuthentication().getName());
 		clientFullName = currentClient.getFullName();
 		clientPhone = currentClient.getPhone();
 		clientEmail = currentClient.getEmail();
-		clientBillingAddress = currentClient.getBillingAddress().toString();
-		clientDeliveryAddress = currentClient.getDeliveryAddress().toString();
+		clientBillingAddress = currentClient.getBillingAddress();
+		clientDeliveryAddress = currentClient.getDeliveryAddress();
+
+		billingCity = clientBillingAddress.getCity();
+		billingHouse = clientBillingAddress.getHouse();
+		billingPostcode = clientBillingAddress.getPostcode();
+		billingStreet = clientBillingAddress.getStreet();
+
+		deliveryCity = clientDeliveryAddress.getCity();
+		deliveryHouse = clientDeliveryAddress.getHouse();
+		deliveryPostcode = clientDeliveryAddress.getPostcode();
+		deliveryStreet = clientDeliveryAddress.getStreet();
 	}
 
 	public int totalPrice() {
@@ -66,8 +90,10 @@ public class PaymentController implements Serializable {
 	}
 
 	public void paying() {
+		saveClientData();
+
 		PurchaseVO purchaseVO = new PurchaseVO();
-		purchaseVO.setClientVO(currentClient);
+		purchaseVO.setClient(currentClient);
 		purchaseVO.setDate(Calendar.getInstance());
 		purchaseVO.setFullCost(Integer.valueOf(totalPrice()).longValue());
 		try {
@@ -77,11 +103,30 @@ public class PaymentController implements Serializable {
 				map.put(offerVO, shoppingCartController.offerCounter(offerVO));
 			}
 			purchaseService.addOffersToPurchace(map, purchaseVO);
+			shoppingCartController.deleteAllOfferFromShoppingCart();
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
+	}
+
+	public void saveClientData() {
+		currentClient.setFullName(clientFullName);
+		currentClient.setEmail(clientEmail);
+		currentClient.setPhone(clientPhone);
+		clientBillingAddress.setCity(billingCity);
+		clientBillingAddress.setHouse(billingHouse);
+		clientBillingAddress.setPostcode(billingPostcode);
+		clientBillingAddress.setStreet(billingStreet);
+		try {
+			clientBillingAddress = addressService.updateAddress(clientBillingAddress);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		currentClient.setBillingAddress(clientBillingAddress);
+
+		currentClient = clientService.registrationClient(currentClient);
 	}
 
 	public ShoppingCartController getShoppingCartController() {
@@ -92,12 +137,20 @@ public class PaymentController implements Serializable {
 		this.shoppingCartController = shoppingCartController;
 	}
 
-	public ClientServiceRemote getClientSelfCareService() {
-		return clientSelfCareService;
+	public ClientServiceRemote getClientService() {
+		return clientService;
 	}
 
-	public void setClientSelfCareService(ClientServiceRemote clientSelfCareService) {
-		this.clientSelfCareService = clientSelfCareService;
+	public void setClientService(ClientServiceRemote clientService) {
+		this.clientService = clientService;
+	}
+
+	public PurchaseServiceRemote getPurchaseService() {
+		return purchaseService;
+	}
+
+	public void setPurchaseService(PurchaseServiceRemote purchaseService) {
+		this.purchaseService = purchaseService;
 	}
 
 	public ClientVO getCurrentClient() {
@@ -132,20 +185,92 @@ public class PaymentController implements Serializable {
 		this.clientEmail = clientEmail;
 	}
 
-	public String getClientBillingAddress() {
+	public AddressVO getClientBillingAddress() {
 		return clientBillingAddress;
 	}
 
-	public void setClientBillingAddress(String clientBillingAddress) {
+	public void setClientBillingAddress(AddressVO clientBillingAddress) {
 		this.clientBillingAddress = clientBillingAddress;
 	}
 
-	public String getClientDeliveryAddress() {
+	public AddressVO getClientDeliveryAddress() {
 		return clientDeliveryAddress;
 	}
 
-	public void setClientDeliveryAddress(String clientDeliveryAddress) {
+	public void setClientDeliveryAddress(AddressVO clientDeliveryAddress) {
 		this.clientDeliveryAddress = clientDeliveryAddress;
+	}
+
+	public AddressServiceRemote getAddressService() {
+		return addressService;
+	}
+
+	public void setAddressService(AddressServiceRemote addressService) {
+		this.addressService = addressService;
+	}
+
+	public long getBillingPostcode() {
+		return billingPostcode;
+	}
+
+	public void setBillingPostcode(long billingPostcode) {
+		this.billingPostcode = billingPostcode;
+	}
+
+	public String getBillingCity() {
+		return billingCity;
+	}
+
+	public void setBillingCity(String billingCity) {
+		this.billingCity = billingCity;
+	}
+
+	public String getBillingStreet() {
+		return billingStreet;
+	}
+
+	public void setBillingStreet(String billingStreet) {
+		this.billingStreet = billingStreet;
+	}
+
+	public String getBillingHouse() {
+		return billingHouse;
+	}
+
+	public void setBillingHouse(String billingHouse) {
+		this.billingHouse = billingHouse;
+	}
+
+	public long getDeliveryPostcode() {
+		return deliveryPostcode;
+	}
+
+	public void setDeliveryPostcode(long deliveryPostcode) {
+		this.deliveryPostcode = deliveryPostcode;
+	}
+
+	public String getDeliveryCity() {
+		return deliveryCity;
+	}
+
+	public void setDeliveryCity(String deliveryCity) {
+		this.deliveryCity = deliveryCity;
+	}
+
+	public String getDeliveryStreet() {
+		return deliveryStreet;
+	}
+
+	public void setDeliveryStreet(String deliveryStreet) {
+		this.deliveryStreet = deliveryStreet;
+	}
+
+	public String getDeliveryHouse() {
+		return deliveryHouse;
+	}
+
+	public void setDeliveryHouse(String deliveryHouse) {
+		this.deliveryHouse = deliveryHouse;
 	}
 
 }

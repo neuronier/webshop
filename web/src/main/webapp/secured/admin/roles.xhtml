@@ -52,8 +52,8 @@
 			</div>
 		</p:fieldset>
 		</h:form>
-		<p:dialog header="Create Role" widgetVar="createRole" showEffect="explode"
-			hideEffect="bounce" mheight="100" modal="true" appendTo="@(body)" resizable="false">
+		<p:dialog header="Effects" widgetVar="createRole" showEffect="explode"
+			hideEffect="bounce" mheight="100" modal="true" appendTo="@(body)" >
 			<h:form>
 				<h:outputLabel for="roleNmae" value="Name:" style="font-weight:bold" />
 				<p:inputText id="roleNmae" required="true"
@@ -66,8 +66,8 @@
 			</h:form>
 		</p:dialog>
 
-		<p:dialog header="Update Role" widgetVar="updateRole" appendTo="@(body)" showEffect="explode"
-			id="updateRoleDialog" hideEffect="bounce" mheight="100" modal="true" resizable="false">
+		<p:dialog header="Effects" widgetVar="updateRole" appendTo="@(body)" showEffect="explode"
+			id="updateRoleDialog" hideEffect="bounce" mheight="100" modal="true">
 			<h:form>
 				<h:outputLabel for="roleNmae" value="Name:" style="font-weight:bold" />
 				<p:inputText id="roleNmae" required="true"

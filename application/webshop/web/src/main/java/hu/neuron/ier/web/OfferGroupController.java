@@ -40,6 +40,7 @@ public class OfferGroupController implements Serializable, Converter {
 
 	private String name = "";
 	private String description = "";
+	private Boolean active;
 	private List<OfferGroupVO> allOfferGroup = null;
 	private OfferGroupVO selectedOfferGroup = null;
 	private DualListModel<OfferVO> offers = null;
@@ -102,6 +103,15 @@ public class OfferGroupController implements Serializable, Converter {
 		this.offers = offers;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+
 	@EJB(name = "OfferGroupService", mappedName = "OfferGroupService")
 	OfferGroupServiceRemote offerGroupService;
 
@@ -114,6 +124,7 @@ public class OfferGroupController implements Serializable, Converter {
 			OfferGroupVO offerGroupVO = new OfferGroupVO();
 			offerGroupVO.setName(getName());
 			offerGroupVO.setDescription(getDescription());
+			offerGroupVO.setActive(false);
 			offerGroupService.createOfferGroup(offerGroupVO);
 			this.name = "";
 			this.description = "";

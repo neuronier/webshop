@@ -10,7 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
@@ -18,7 +18,7 @@ import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuModel;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "categoryMenuController")
 public class CategoryMenuController implements Serializable {
 
@@ -98,8 +98,10 @@ public class CategoryMenuController implements Serializable {
 	public void createMenu(MenuElement elem, OfferGroupVO parentOfferGroup) {
 		// össszes közvetlen gyermek lekérdezése
 		try {
+//			List<OfferGroupVO> lista = offerGroupServiceRemote
+//					.findOfferGroupByParentOfferGroup(parentOfferGroup);
 			List<OfferGroupVO> lista = offerGroupServiceRemote
-					.findOfferGroupByParentOfferGroup(parentOfferGroup);
+					.findOfferGroupByParentOfferGroupAndActive(parentOfferGroup,true);
 			MenuElement element;
 			// ha nincs gyermek vége
 			if (lista.size() == 0) {
@@ -107,9 +109,12 @@ public class CategoryMenuController implements Serializable {
 			} else { // különben bejárjuk a gyermekek listáját
 				for (OfferGroupVO ogvo : lista) {
 					// megnézzük hogy van- e gyermeke
-					List<OfferGroupVO> gyerekek = offerGroupServiceRemote
-							.findOfferGroupByParentOfferGroup(ogvo);
-					if (gyerekek.size() > 0) {
+				
+//					List<OfferGroupVO> gyerekek = offerGroupServiceRemote
+//							.findOfferGroupByParentOfferGroupAndActive(ogvo,true);
+					int gyerekekSzama = offerGroupServiceRemote.countOfferGroupByParentOfferGroupAndActive(ogvo, true);
+//					if (gyerekek.size() > 0) {
+					if(gyerekekSzama > 0){
 						// ha van akkor DefaultSubmenu-t kell készíteni
 						element = new DefaultSubMenu(ogvo.getName());
 						element.setId(ogvo.getId().toString());

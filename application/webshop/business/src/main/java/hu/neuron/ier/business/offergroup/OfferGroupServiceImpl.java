@@ -139,7 +139,77 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote,
 			OfferGroupVO parentOfferGroup) throws Exception {
 
 		return converter.toVO(offerGroupDao
-				.findOfferGroupByParentOfferGroup(converter.toEntity(parentOfferGroup)));
+				.findOfferGroupByParentOfferGroup(converter
+						.toEntity(parentOfferGroup)));
+	}
+
+	@Override
+	public List<OfferGroupVO> findOfferGroupByParentOfferGroupAndActive(
+			OfferGroupVO parentOfferGroup, Boolean active) throws Exception {
+
+		return converter.toVO(offerGroupDao
+				.findOfferGroupByParentOfferGroupAndActive(
+						converter.toEntity(parentOfferGroup), active));
+	}
+
+	/**
+	 * Metódus egy ajánlatcsoport aktív tulajdonságának beállításához
+	 * rekurzívan. Beállítja a paraméterként kapott ajánlatcsoport aktív
+	 * tulajdonságát úgy, hogy az összes gyermekének is beállítja az aktív
+	 * tulajdonságát, és a gyermekek gyermekének is rekurzívan
+	 * 
+	 * @param offerGroup
+	 *            A beállítandó ajánlatcsoport
+	 * @param active
+	 *            Aktív legyen-e
+	 * @throws Exception
+	 */
+	@Override
+	public void updateOfferGroupActiveRecursively(OfferGroupVO offerGroup,
+			Boolean active) throws Exception {
+		// az átadott offergroup aktív tulajdonságát beállítjuk
+		offerGroup.setActive(active);
+		// mentjük
+		offerGroupDao.save(converter.toEntity(offerGroup));
+		// lekérdezzük, van-e gyermeke aminek az aktív tulajdonsága még nincs
+		// átállítva
+		int childCount = offerGroupDao
+				.countOfferGroupByParentOfferGroupAndActive(
+						converter.toEntity(offerGroup), !active);
+		if (childCount == 0) {
+			// ha nincs gyermeke vége
+			return;
+		} else {
+			// különben lekérdezzük a gyermekeit
+			List<OfferGroupVO> childs = findOfferGroupByParentOfferGroup(offerGroup);
+			// bejárjuk a gyermekek listáját
+
+			for (OfferGroupVO ogvo : childs) {
+				// meghívjuk az adott gyermekre is a metódust
+				updateOfferGroupActiveRecursively(ogvo, active);
+			}
+
+		}
+
+	}
+
+	/**
+	 * Metódus egy ajánlatcsoport közvetlen gyermekeinek megszámlálásához,
+	 * amelyek a paraméterként kapott aktív tulajdonsággal rendelkeznek.
+	 * 
+	 * @param parentOfferGroup
+	 *            a szülő ajánlatcsoport
+	 * @param active
+	 *            milyen ajánlatcsoportokat akarunk megszámolni
+	 * 
+	 * @return Egész számmal tér vissza, a gyermek ajánlatcsoportok számával
+	 */
+	@Override
+	public Integer countOfferGroupByParentOfferGroupAndActive(
+			OfferGroupVO parentOfferGroup, Boolean active) throws Exception {
+
+		return offerGroupDao.countOfferGroupByParentOfferGroupAndActive(
+				converter.toEntity(parentOfferGroup), active);
 	}
 
 }

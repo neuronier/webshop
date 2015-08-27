@@ -41,29 +41,34 @@ public class OfferGroupDaoTest {
 			parentOfferGroup = new OfferGroup();
 			parentOfferGroup.setName("parent");
 			parentOfferGroup.setDescription("parentDescription");
+			parentOfferGroup.setActive(true);
 			parentOfferGroup = offerGroupDao.save(parentOfferGroup);
 			logger.info("parent mentve!");
 			offerGroup1 = new OfferGroup();
 			offerGroup1.setName("test12");
 			offerGroup1.setDescription("description");
+			offerGroup1.setActive(true);
 			offerGroup1.setParentOfferGroup(parentOfferGroup);
 			offerGroup1 = offerGroupDao.save(offerGroup1);
 			logger.info("offerGroup1 mentve!");
 			offerGroup2 = new OfferGroup();
 			offerGroup2.setName("test12");
 			offerGroup2.setDescription("description2");
+			offerGroup2.setActive(true);
 			offerGroup2.setParentOfferGroup(parentOfferGroup);
 			offerGroup2 = offerGroupDao.save(offerGroup2);
 			logger.info("offerGroup2 mentve!");
 			OfferGroup withOtherName = new OfferGroup();
 			withOtherName.setName("other");
 			withOtherName.setDescription("otherdescription");
+			withOtherName.setActive(false);
 			withOtherName.setParentOfferGroup(parentOfferGroup);
 			withOtherName = offerGroupDao.save(withOtherName);
 			logger.info("witOtherName mentve!");
 			OfferGroup parentless = new OfferGroup();
 			parentless.setName("parntless");
 			parentless.setDescription("anything");
+			parentless.setActive(true);
 			parentless = offerGroupDao.save(parentless);
 			logger.info("parentless mentve!");
 			logger.info("save test sikeresen lefutott!");
@@ -108,7 +113,7 @@ public class OfferGroupDaoTest {
 	}
 	
 	@Test
-	public void test4FindOfferGroupByParentOfferGroup() {
+	public void test41FindOfferGroupByParentOfferGroup() {
 		try {
 			List<OfferGroup> offerGroups = offerGroupDao.findOfferGroupByParentOfferGroup(parentOfferGroup);
 			for(OfferGroup o: offerGroups){
@@ -121,12 +126,65 @@ public class OfferGroupDaoTest {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		}
-
+	}
+	
+	@Test
+	public void test42FindOfferGroupByParentOfferGroupAndActiveTrue() {
+		try {
+			List<OfferGroup> offerGroups = offerGroupDao.findOfferGroupByParentOfferGroupAndActive(parentOfferGroup, true);
+			Assert.assertTrue(offerGroups.size() == 2);
+			for(OfferGroup o: offerGroups){
+				Assert.assertFalse(o.getParentOfferGroup() == null);
+				Assert.assertTrue(o.getActive());
+				logger.info("Name: " + o.getName());
+				logger.info("Description: " + o.getDescription());
+				logger.info("ParentName: " + o.getParentOfferGroup().getName());
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new RuntimeException(e);
+		}
+	}
+	
+	@Test
+	public void test43FindOfferGroupByParentOfferGroupAndActiveFalse() {
+		try {
+			List<OfferGroup> offerGroups = offerGroupDao.findOfferGroupByParentOfferGroupAndActive(parentOfferGroup, false);
+			Assert.assertTrue(offerGroups.size() == 1);
+			for(OfferGroup o: offerGroups){
+				Assert.assertFalse(o.getParentOfferGroup() == null);
+				Assert.assertFalse(o.getActive());
+				logger.info("Name: " + o.getName());
+				logger.info("Description: " + o.getDescription());
+				logger.info("ParentName: " + o.getParentOfferGroup().getName());
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw new RuntimeException(e);
+		}
+	}
+	
+	@Test
+	public void test5CountOfferGroupByParentOfferGroupAndActive(){
+		try {
+			Integer count = new Integer(0);
+			count = offerGroupDao.countOfferGroupByParentOfferGroupAndActive(parentOfferGroup, true);
+			Assert.assertTrue("2 db aktív gyermeknek kell lennie", 2 == count);
+			count = offerGroupDao.countOfferGroupByParentOfferGroupAndActive(parentOfferGroup, false);
+			Assert.assertTrue("1 db inaktív gyermeknek kell lennie", 1 == count);
+			count = offerGroupDao.countOfferGroupByParentOfferGroupAndActive(null, true);
+			Assert.assertTrue("2 db aktív gyermeknek kell lennie", 2 == count);
+			count = offerGroupDao.countOfferGroupByParentOfferGroupAndActive(null, false);
+			Assert.assertTrue("0 db inaktív gyermeknek kell lennie", 0 == count);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
 	@Test
-	public void test5Delete() {
+	public void test6Delete() {
 		try {
 			offerGroupDao.delete(offerGroupDao.findOfferGroupByParentOfferGroup(parentOfferGroup));
 			offerGroupDao.delete(offerGroupDao.findOfferGroupByName("parntless"));

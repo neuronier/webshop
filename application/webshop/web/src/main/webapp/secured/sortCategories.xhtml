@@ -14,29 +14,32 @@
 					<h:panelGrid columns="3">
 						<p:tree id="tree1" value="#{treeDNDView.root1}" var="node"
 							selectionMode="single" selection="#{treeDNDView.selectedNode1}"
-							draggable="true" droppable="true" dragdropScope="demo">
+							draggable="true" droppable="true" dragdropScope="demo"
+							animate="true" highlight="true">
 							<p:ajax event="dragdrop" listener="#{treeDNDView.onDragDrop}"
 								update=":sortCategoriesForm:msgs" />
-							<p:treeNode>
+							<p:treeNode >
 								<h:outputText value="#{node}" />
 							</p:treeNode>
+
 						</p:tree>
 						<p:graphicImage library="images" name="transfer.png" />
 
 						<p:tree id="tree2" value="#{treeDNDView.root2}" var="node"
 							selectionMode="single" selection="#{treeDNDView.selectedNode2}"
-							draggable="true" droppable="true" dragdropScope="demo">
+							draggable="true" droppable="true" dragdropScope="demo"
+							animate="true" highlight="true">
 							<p:ajax event="dragdrop" listener="#{treeDNDView.onDragDrop}"
 								update=":sortCategoriesForm:msgs" />
-							<p:treeNode>
+							<p:treeNode  >
 								<h:outputText value="#{node}" />
 							</p:treeNode>
+
 						</p:tree>
 					</h:panelGrid>
 					<p:commandButton value="Vissza a kategóriákhoz"
 						icon="ui-icon-arrowreturnthick-1-w"
-						action="/secured/categories.xhtml"
-						update="categoryMenuFormId"></p:commandButton>
+						action="/secured/categories.xhtml" update="categoryMenuFormId"></p:commandButton>
 				</p:fieldset>
 			</h:form>
 		</div>

@@ -1,6 +1,5 @@
 package hu.neuron.ier.core.dao;
 
-import hu.neuron.ier.core.entity.Offer;
 import hu.neuron.ier.core.entity.OfferGroup;
 
 import java.util.List;
@@ -18,9 +17,12 @@ public interface OfferGroupDao extends JpaRepository<OfferGroup, Long> {
 
 	List<OfferGroup> findOfferGroupByName(String name) throws Exception;
 	List<OfferGroup> findOfferGroupByParentOfferGroup(OfferGroup parentOfferGroup) throws Exception;
+	List<OfferGroup> findOfferGroupByParentOfferGroupAndActive(OfferGroup parentOfferGroup, Boolean active) throws Exception;
 	
 	@Query("SELECT u FROM OfferGroup u WHERE u.name LIKE CONCAT('%', :key, '%')")
 	List<OfferGroup> searchOfferGroup(@Param("key")String key) throws Exception;
+	
+	Integer countOfferGroupByParentOfferGroupAndActive(OfferGroup parentOfferGroup, Boolean active) throws Exception;
 	
 	
 }

@@ -15,6 +15,7 @@ public class OfferGroup extends BaseEntity {
 
 	private String name;
 	private String description;
+	private Boolean active;
 	@ManyToOne
 	private OfferGroup parentOfferGroup;
 
@@ -40,6 +41,14 @@ public class OfferGroup extends BaseEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 }

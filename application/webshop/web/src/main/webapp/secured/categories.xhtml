@@ -47,6 +47,11 @@
 							filterMatchMode="contains">
 							<h:outputText value="#{category.parentOfferGroup.name}" />
 						</p:column>
+						
+						<p:column headerText="#{out.active}">
+							<h:outputText value="#{category.active}" />
+						</p:column>
+						
 						<f:facet name="footer"></f:facet>
 					</p:dataTable>
 
@@ -55,7 +60,7 @@
 						onclick="PF('createCategoryDialog').show();" />
 
 					<p:button value="Sort Categories" id="btnSortCategories"
-						icon="ui-icon-wrench" href="/public/sortCategories.xhtml" />
+						icon="ui-icon-wrench" href="/secured/sortCategories.xhtml" />
 
 					<p:commandButton value="Edit Selected" id="btnEditCategory"
 						icon="ui-icon-pencil"

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2.8-b13937 svn-revision#13942.--><xsd:schema targetNamespace="http://hu.neuron" xmlns:ns0="http://hu.neuron" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="createClientResponse">
+    <xsd:sequence>
+      <xsd:element name="createClient" type="ns0:clientWebServiceVO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="updateClientByUserName">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg1" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg2" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg3" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg4" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg5" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getClientList"/>
+  <xsd:complexType name="getClientByUserNameResponse">
+    <xsd:sequence>
+      <xsd:element name="getClientByUserName" type="ns0:clientWebServiceVO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getClientListResponse">
+    <xsd:sequence>
+      <xsd:element name="getClientList" type="ns0:clientListWebServiceVO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="createClient">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg1" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg2" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg3" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg4" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="arg5" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="clientWebServiceVO">
+    <xsd:sequence>
+      <xsd:element name="clientId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="email" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="fullName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="password" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="phone" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="userName" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getClientByUserName">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="updateClientByUserNameResponse">
+    <xsd:sequence>
+      <xsd:element name="updateClientByUserName" type="ns0:clientWebServiceVO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="clientListWebServiceVO">
+    <xsd:sequence>
+      <xsd:element name="clients" type="ns0:clientWebServiceVO" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="createClientResponse" type="ns0:createClientResponse"/>
+  <xsd:element name="updateClientByUserName" type="ns0:updateClientByUserName"/>
+  <xsd:element name="getClientList" type="ns0:getClientList"/>
+  <xsd:element name="getClientByUserNameResponse" type="ns0:getClientByUserNameResponse"/>
+  <xsd:element name="getClientListResponse" type="ns0:getClientListResponse"/>
+  <xsd:element name="ClientList" type="ns0:clientListWebServiceVO"/>
+  <xsd:element name="createClient" type="ns0:createClient"/>
+  <xsd:element name="getClientByUserName" type="ns0:getClientByUserName"/>
+  <xsd:element name="updateClientByUserNameResponse" type="ns0:updateClientByUserNameResponse"/>
+  <xsd:element name="Client" type="ns0:clientWebServiceVO"/>
+</xsd:schema>

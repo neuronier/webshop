@@ -15,5 +15,6 @@ public class SpringContextListener implements
 		createShema.insertRoles();
 		createShema.insertUsersAndAddRole();
 		createShema.saveOffers();
+		createShema.insertBugReports();
 	};
 }

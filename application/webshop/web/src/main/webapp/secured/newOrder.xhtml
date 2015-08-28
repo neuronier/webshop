@@ -11,39 +11,73 @@
 	<ui:define name="pageTitle">Rendelés</ui:define>
 	<ui:define name="content">
 		<div align="center">
-			<h:form id="form">
-				<p:growl id="msgs" />
-				<p:fieldset legend="Rendelések felvétele" style="margin-bottom:20px">
-					<p:dataTable id="eventsDT" var="product"
-						value="#{orderController.products}" widgetVar="produtcTable"
-						selectionMode="single"
-						selection="#{orderController.selectedProduct}" rowKey="#{product.id}"
-						emptyMessage="Valami nincs" stlye="width:100%;" rows="10"
+			<p:fieldset legend="Rendelés" style="margin-bottom:20px">
+				<h:form id="rendel">
+					<p:dataTable id="Elements" var="order"
+						value="#{orderController.orderElements}" selectionMode="single"
+						selection="#{orderController.selectedElement}"
+						rowKey="#{order.productType.itemNumber}" editable="true"
+						editMode="cell" rows="10"
 						paginator="true">
-
-						<p:column headerText="Termék Id" sortBy="#{product.id}"
-							filterBy="#{product.id}" filterMatchMode="contains">
-							<h:outputText value="#{product.id}" />
+						<f:facet name="header">
+           	 				Rendelt termékek
+        				</f:facet>
+						<p:ajax event="rowSelect" update="rendel:delete" />
+						<p:column headerText="Id" filterBy="#{order.productType.itemNumber}" filterMatchMode="contains">
+							<h:outputText value="#{order.productType.itemNumber}" />
 						</p:column>
-
-						<p:column filterBy="#{product.itemNumber}" headerText="Darab"
-							sortBy="#{product.itemNumber}" filterMatchMode="contains">
-							<h:outputText value="#{product.itemNumber}" />
+						<p:column headerText="Darab">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{order.quanty}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{order.quanty}" style="width:100%"
+										label="darab" />
+								</f:facet>
+							</p:cellEditor>
 						</p:column>
 
 					</p:dataTable>
-					<p:outputLabel value="Item number: " for="acMinLength" />
-					<p:autoComplete id="acMinLength" minQueryLength="3"
-						value="#{autoCompleteView.txt2}"
-						completeMethod="#{autoCompleteView.completeText}" effect="fade" />
-					<p:commandButton value="Hozzáad"
-						style="margin-left: 10px; margin-right:auto;" />
-					<p:commandButton value="Kijelölt törlése"
-						style="margin-left: 10px; margin-right:auto;" />
-					<p:commandButton value="Rendelés leadása"
-						style="margin-left: 10px;" />
-				</p:fieldset>
-			</h:form>
+
+					<h:outputText style="color: white; margin:5px;" value="Rendelt darab:" />
+					<p:inputText id="darab" value="#{orderController.darab}"
+						label="darab" />
+					<p:commandButton value="Hozzáad" id="hozzaad"
+						action="#{orderController.addItem(orderController.selectedProduct)}"
+						styleClass="ui-priority-primary"
+						disabled="#{orderController.selectedProduct==null}"
+						style="margin:5px;" update="rendel:Elements, rendel:lead" />
+					<p:commandButton value="Törlés" id="delete" style="margin:5px;"
+						action="#{orderController.deleteSelectedElement(orderController.selectedElement)}"
+						disabled="#{orderController.selectedElement == null}"
+						update="rendel:Elements, rendel:Products,rendel:lead" />
+					<p:commandButton value="Rendelés leadása" style="margin:5px;"
+						id="lead" action="#{orderController.addOrder}"
+						disabled="#{orderController.orderElements.isEmpty()}"
+						oncomplete="/secured/order.xhtml" />
+					<p:button value="Vissza" href="/secured/order.xhtml" style="margin:5px;"></p:button>
+
+					<p:dataTable id="Products" var="product"
+						value="#{orderController.productTypes}" selectionMode="single"
+						selection="#{orderController.selectedProduct}"
+						rowKey="#{product.itemNumber}" rows="10"
+						paginator="true">
+						<f:facet name="header">
+           	 				Készlet
+        				</f:facet>
+						<p:ajax event="rowSelect" update="rendel:hozzaad" />
+						<p:column headerText="Id" filterBy="#{product.itemNumber}" filterMatchMode="contains">
+							<h:outputText value="#{product.itemNumber}" />
+						</p:column>
+						<p:column headerText="Darab">
+							<h:outputText value="0" />
+						</p:column>
+
+					</p:dataTable>
+
+				</h:form>
+			</p:fieldset>
 		</div>
 	</ui:define>
 </ui:composition>

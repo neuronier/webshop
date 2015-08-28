@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml">
+
+
+	<ui:define name="pageTitle">#{out.admin_title}</ui:define>
+	<ui:define name="header"> -> #{out.admin_title}</ui:define>
+
+	<ui:define name="head-extra">
+		<!-- custom css -->
+	</ui:define>
+
+	<ui:define name="content">
+
+		
+		
+		<p:dialog widgetVar="bugReportViewerDialog" width="80%" resizable="false" appendTo="@(body)">
+			<h:form id="bugReportViewerDialogForm">
+				<p:dataTable value="#{bugReportManagementController.bugMessageList}" var="bugMsg" scrollable="true" scrollHeight="150"
+					emptyMessage="#{out.empty_message}">
+
+					<p:column style="width:16px">
+						<p:rowToggler />
+					</p:column>
+
+					<p:column headerText="from">
+						<h:outputText value="#{bugMsg.owner}" />
+					</p:column>
+
+					<p:rowExpansion>
+						<h:outputText value="#{bugMsg.text}" escape="false" />
+					</p:rowExpansion>
+
+				</p:dataTable>
+
+				<p:editor id="editor" widgetVar="editorWidget" value="#{bugReportManagementController.comment}"
+					controls="bold italic underline color bullets numbering" />
+
+				<p:commandButton value="Küldés" action="#{bugReportManagementController.sendMessage()}" update=":bugReportViewerDialogForm" />
+				<p:commandButton value="Törlés" type="button" onclick="PF('editorWidget').clear();" />
+
+			</h:form>
+		</p:dialog>
+
+		
+		<h:form id="bugReportManagementForm">
+			<p:growl id="msgs" showDetail="true" />
+			<p:fieldset legend="Hibajelentések" style="margin-bottom:20px">
+			<p:dataTable id="reportTable" var="currentReport"
+				value="#{bugReportManagementController.lazyBugReportManagementModel}" selectionMode="single"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" lazy="true" paginator="true" rows="10"
+				selection="#{bugReportManagementController.selectedBugReport}"
+				emptyMessage="#{out.empty_message}">
+
+				<p:ajax event="rowSelect" listener="#{bugReportManagementController.onRowSelect}"
+					update=":bugReportManagementForm" />
+				<p:ajax event="rowUnselect"
+					listener="#{bugReportManagementController.onRowUnselect}"
+					update=":bugReportManagementForm" />
+
+
+
+				<p:column style="width:32px;text-align: center">
+						<p:commandButton action="#{bugReportManagementController.initBugReportViewerDialog()}" update=":bugReportViewerDialogForm"
+							oncomplete="PF('bugReportViewerDialog').show()" icon="ui-icon-search" title="#{out.issue_view}">
+							<f:setPropertyActionListener value="#{currentReport}" target="#{bugReportManagementController.selectedBugReport}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column headerText="client" sortBy="#{currentReport.clientUserName}" filterBy="#{currentReport.clientUserName}"
+						filterStyle="width:80%;">
+						<h:outputText value="#{currentReport.clientUserName}" />
+					</p:column>
+
+					<p:column headerText="subject" sortBy="#{currentReport.subject}" filterBy="#{currentReport.subject}" filterStyle="width:80%;">
+						<h:outputText value="#{currentReport.subject}" />
+					</p:column>
+
+					<p:column headerText="status" sortBy="#{currentReport.status}" filterBy="#{currentReport.status}" filterStyle="width:80%;">
+						<h:outputText value="#{currentReport.status}" />
+					</p:column>
+
+					
+
+			</p:dataTable>
+			
+			</p:fieldset>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

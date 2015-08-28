@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml">
+
+	<ui:define name="pageTitle">Fizetés</ui:define>
+	<ui:define name="header">
+	</ui:define>
+
+	<ui:define name="head-extra">
+		<!-- custom css -->
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="whiteLetter" align="center">
+			<h:form id="paymentForm">
+				<p:fieldset name="header" legend="Fizetési oldal">
+					<p:growl id="msgs" showDetail="true" />
+
+
+					<p:wizard>
+						<p:tab title="Szállítási adatok">
+							<h:panelGrid columns="2">
+								<h:outputText value="#{out.name}:" />
+								<h:inputText value="#{paymentController.clientFullName}" />
+
+								<h:outputText value="Phone:" />
+								<h:inputText value="#{paymentController.clientPhone}" />
+
+								<h:outputText value="E-mail:" />
+								<h:inputText value="#{paymentController.clientEmail}" />
+
+								<h:outputText value="Szállítási irányítószám:" />
+								<h:inputText value="#{paymentController.billingPostcode}" />
+								<h:outputText value="Szállítási város:" />
+								<h:inputText value="#{paymentController.billingCity}" />
+								<h:outputText value="Szállítási utca:" />
+								<h:inputText value="#{paymentController.billingStreet}" />
+								<h:outputText value="Szállítási házszám:" />
+								<h:inputText value="#{paymentController.billingHouse}" />
+
+
+
+							</h:panelGrid>
+						</p:tab>
+
+						<p:tab title="Összesítés">
+							<p:fieldset name="header" legend="Kosárban lévő termékek">
+
+								<p:dataTable style="width:80%;"
+									value="#{shoppingCartController.offersToShow}" var="offer">
+									<p:column width="110px">
+										<h:outputText style="align:center"
+											value="#{shoppingCartController.offerCounter(offer)} x" />
+										<p:graphicImage library="images" name="#{offer.name}-big.jpg" />
+									</p:column>
+
+									<p:column headerText="Item">
+										<h:outputText value="Id: #{offer.id}" />
+										<br />
+										<h:outputText value="#{out.name}: #{offer.name}" />
+										<br />
+										<h:outputText value="#{out.description}: #{offer.description}" />
+										<br />
+										<h:outputText value="#{out.new_cost}: #{offer.newCost}" />
+										<br />
+										<h:outputText
+											value="#{out.original_cost}: #{offer.originalCost}" />
+
+									</p:column>
+								</p:dataTable>
+								<h:outputText style="font-size:30px"
+									value="Végösszeg: #{shoppingCartController.totalPrice()} Ft" />
+
+							</p:fieldset>
+						</p:tab>
+
+						<p:tab title="Fizetés" id="pay">
+							<p:fieldset name="header" legend="Terhelendő kártya adatai">
+								<h:outputText style="font-size:30px"
+									value="Fizetendő összeg: #{paymentController.totalPrice()} Ft" />
+								<h:panelGrid columns="2" columnClasses="label, value">
+									<h:outputText value="Kibocsátó bank neve: " />
+									<h:inputText required="true" />
+									<h:outputText value="Kártyára írt szám: " />
+									<h:inputText required="true" />
+									<h:outputText value="Kártyára írt név: " />
+									<h:inputText required="true" />
+									<h:outputText value="Lejárati dátum (hhéé): " />
+									<h:inputText required="true" />
+									<h:outputText value="Érvényesítési kód: " />
+									<h:inputText required="true" />
+								</h:panelGrid>
+								<br />
+								<p:commandButton value="Fizetés"
+									actionListener="#{paymentController.paying()}"
+									onsuccess="window.location.href = '/webshopApp';" />
+
+
+							</p:fieldset>
+						</p:tab>
+					</p:wizard>
+
+				</p:fieldset>
+			</h:form>
+
+		</div>
+
+	</ui:define>
+</ui:composition>

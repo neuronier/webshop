@@ -50,7 +50,7 @@ public class PurchaseServiceTest {
 			clientVO = new ClientVO();
 			clientVO = clientService.registrationClient(clientVO);
 			purchaseVO = new PurchaseVO();
-			purchaseVO.setClientVO(clientVO);
+			purchaseVO.setClient(clientVO);
 			purchaseVO.setDate(date);
 			purchaseVO.setFullCost(123l);
 			purchaseVO.setStatus("status");
@@ -64,7 +64,7 @@ public class PurchaseServiceTest {
 	@Test
 	public void test2getPurchaseByClient() {
 		try {
-			purchaseService.getPurchaseByClient(purchaseVO.getClientVO());
+			purchaseService.getPurchaseByClient(purchaseVO.getClient());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

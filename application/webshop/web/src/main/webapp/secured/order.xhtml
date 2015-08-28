@@ -8,66 +8,44 @@
 	<ui:define name="pageTitle">Rendelések</ui:define>
 	<ui:define name="content">
 		<div class="whiteLetter" align="center">
-			<h:form id="form">
+			<h:form id="rendelesek">
 				<p:growl id="msgs" life="2000" />
 				<p:fieldset legend="Raktári rendelések" style="margin-bottom:20px">
 					<p:dataTable id="eventsDT" var="order"
-						value="#{orderController.orders}" widgetVar="carsTable"
+						value="#{orderController.orders}" widgetVar="orderTable"
 						selectionMode="single"
 						selection="#{orderController.selectedOrder}" rowKey="#{order.id}"
-						emptyMessage="Valami nincs" stlye="width:100%;" rows="10" paginator="true">
-							 <p:ajax event="rowSelect" update=":form"/>
-						<p:column headerText="OrdersId"
-							sortBy="#{order.odersId}"
-							filterBy="#{order.ordersId}"
-							filterMatchMode="contains">
-							<h:outputText value="#{order.ordersId}" />
+						emptyMessage="Valami nincs" stlye="width:100%;" rows="10"
+						paginator="true" filteredValue="#{orderController.filteredOrders}">
+						<p:ajax event="rowSelect" update="rendelesek" />
+						<p:column headerText="Rendelési szám"
+							filterBy="#{order.id}" filterMatchMode="contains">
+							<h:outputText value="#{order.id}" />
 						</p:column>
 
-						<p:column filterBy="#{order.date.getTime()}" headerText="Datum"
-							sortBy="#{order.date.getTime()}"
-							filterMatchMode="contains">
-							<h:outputText value="#{order.date.getTime()}" />
+						<p:column headerText="Datum" style="text-align:center">
+							<h:outputText value="#{orderController.dateToString(order.date)}" />
 						</p:column>
 
-						<p:column filterBy="#{order.status}" headerText="Status"
-							filterMatchMode="equals">
+						<p:column filterBy="#{order.status}" style="text-align:center">
 							<f:facet name="filter">
-								<p:selectOneButton onchange="PF('carsTable').filter()">
-									<f:converter converterId="javax.faces.Boolean" />
-									<f:selectItem itemLabel="Mind" itemValue="" />
-									<f:selectItem itemLabel="Kész" itemValue="Kész" />
-									<f:selectItem itemLabel="Folyamatban" itemValue="Folyamatban" />
-								</p:selectOneButton>
+								<p:selectOneMenu onchange="PF('orderTable').filter()">
+									<f:selectItem itemLabel="Mind" itemValue="#{null}"
+										noSelectionOption="true" />
+									<f:selectItems value="#{orderController.statusMenu}" />
+								</p:selectOneMenu>
 							</f:facet>
-							<h:outputText value="#{order.status ? 'Kész': 'Folyamatban'}" />
+							<h:outputText value="#{order.status}" />
 						</p:column>
 					</p:dataTable>
-					
-					<p:button value="Új Rendelés" href="/secured/newOrder.xhtml"></p:button>
-					<p:button value="Módosítás" href="/secured/newOrder.xhtml"></p:button>
-					<p:commandButton value="Törlés" update="eventsDT"
+
+					<p:button value="Új Rendelés" href="/secured/newOrder.xhtml" style="margin:5px;"></p:button>
+					<p:button value="Módosítás" href="/secured/changeOrder.xhtml"
+						disabled="#{orderController.selectedOrder == null}" style="margin:5px;"></p:button>
+					<p:commandButton value="Törlés" update="rendelesek"
 						action="#{orderController.deleteSelected}"
-						styleClass="ui-priority-primary" />
+						disabled="#{orderController.selectedOrder == null}" style="margin:5px;"/>
 				</p:fieldset>
-				
-				<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
-					<h:outputText style="color: white;" value="Id:"
-						name="outTxtUserNameNm" />
-					<p:inputText id="id"
-						value="#{orderController.id}"
-						requiredMessage="Please enter username" />
-
-					<h:outputText style="color: white;" value="Státusz:" />
-					<p:inputText id="status" value="#{orderController.status}"
-						label="status"/>
-				</h:panelGrid>
-
-				<div id="loginBtnPanelId">
-					<p:commandButton id="btnLoginId" value="Rendelés"
-						update="form" action="#{orderController.addOrder()}"
-						styleClass="loginPanelBtn" icon="ui-icon-check" />
-				</div>
 			</h:form>
 		</div>
 	</ui:define>

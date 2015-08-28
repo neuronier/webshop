@@ -8,8 +8,8 @@
 			error-page="/public/accesdenied.xhtml" />
 		<security:csrf disabled="true" />
 		<security:headers disabled="true" />
-		<security:intercept-url pattern="/secured"
-			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<security:intercept-url pattern="/secured/client/**"
+			access="hasRole('ROLE_CLIENT')" />
 		<security:intercept-url pattern="/secured/admin/**"
 			access="hasRole('ROLE_ADMIN')" />	 
 		<security:form-login login-page="/public/login.xhtml"

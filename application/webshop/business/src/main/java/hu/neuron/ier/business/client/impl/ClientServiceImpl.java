@@ -53,25 +53,25 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	RoleConverter roleConverter;
 
 	@Override
-	public ClientVO findClientByName(String name) throws Exception {
+	public ClientVO findClientByName(String name) {
 
 		return clientConverter.toVo(clientDao.findByUserName(name));
 	}
 
 	@Override
-	public ClientVO registrationClient(ClientVO clientVO) throws Exception {
+	public ClientVO registrationClient(ClientVO clientVO) {
 		Client client = clientConverter.toEntity(clientVO);
 		Role role = roleDao.findRoleByName("ROLE_CLIENT");
-		//jogok lekérdezése
+		// jogok lekérdezése
 		List<Role> roles = client.getRoles();
 		if (roles == null) {
-			//ha null, akkor létrehozzuk a listát
+			// ha null, akkor létrehozzuk a listát
 			roles = new ArrayList<Role>();
 		}// jog hozzáadás, ha még nincs
 		if (!roles.contains(role)) {
 			roles.add(role);
 		}
-		//jogok beállítása
+		// jogok beállítása
 		client.setRoles(roles);
 
 		// kosár létrehozása
@@ -89,19 +89,18 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 	}
 
 	@Override
-	public List<ClientVO> getClientList() throws Exception {
+	public List<ClientVO> getClientList() {
 
 		return clientConverter.toVo(clientDao.findAll());
 	}
 
 	@Override
-	public List<ClientVO> getClientList(int i, int pageSize, String sortField,
-			int dir, String filter, String filterColumnName) throws Exception {
+	public List<ClientVO> getClientList(int i, int pageSize, String sortField, int dir,
+			String filter, String filterColumnName) throws Exception {
 
-		Direction direction = dir == 1 ? Sort.Direction.ASC
-				: Sort.Direction.DESC;
-		PageRequest pageRequest = new PageRequest(i, pageSize, new Sort(
-				new Order(direction, sortField)));
+		Direction direction = dir == 1 ? Sort.Direction.ASC : Sort.Direction.DESC;
+		PageRequest pageRequest = new PageRequest(i, pageSize, new Sort(new Order(direction,
+				sortField)));
 		List<ClientVO> vos = new ArrayList<ClientVO>(pageSize);
 		Page<Client> entities = null;
 
@@ -129,15 +128,13 @@ public class ClientServiceImpl implements ClientServiceRemote, Serializable {
 
 	@Override
 	public ClientVO saveClient(ClientVO clientVO) throws Exception {
-		ClientVO vo = clientConverter.toVo(clientDao.save(clientConverter
-				.toEntity(clientVO)));
+		ClientVO vo = clientConverter.toVo(clientDao.save(clientConverter.toEntity(clientVO)));
 		return vo;
 	}
 
 	@Override
 	public ClientVO addAddressToClient(Long clientId, boolean isAddressMatch,
-			AddressVO billingAddress, AddressVO deliveryAddress)
-			throws Exception {
+			AddressVO billingAddress, AddressVO deliveryAddress) throws Exception {
 
 		ClientVO clientVO = new ClientVO();
 		clientVO = clientConverter.toVo(clientDao.findOne(clientId));

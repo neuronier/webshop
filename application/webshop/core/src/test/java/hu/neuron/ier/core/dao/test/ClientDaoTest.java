@@ -40,7 +40,7 @@ public class ClientDaoTest {
 	public void test1Save() {
 		try {
 			client = new Client();
-			client.setClientId(6L);
+			client.setClientId("dfgfdg");
 			client.setUserName("test");
 			client.setPassword("test");
 			client.setFullName("Test Elek");
@@ -92,7 +92,7 @@ public class ClientDaoTest {
 	public void test5FindByUserName() {
 		try {
 			Client newClient = new Client();
-			newClient.setClientId(9L);
+			newClient.setClientId("fgfdgd");
 			newClient.setBillingAddress(client.getBillingAddress());
 			newClient.setDeliveryAddress(client.getBillingAddress());
 			newClient.setEmail("sajtszag@illat.hu");

@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface ClientServiceRemote {
 
-	ClientVO findClientByName(String name) throws Exception;
+	ClientVO findClientByName(String name);
 
-	ClientVO registrationClient(ClientVO clientVO) throws Exception;
+	ClientVO registrationClient(ClientVO clientVO);
 
-	List<ClientVO> getClientList() throws Exception;
+	List<ClientVO> getClientList();
 
 	List<ClientVO> getClientList(int i, int pageSize, String sortField, int dir, String filter,
 			String filterColumnName) throws Exception;

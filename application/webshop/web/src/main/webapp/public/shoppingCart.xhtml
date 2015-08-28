@@ -16,11 +16,10 @@
 
 	<ui:define name="content">
 		<div class="whiteLetter" align="center">
-			<h:form id="form">
+			<h:form id="shoppingCartForm">
 				<p:fieldset name="header" legend="#{out.shoppingCart}">
 					<p:dataTable style="width:80%;"
-						value="#{shoppingCartController.offers}" var="offer"
-						onExpandStart="#{shoppingCartController.loadTable()}">
+						value="#{shoppingCartController.offersToShow}" var="offer">
 						<p:column width="110px">
 							<h:outputText style="align:center"
 								value="#{shoppingCartController.offerCounter(offer)} x" />
@@ -30,17 +29,17 @@
 						<p:column headerText="Item">
 							<h:outputText value="Id: #{offer.id}" />
 							<br />
-							<h:outputText value="Name: #{offer.name}" />
+							<h:outputText value="#{out.name}: #{offer.name}" />
 							<br />
-							<h:outputText value="Description: #{offer.description}" />
+							<h:outputText value="#{out.description}: #{offer.description}" />
 							<br />
-							<h:outputText value="New cost: #{offer.newCost}" />
+							<h:outputText value="#{out.new_cost}: #{offer.newCost}" />
 							<br />
-							<h:outputText value="Original cost: #{offer.originalCost}" />
+							<h:outputText value="#{out.original_cost}: #{offer.originalCost}" />
 
 						</p:column>
 						<p:column width="110px">
-							<p:commandButton value="Törlés" update="form"
+							<p:commandButton value="#{out.delete}" update="shoppingCartForm"
 								action="#{shoppingCartController.deleteOfferFromShoppingCart(offer.id)}" />
 
 						</p:column>
@@ -48,9 +47,15 @@
 					</p:dataTable>
 
 
-					<p:button value="Összes törlése" style="float: left"
-						onclick="#{shoppingCartController.deleteAllOfferFromShoppingCart()}" />
-					<p:button value="Fizetés" style="float: left"></p:button>
+					<p:commandButton value="#{out.deleteAll}" style="float: left"
+						update="shoppingCartForm"
+						disabled="#{empty shoppingCartController.offers}"
+						actionListener="#{shoppingCartController.deleteAllOfferFromShoppingCart()}" />
+					<p:button value="#{out.pay}" style="float: left"
+						disabled="#{empty shoppingCartController.offers}"
+						href="/secured/client/payment.xhtml" />
+					<h:outputText style="font-size:30px"
+						value="Végösszeg: #{shoppingCartController.totalPrice()} Ft" />
 				</p:fieldset>
 			</h:form>
 

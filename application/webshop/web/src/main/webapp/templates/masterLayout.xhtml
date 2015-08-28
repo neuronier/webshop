@@ -49,9 +49,10 @@
 					
 
 			</sec:authorize>
-
+				
 			<p:menuitem 
-				url="/public/shoppingCart.xhtml" value="#{out.shoppingCart}" icon="ui-icon-cart" />	
+				url="/public/shoppingCart.xhtml" value="#{out.shoppingCart}" icon="ui-icon-cart" />
+			<p:menuitem value="Hibakezelés" url="/public/bugReportManagement.xhtml" />		
 
 			<f:facet name="options">
 				<div  class='lfloat' >
@@ -65,10 +66,11 @@
 				</h:form>
 				</div>
 				<div  style="float: left" >
-				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="Bejelentkezve, mint " />
-				[<p:commandLink
+				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="Bejelentkezve, mint [" />
+				<p:commandLink
 					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
-					value="#{request.userPrincipal.name}" action="/public/clientSelfCare.xhtml" />]
+					value="#{request.userPrincipal.name}" action="/public/clientSelfCare.xhtml" />
+					<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="]" />
 				
 				<p:button
 					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}"

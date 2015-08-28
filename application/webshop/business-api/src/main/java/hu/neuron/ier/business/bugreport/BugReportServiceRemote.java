@@ -1,23 +1,44 @@
 package hu.neuron.ier.business.bugreport;
 
 import hu.neuron.ier.business.vo.BugReportVO;
-import hu.neuron.ier.business.vo.ClientVO;
-import hu.neuron.ier.business.vo.ProductTypeVO;
 
 import java.util.List;
 
 public interface BugReportServiceRemote {
 
-	BugReportVO createBugReport(BugReportVO bugReportVO) throws Exception;
+	public enum Status {
+		NEW {
+			@Override
+			public String toString() {
+				return "New";
+			}
+		},
+		ONGOING {
+			@Override
+			public String toString() {
+				return "Ongoing";
+			}
+		},
+		RESOLVED {
+			@Override
+			public String toString() {
+				return "Resolved";
+			}
+		}
+	}
 
-	void deleteBugReport(Long id) throws Exception;
+	public BugReportVO saveBugReport(BugReportVO bugReport);
 
-	BugReportVO updateProblem(Long id, String problem) throws Exception;
+	public void removeBugReport(BugReportVO bugReport);
 
-	List<BugReportVO> getBugReportByCient(ClientVO clientVO) throws Exception;
+	public BugReportVO findByReportId(String reportId);
 
-	List<BugReportVO> getBugReportByProductType(ProductTypeVO productTypeVO) throws Exception;
+	public List<BugReportVO> findByClientId(String clientId);
 
-	List<BugReportVO> getAllBugReport() throws Exception;
+	public int getBugReportCount();
+
+	public List<BugReportVO> getBugReportList(int i, int pageSize, String sortField, int dir, String filter, String filterColumnName);
+
+	public long countOngoingBugReport();
 
 }

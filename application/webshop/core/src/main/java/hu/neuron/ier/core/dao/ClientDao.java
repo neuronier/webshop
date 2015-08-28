@@ -2,6 +2,8 @@ package hu.neuron.ier.core.dao;
 
 import hu.neuron.ier.core.entity.Client;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,12 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(propagation = Propagation.SUPPORTS)
 public interface ClientDao extends JpaRepository<Client, Long> {
+
+	Client findByUserName(@Param("userName") String name);
+
+	Page<Client> findByUserNameStartsWith(String filter, Pageable pageable);
 	
-	Client findByUserName(@Param("userName")String name) throws Exception;
+	List<Client> findByuserNameStartsWith(String filter);
 	
-	Page<Client> findByUserNameStartsWith(String filter,Pageable pageable);
+	Client findByClientId(String clientId);
+
+	Client findUserByEmail(@Param("email") String email) throws Exception;
 	
 	
-	
-	Client findUserByEmail(@Param("email")String email) throws Exception;
 }

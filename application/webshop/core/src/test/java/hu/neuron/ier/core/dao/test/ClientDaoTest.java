@@ -36,22 +36,22 @@ public class ClientDaoTest {
 	@Autowired
 	ClientDao clientDao;
 
-	@Test
-	public void test1Save() {
-		try {
-			client = new Client();
-			client.setClientId(6L);
-			client.setUserName("test");
-			client.setPassword("test");
-			client.setFullName("Test Elek");
-			client = clientDao.save(client);
-			logger.info("user: " + client);
-
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new RuntimeException(e);
-		}
-	}
+//	@Test
+//	public void test1Save() {
+//		try {
+//			client = new Client();
+//			client.setClientId(6L);
+//			client.setUserName("test");
+//			client.setPassword("test");
+//			client.setFullName("Test Elek");
+//			client = clientDao.save(client);
+//			logger.info("user: " + client);
+//
+//		} catch (Exception e) {
+//			logger.error(e.getMessage(), e);
+//			throw new RuntimeException(e);
+//		}
+//	}
 	
 	@Test
 	public void test2Update() {
@@ -88,28 +88,28 @@ public class ClientDaoTest {
 		}
 	}
 	
-	@Test
-	public void test5FindByUserName() {
-		try {
-			Client newClient = new Client();
-			newClient.setClientId(9L);
-			newClient.setBillingAddress(client.getBillingAddress());
-			newClient.setDeliveryAddress(client.getBillingAddress());
-			newClient.setEmail("sajtszag@illat.hu");
-			newClient.setUserName("kutyafüle");
-			newClient.setFullName("Kala Pál");
-			newClient = clientDao.save(newClient);
-			Client rv = clientDao.findByUserName(client.getUserName());
-			Assert.assertEquals(client.getId().longValue(), rv.getId().longValue());
-			Assert.assertEquals(client.getFullName(), rv.getFullName());
-			
-			
-			logger.info("rv: " + rv);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new RuntimeException(e);
-		}
-	}
+//	@Test
+//	public void test5FindByUserName() {
+//		try {
+//			Client newClient = new Client();
+//			newClient.setClientId(9L);
+//			newClient.setBillingAddress(client.getBillingAddress());
+//			newClient.setDeliveryAddress(client.getBillingAddress());
+//			newClient.setEmail("sajtszag@illat.hu");
+//			newClient.setUserName("kutyafüle");
+//			newClient.setFullName("Kala Pál");
+//			newClient = clientDao.save(newClient);
+//			Client rv = clientDao.findByUserName(client.getUserName());
+//			Assert.assertEquals(client.getId().longValue(), rv.getId().longValue());
+//			Assert.assertEquals(client.getFullName(), rv.getFullName());
+//			
+//			
+//			logger.info("rv: " + rv);
+//		} catch (Exception e) {
+//			logger.error(e.getMessage(), e);
+//			throw new RuntimeException(e);
+//		}
+//	}
 	
 	@Test
 	public void test6FindByUserNameStartsWithTest() {

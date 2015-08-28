@@ -47,69 +47,69 @@ public class BugReportServiceImplTest {
 		ejbContainer.getContext().bind("inject", this);
 	}
 
-	@Test
-	public void test1createBugReport() {
-		try {
-			clientVO = new ClientVO();
-			clientVO = clientService.registrationClient(clientVO);
-			productTypeVO = new ProductTypeVO();
-			productTypeVO = productTypeService.createProductType(productTypeVO);
-
-			bugReportVO = new BugReportVO();
-			bugReportVO.setClientVO(clientVO);
-			bugReportVO.setProblem("problem");
-			bugReportVO.setProductTypeVO(productTypeVO);
-
-			bugReportVO = bugReportService.createBugReport(bugReportVO);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Test
-	public void test2updateProblem() {
-		try {
-			bugReportVO = bugReportService.updateProblem(bugReportVO.getId(), "problem2");
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Test
-	public void test3getBugReportByCient() {
-		try {
-			bugReportService.getBugReportByCient(clientVO);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Test
-	public void test4getBugReportByProductType() {
-		try {
-			bugReportService.getBugReportByProductType(productTypeVO);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Test
-	public void test5getAllBugReport() {
-		try {
-			bugReportService.getAllBugReport();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Test
-	public void test6deleteBugReport() {
-		try {
-			bugReportService.deleteBugReport(bugReportVO.getId());
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+//	@Test
+//	public void test1createBugReport() {
+//		try {
+//			clientVO = new ClientVO();
+//			clientVO = clientService.registrationClient(clientVO);
+//			productTypeVO = new ProductTypeVO();
+//			productTypeVO = productTypeService.createProductType(productTypeVO);
+//
+//			bugReportVO = new BugReportVO();
+//			bugReportVO.setClientVO(clientVO);
+//			bugReportVO.setProblem("problem");
+//			bugReportVO.setProductTypeVO(productTypeVO);
+//
+//			bugReportVO = bugReportService.createBugReport(bugReportVO);
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+//
+//	@Test
+//	public void test2updateProblem() {
+//		try {
+//			bugReportVO = bugReportService.updateProblem(bugReportVO.getId(), "problem2");
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+//
+//	@Test
+//	public void test3getBugReportByCient() {
+//		try {
+//			bugReportService.getBugReportByCient(clientVO);
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+//
+//	@Test
+//	public void test4getBugReportByProductType() {
+//		try {
+//			bugReportService.getBugReportByProductType(productTypeVO);
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+//
+//	@Test
+//	public void test5getAllBugReport() {
+//		try {
+//			bugReportService.getAllBugReport();
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+//
+//	@Test
+//	public void test6deleteBugReport() {
+//		try {
+//			bugReportService.deleteBugReport(bugReportVO.getId());
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 
 	@Test
 	public void test99closeEJBContainer() {

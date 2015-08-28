@@ -18,7 +18,7 @@
 
 		
 		
-		<p:dialog widgetVar="bugReportViewerDialog" width="80%" resizable="false">
+		<p:dialog widgetVar="bugReportViewerDialog" width="80%" resizable="false" appendTo="@(body)">
 			<h:form id="bugReportViewerDialogForm">
 				<p:dataTable value="#{bugReportManagementController.bugMessageList}" var="bugMsg" scrollable="true" scrollHeight="150"
 					emptyMessage="#{out.empty_message}">

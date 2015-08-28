@@ -24,6 +24,7 @@
 		<class>hu.neuron.ier.core.entity.Role</class>
 		<class>hu.neuron.ier.core.entity.ShoppingCart</class>
 		<class>hu.neuron.ier.core.entity.User</class>
+		<class>hu.neuron.ier.core.entity.BugMessage</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 

@@ -16,37 +16,35 @@
 
 	<ui:define name="content">
 		<div class="whiteLetter" align="center">
-			<h:form id="form">
+			<h:form id="paymentForm">
 				<p:fieldset name="header" legend="Fizetési oldal">
 					<p:growl id="msgs" showDetail="true" />
 
 
 					<p:wizard>
 						<p:tab title="Szállítási adatok">
-							<p:fieldset name="header" legend="Felhasználó adatai">
-								<h:panelGrid columns="2">
-									<h:outputText value="#{out.name}:" />
-									<h:inputText value="#{paymentController.clientFullName}" />
+							<h:panelGrid columns="2">
+								<h:outputText value="#{out.name}:" />
+								<h:inputText value="#{paymentController.clientFullName}" />
 
-									<h:outputText value="Phone:" />
-									<h:inputText value="#{paymentController.clientPhone}" />
+								<h:outputText value="Phone:" />
+								<h:inputText value="#{paymentController.clientPhone}" />
 
-									<h:outputText value="E-mail:" />
-									<h:inputText value="#{paymentController.clientEmail}" />
+								<h:outputText value="E-mail:" />
+								<h:inputText value="#{paymentController.clientEmail}" />
 
-									<h:outputText value="Szállítási irányítószám:" />
-									<h:inputText value="#{paymentController.billingPostcode}" />
-									<h:outputText value="Szállítási város:" />
-									<h:inputText value="#{paymentController.billingCity}" />
-									<h:outputText value="Szállítási utca:" />
-									<h:inputText value="#{paymentController.billingStreet}" />
-									<h:outputText value="Szállítási házszám:" />
-									<h:inputText value="#{paymentController.billingHouse}" />
-
+								<h:outputText value="Szállítási irányítószám:" />
+								<h:inputText value="#{paymentController.billingPostcode}" />
+								<h:outputText value="Szállítási város:" />
+								<h:inputText value="#{paymentController.billingCity}" />
+								<h:outputText value="Szállítási utca:" />
+								<h:inputText value="#{paymentController.billingStreet}" />
+								<h:outputText value="Szállítási házszám:" />
+								<h:inputText value="#{paymentController.billingHouse}" />
 
 
-								</h:panelGrid>
-							</p:fieldset>
+
+							</h:panelGrid>
 						</p:tab>
 
 						<p:tab title="Összesítés">

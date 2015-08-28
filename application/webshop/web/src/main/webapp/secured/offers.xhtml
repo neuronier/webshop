@@ -15,9 +15,10 @@
 	</ui:define>
 
 	<ui:define name="content">
-
+		<h:form id="form"></h:form>
 		<p:dialog header="Effects" widgetVar="updateOffer"
-			showEffect="explode" appendTo="@(body)" hideEffect="explode" mheight="100" modal="true">
+			showEffect="explode" appendTo="@(body)" hideEffect="explode"
+			mheight="100" modal="true">
 			<h:form>
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
@@ -51,54 +52,54 @@
 			</h:form>
 		</p:dialog>
 
-		
+
 		<h:form id="offerForm">
 			<p:growl id="msgs" showDetail="true" />
 			<p:fieldset legend="Ajánlatok" style="margin-bottom:20px">
-			<p:dataTable id="offerTable" var="currentOffer"
-				value="#{offerController.lazyOfferModel}" selectionMode="single"
-				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="5,10,15" lazy="true" paginator="true" rows="10"
-				selection="#{offerController.selectedOffer}"
-				emptyMessage="#{out.empty_message}">
+				<p:dataTable id="offerTable" var="currentOffer"
+					value="#{offerController.lazyOfferModel}" selectionMode="single"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15" lazy="true" paginator="true"
+					rows="10" selection="#{offerController.selectedOffer}"
+					emptyMessage="#{out.empty_message}">
 
-				<p:ajax event="rowSelect" listener="#{offerController.onRowSelect}"
-					update=":offerForm" />
-				<p:ajax event="rowUnselect"
-					listener="#{offerController.onRowUnselect}"
-					update=":offerForm" />
+					<p:ajax event="rowSelect" listener="#{offerController.onRowSelect}"
+						update=":offerForm" />
+					<p:ajax event="rowUnselect"
+						listener="#{offerController.onRowUnselect}" update=":offerForm" />
 
-				<p:column headerText="name">
-					<h:outputText value="#{currentOffer.name}" />
-				</p:column>
+					<p:column headerText="name">
+						<h:outputText value="#{currentOffer.name}" />
+					</p:column>
 
-				<p:column headerText="Price">
+					<p:column headerText="Price">
 
-					<h:outputText value="#{currentOffer.newCost}" />
-				</p:column>
+						<h:outputText value="#{currentOffer.newCost}" />
+					</p:column>
 
-				<p:column headerText="Akciós">
-					<h:outputText value="#{currentOffer.action}" />
-				</p:column>
+					<p:column headerText="Akciós">
+						<h:outputText value="#{currentOffer.action}" />
+					</p:column>
 
-				<p:column headerText="Kiemelt">
-					<h:outputText value="#{currentOffer.featured}" />
-				</p:column>
+					<p:column headerText="Kiemelt">
+						<h:outputText value="#{currentOffer.featured}" />
+					</p:column>
 
-				<p:column headerText="Eredeti ar">
-					<h:outputText value="#{currentOffer.originalCost}" />
-				</p:column>
-			</p:dataTable>
-			<h:panelGrid columns="4" cellpadding="5">
-				<p:commandButton value="Update Offer" type="button" disabled="#{offerController.selectedOffer == null}"
-					onclick="PF('updateOffer').show();" />
-			</h:panelGrid>
+					<p:column headerText="Eredeti ar">
+						<h:outputText value="#{currentOffer.originalCost}" />
+					</p:column>
+				</p:dataTable>
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:commandButton value="Update Offer" type="button"
+						disabled="#{offerController.selectedOffer == null}"
+						onclick="PF('updateOffer').show();" />
+				</h:panelGrid>
 			</p:fieldset>
 		</h:form>
-		
-		
-			
-		
+
+
+
+
 
 	</ui:define>
 </ui:composition>

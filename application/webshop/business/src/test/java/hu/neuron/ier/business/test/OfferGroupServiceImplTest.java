@@ -243,7 +243,7 @@ public class OfferGroupServiceImplTest {
 			child4 = offerGroupService.createOfferGroup(child4);
 			Assert.assertEquals(child2.getId(), child4.getParentOfferGroup().getId());
 			Assert.assertTrue(child4.getActive());
-			offerGroupService.updateOfferGroupActiveRecursively(parent, true);
+			offerGroupService.updateOfferGroupActiveRecursively(parent, false);
 			//parent childs
 			List<OfferGroupVO> vos = offerGroupService.findOfferGroupByParentOfferGroup(root);
 			for(OfferGroupVO ogvo : vos){

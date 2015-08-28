@@ -109,6 +109,11 @@ public class CreateShema {
 				offerGroup1.setDescription("Okos és nem okos telefonok");
 				offerGroup2.setDescription("Akkumulátor töltésre használatos eszközök");
 				offerGroup3.setDescription("Elektronikusan müködő eszközök");
+				
+//				offerGroup.setActive(true);
+//				offerGroup1.setActive(true);
+//				offerGroup2.setActive(true);
+//				offerGroup3.setActive(true);
 
 				offerGroup = offerGroupDAO.save(offerGroup);
 				offerGroup1 = offerGroupDAO.save(offerGroup1);

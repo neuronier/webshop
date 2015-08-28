@@ -169,13 +169,20 @@ public class OfferGroupDaoTest {
 		try {
 			Integer count = new Integer(0);
 			count = offerGroupDao.countOfferGroupByParentOfferGroupAndActive(parentOfferGroup, true);
-			Assert.assertTrue("2 db aktív gyermeknek kell lennie", 2 == count);
+			logger.info("Count1: " + count.toString());
+			Assert.assertTrue("2 db aktív gyermeknek kell lennie", 2 == count.intValue());
+			
 			count = offerGroupDao.countOfferGroupByParentOfferGroupAndActive(parentOfferGroup, false);
+			logger.info("Count2: " + count.toString());
 			Assert.assertTrue("1 db inaktív gyermeknek kell lennie", 1 == count);
+			
 			count = offerGroupDao.countOfferGroupByParentOfferGroupAndActive(null, true);
-			Assert.assertTrue("2 db aktív gyermeknek kell lennie", 2 == count);
+			logger.info("Count3: " + count.toString());
+			Assert.assertTrue("2 db aktív gyermeknek kell lennie, helyette " + count + " van", 2 == count);
+			
 			count = offerGroupDao.countOfferGroupByParentOfferGroupAndActive(null, false);
-			Assert.assertTrue("0 db inaktív gyermeknek kell lennie", 0 == count);
+			logger.info("Count4: " + count.toString());
+			Assert.assertTrue("0 db inaktív gyermeknek kell lennie, helyette " + count + " van", 0 == count);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

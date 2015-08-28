@@ -28,7 +28,7 @@
 
 		<h:outputStylesheet library="default" name="css/masterLayout.css" />
 		<p:menubar style="margin:10px">
-			<p:menuitem value="#{out.home}" url="/" icon="ui-icon-home" action="#{dataGridView.init}" update=":form"/>
+			<p:menuitem value="#{out.home}" url="/" icon="ui-icon-home" actionListener="#{dataGridView.init}"/>
 
 			<sec:authorize ifAllGranted="ROLE_ADMIN">
 				
@@ -85,19 +85,6 @@
 		</p:menubar>
 		</p:layoutUnit>
 			<p:layoutUnit position="center" style="z-index: -1;">
-				<div id="categoryMenuDiv" style="float: left; margin: 10px">
-					<h:form id="categoryMenuFormId">
-						<p:growl autoUpdate="true" />
-
-						<p:panelMenu style="width:200px;"
-							model="#{categoryMenuController.model}" >
-							
-						</p:panelMenu>
-
-					</h:form>
-				</div>
-
-
 				<div id="contentDiv" style="margin: 10px">
 					<div class="ui-wrap-content" style="height: 100%;">
 						<div id="content">
@@ -109,11 +96,9 @@
 				</div>
 			</p:layoutUnit>
 			<p:layoutUnit position="south">
-				
 				<div style="float: center">IER Webshop 2015</div>
 			</p:layoutUnit>
 		</p:layout>
 	</h:body>
-
 </f:view>
 </html>

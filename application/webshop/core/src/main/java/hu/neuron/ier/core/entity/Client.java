@@ -21,7 +21,7 @@ public class Client extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long clientId;
+	private String clientId;
 	private String userName;
 	private String password;
 	private String fullName;
@@ -102,11 +102,11 @@ public class Client extends BaseEntity {
 		this.roles = roles;
 	}
 
-	public Long getClientId() {
+	public String getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(Long clientId) {
+	public void setClientId(String clientId) {
 		this.clientId = clientId;
 	}
 

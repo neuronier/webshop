@@ -1,14 +1,18 @@
 package hu.neuron.ier.core;
 
+import hu.neuron.ier.core.dao.BugReportDao;
 import hu.neuron.ier.core.dao.ClientDao;
 import hu.neuron.ier.core.dao.OfferDao;
 import hu.neuron.ier.core.dao.OfferGroupDao;
+import hu.neuron.ier.core.dao.ProductTypeDao;
 import hu.neuron.ier.core.dao.RoleDao;
 import hu.neuron.ier.core.dao.ShoppingCartDao;
 import hu.neuron.ier.core.dao.UserDao;
+import hu.neuron.ier.core.entity.BugReport;
 import hu.neuron.ier.core.entity.Client;
 import hu.neuron.ier.core.entity.Offer;
 import hu.neuron.ier.core.entity.OfferGroup;
+import hu.neuron.ier.core.entity.ProductType;
 import hu.neuron.ier.core.entity.Role;
 import hu.neuron.ier.core.entity.ShoppingCart;
 import hu.neuron.ier.core.entity.User;
@@ -18,9 +22,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Component
 @Transactional
@@ -39,6 +43,11 @@ public class CreateShema {
 	public ShoppingCartDao shoppingCartDao;
 	@Autowired
 	public ClientDao clientDao;
+	@Autowired
+	public ProductTypeDao productTypeDao;
+	
+	@Autowired
+	public BugReportDao bugReportDao;
 
 	public void insertRoles() {
 		Role dto = null;
@@ -107,7 +116,8 @@ public class CreateShema {
 
 				offerGroup.setDescription("Hordozható számítógépek");
 				offerGroup1.setDescription("Okos és nem okos telefonok");
-				offerGroup2.setDescription("Akkumulátor töltésre használatos eszközök");
+				offerGroup2
+						.setDescription("Akkumulátor töltésre használatos eszközök");
 				offerGroup3.setDescription("Elektronikusan müködő eszközök");
 
 				offerGroup = offerGroupDAO.save(offerGroup);
@@ -191,5 +201,30 @@ public class CreateShema {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
+	}
+
+	public void insertBugReports() {
+
+		try {
+				if (bugReportDao.findByClientId("Istv").isEmpty()){
+					
+				
+				Client client = new Client();
+				client.setClientId("Istv");
+				client.setUserName("Istvanka");
+				BugReport bugReport = new BugReport();
+				bugReport.setStatus("ONGOING");
+				bugReport.setSubject("műszaki hiba");
+				bugReport.setClientId("Istv");
+				
+				clientDao.save(client);
+				bugReportDao.save(bugReport);
+				}
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
 	}
 }

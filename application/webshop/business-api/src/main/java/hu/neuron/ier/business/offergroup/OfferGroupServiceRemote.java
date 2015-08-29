@@ -28,4 +28,12 @@ public interface OfferGroupServiceRemote {
 	List<OfferGroupVO> findAllParentOfferGroups() throws Exception;
 	
 	List<OfferGroupVO> findOfferGroupByParentOfferGroup(OfferGroupVO parentOfferGroup) throws Exception;
+	
+	List<OfferGroupVO> findOfferGroupByParentOfferGroupAndActive(OfferGroupVO parentOfferGroup, Boolean active) throws Exception;
+	
+	void updateOfferGroupActiveRecursively(OfferGroupVO offerGroup, Boolean active) throws Exception;
+	
+	Integer countOfferGroupByParentOfferGroupAndActive(OfferGroupVO parentOfferGroup, Boolean active) throws Exception;
+	
+	
 }

@@ -11,7 +11,7 @@
 	</ui:define>
 	<ui:define name="pageTitle">Selfcare</ui:define>
 	<ui:define name="content">
-
+		<h:form id="form"></h:form>
 		<div align="center">
 			<h:panelGroup rendered="#{not empty request.remoteUser}"
 				style="color: white;">
@@ -20,12 +20,12 @@
 				<br />
 				<br />
 				<br />
-				
-				<h2 align="center" style="font-family: Roman;  color: yellow ">
+
+				<h2 align="center" style="font-family: Roman; color: yellow">
 					Üdvözöljük
 					<h:outputText id="clientNameInput" font-style="italic;"
 						value="#{clientSelfCareController.currentClient.userName}" />
-					!	
+					!
 				</h2>
 
 				<h:form id="clientSelfCareForm" prependId="false">
@@ -57,7 +57,8 @@
 
 					</h:panelGrid>
 
-					<p:commandButton id="clientSelfCareApply" value="Változtatások mentése"
+					<p:commandButton id="clientSelfCareApply"
+						value="Változtatások mentése"
 						action="#{clientSelfCareController.updateClient()}"
 						icon="ui-icon-check" update="clientSelfCareForm" />
 

@@ -15,10 +15,10 @@
 	</ui:define>
 
 	<ui:define name="content">
+	<h:form id="form"></h:form>
 		<div class="whiteLetter" align="center">
 			<h:form id="shoppingCartForm">
 				<p:fieldset name="header" legend="#{out.shoppingCart}">
-
 					<p:dataTable style="width:80%;"
 						value="#{shoppingCartController.offersToShow}" var="offer">
 						<p:column width="110px">

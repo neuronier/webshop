@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="head-extra">
+		<!-- 		custom css -->
+	</ui:define>
+	<ui:define name="pageTitle">Rendelés</ui:define>
+	<ui:define name="content">
+	<h:form id="form"></h:form>
+		<div align="center">
+		<p:fieldset style="margin-bottom:20px">
+			<h:form id="form1">
+			
+				<p:growl id="msgs" showDetail="true" />
+				<p:fieldset legend="Készlet" style="margin-bottom:20px">
+					<p:dataTable id="items" var="product"
+						value="#{orderChangeController.productTypes}" widgetVar="produtcTable"
+						selectionMode="single"
+						selection="#{orderChangeController.selectedProduct}"
+						rowKey="#{product.itemNumber}" emptyMessage="Valami nincs"
+						stlye="width:100%;" rows="10" paginator="true">
+						<p:ajax event="rowSelect" update="items" />
+						<p:column headerText="Termék Id" sortBy="#{product.itemNumber}"
+							filterBy="#{product.itemNumber}" filterMatchMode="contains">
+							<h:outputText value="#{product.itemNumber}" />
+						</p:column>
+
+						<p:column filterBy="0" headerText="Darab" sortBy="#0"
+							filterMatchMode="contains">
+							<h:outputText value="0" />
+						</p:column>
+
+					</p:dataTable>
+				</p:fieldset>
+			</h:form>
+			<p:fieldset style="margin-bottom:10px">
+			<h:form id="form">
+				<h:outputText style="color: white;" value="Rendelt darab: " />
+				<p:inputText id="darab" value="#{orderChangeController.darab}"
+					label="darab" />
+				<p:commandButton value="Hozzáad" id="hozzaad"
+					styleClass="ui-priority-primary"
+					action="#{orderChangeController.addItem}"
+					update=":form2:orderItems, lead" style="margin:5px;" />
+				<p:commandButton value="Törlés" id="delete" update=":form2"
+					action="#{orderChangeController.deleteSelectedElement}"
+					disabled="#{orderChangeController.selectedElement == null}"
+					style="margin:5px;" />
+				<p:commandButton value="Rendelés leadása" style="margin:5px;"
+					id="lead" action="#{orderChangeController.addOrder}" 
+					disabled="#{orderChangeController.actualElements.isEmpty() == true}" />
+					</h:form>
+			</p:fieldset>
+			<h:form id="form2" align="center">
+				<p:fieldset legend="Rendelni kívánt termékek" style="margin-bottom:20px">
+					<p:dataTable id="orderItems" var="orderElement"
+						value="#{orderChangeController.actualElements}" selectionMode="single"
+						selection="#{orderChangeController.selectedElement}"
+						rowKey="#{orderElement.productType.itemNumber}" emptyMessage="Valami nincs"
+						stlye="width:100%;" rows="10" paginator="true" editable="true"
+						editMode="cell">
+						<p:ajax event="rowSelect" update="form:delete" />
+						<p:column headerText="Termék Id"
+							sortBy="#{orderElement.productType.itemNumber}"
+							filterBy="#{orderElement.productType.itemNumber}"
+							filterMatchMode="contains">
+							<h:outputText value="#{orderElement.productType.itemNumber}" />
+						</p:column>
+
+						<p:column headerText="Darab">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{orderElement.quanty}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{orderElement.quanty}" style="width:100%"
+										label="Year" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>
+			</h:form>
+			</p:fieldset>
+		</div>
+	</ui:define>
+</ui:composition>

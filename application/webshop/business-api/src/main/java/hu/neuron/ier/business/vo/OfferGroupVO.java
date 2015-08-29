@@ -9,6 +9,7 @@ public class OfferGroupVO implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
+	private Boolean active;
 	private OfferGroupVO parentOfferGroup;
 
 	public OfferGroupVO getParentOfferGroup() {
@@ -43,9 +44,17 @@ public class OfferGroupVO implements Serializable {
 		this.description = description;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
-		return name + "_" + id;
+		return name;
 	}
 	
 	

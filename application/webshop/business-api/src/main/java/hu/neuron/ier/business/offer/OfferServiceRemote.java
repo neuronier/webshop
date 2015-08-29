@@ -21,24 +21,25 @@ public interface OfferServiceRemote {
 
 	OfferVO updateOfferCost(Long id, Long cost) throws Exception;
 
-	OfferVO updateOfferDescription(Long id, String description) throws Exception;
+	OfferVO updateOfferDescription(Long id, String description)
+			throws Exception;
 
 	OfferVO updateOfferName(Long id, String name) throws Exception;
-	
-	List<OfferVO> getOffersByParentOfferGroup(Long parentId) throws Exception;	//kulcssz� alapj�n keres a le�r�sban �s a n�vben	
-	
+
+	List<OfferVO> getOffersByParentOfferGroup(Long parentId) throws Exception;
+
+	// kulcssz� alapj�n keres a le�r�sban �s a n�vben
 	List<OfferVO> searchOffers(String key) throws Exception;
-	
+
 	OfferVO getOfferById(Long id) throws Exception;
-	
+
 	public List<OfferVO> getOfferList() throws Exception;
-	
-	List<OfferVO> getOfferList(int page, int pageSize, String sortField, int dir,
-			String filter, String filterColumnName) throws Exception;
-	
+
+	List<OfferVO> getOfferList(int page, int pageSize, String sortField,
+			int dir, String filter, String filterColumnName) throws Exception;
+
 	int getRowNumber() throws Exception;
 
 	OfferVO saveOffer(OfferVO selectedOffer) throws Exception;
-	
-	
+
 }

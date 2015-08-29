@@ -7,7 +7,8 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 
 	<p:dialog header="Edit Category" widgetVar="editCategoryDialog"
-		showEffect="scale" appendTo="@(body)" hideEffect="puff" resizable="false" height="100">
+		showEffect="scale" appendTo="@(body)" hideEffect="puff"
+		resizable="false" height="100">
 		<h:panelGroup>
 			<h:form id="editCategoryFormId" prependId="false">
 				<table>
@@ -28,6 +29,7 @@
 						<h:outputLabel id="outLblCategoryDescriptionId"
 							for="categoryDescription" name="outLblCategoryDescriptionNm"></h:outputLabel>
 					</tr>
+					
 				</table>
 
 				<h:commandButton id="editCategorySave" value="Save"

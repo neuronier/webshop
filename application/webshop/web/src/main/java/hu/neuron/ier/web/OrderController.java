@@ -135,7 +135,8 @@ public class OrderController implements Serializable {
 			}
 			orderVO.setOrderElements(orders);
 
-			ordersService.createOrder(orderVO);
+			orderVO = ordersService.createOrder(orderVO);
+			ordersService.updateOrderId(orderVO.getId(), orderVO.getId());
 			updateOrders();
 			
 		} catch (Exception e) {
@@ -159,12 +160,21 @@ public class OrderController implements Serializable {
 		}
 	}
 	
+	public boolean isNew(){
+		if(orderSet.getSettedOrder()!=null && ((orderSet.getSettedOrder().getStatus()).equals("Új"))){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
 	
 	public void deleteSelected() {
 		OrdersVO orderVO = getSelectedOrder();
 		try {
 			
 			ordersService.deleteOrders(orderVO.getId());
+			orderElements = (List<OrderElementVO>) orderVO.getOrderElements();
 			orderSet.setSettedOrder(null);
 			for(OrderElementVO element : orderElements){
 				orderElementService.deleteOrderElement(element.getId());

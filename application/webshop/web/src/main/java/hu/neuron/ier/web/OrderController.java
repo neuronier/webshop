@@ -98,7 +98,7 @@ public class OrderController implements Serializable {
 	public void initOrder() {
 		orderElements = new ArrayList<OrderElementVO>();
 		statusMenu.add("Új");
-		statusMenu.add("Kész");
+		statusMenu.add("Átvett");
 		statusMenu.add("Folyamatban");
 	}
 	

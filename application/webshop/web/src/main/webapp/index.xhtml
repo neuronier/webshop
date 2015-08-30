@@ -13,8 +13,10 @@
 
 
 
-			<p:fieldset legend="Kiemelt ajánlataink" style="margin-bottom:20px">
-				<h:form id="form">
+
+			<h:form id="form">
+				<p:fieldset legend="#{fieldSetSessionBean.fieldSetLegend}"
+					style="margin-bottom:20px">
 					<p:dataGrid var="offer" value="#{dataGridView.offers}" columns="3"
 						layout="grid" rows="12" paginator="true" id="offers"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -68,8 +70,9 @@
 							</p:panelGrid>
 						</p:outputPanel>
 					</p:dialog>
-				</h:form>
-			</p:fieldset>
+				</p:fieldset>
+			</h:form>
+
 		</div>
 	</ui:define>
 

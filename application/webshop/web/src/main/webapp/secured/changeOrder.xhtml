@@ -10,6 +10,7 @@
 	</ui:define>
 	<ui:define name="pageTitle">Rendelés</ui:define>
 	<ui:define name="content">
+	<h:form id="form"></h:form>
 		<div align="center">
 			<p:fieldset legend="#{orderSet.getSettedOrder().getOrdersId()}. számú rendelés módosítása" style="margin-bottom:20px">
 				<h:form id="rendel">
@@ -55,7 +56,7 @@
 					<p:commandButton value="Rendelés módosítása" style="margin:5px;"
 						id="lead" action="#{orderChangeController.addOrder}"
 						disabled="#{orderChangeController.orderElements.isEmpty()}"
-						oncomplete="/secured/order.xhtml" />
+						onsuccess="window.location.replace('/webshopApp/secured/order.xhtml')" />
 
 					<p:dataTable id="Products" var="product"
 						value="#{orderChangeController.productTypes}" selectionMode="single"

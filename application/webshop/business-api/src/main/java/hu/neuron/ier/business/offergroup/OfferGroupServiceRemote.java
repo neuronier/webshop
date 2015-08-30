@@ -35,5 +35,5 @@ public interface OfferGroupServiceRemote {
 	
 	Integer countOfferGroupByParentOfferGroupAndActive(OfferGroupVO parentOfferGroup, Boolean active) throws Exception;
 	
-	
+	OfferGroupVO getOfferGroup(Long id) throws Exception;
 }

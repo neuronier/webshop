@@ -6,19 +6,21 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 
-	<p:dialog header="Add Offers" widgetVar="addOffersDialog"
-		showEffect="clip" appendTo="@(body)" hideEffect="clip" resizable="false">
+	<p:dialog header="#{out.addOffers}" widgetVar="addOffersDialog"
+		showEffect="clip" appendTo="@(body)" hideEffect="clip"
+		resizable="false" dir="true">
 		<h:panelGroup>
 			<h:form id="addOfferFormId">
 				<h:panelGrid columns="2" cellpadding="5">
 					<p:pickList id="addOfferPickList"
 						value="#{offerGroupController.offers}" var="offer"
 						itemLabel="#{offer.name}" itemValue="#{offer}"
-						converter="#{offerGroupController}">
-						<f:facet name="sourceCaption">Available</f:facet>
-						<f:facet name="targetCaption">Added</f:facet>
+						converter="#{offerGroupController}" showSourceFilter="true"
+						showTargetFilter="true" filterMatchMode="contains" effect="clip">
+						<f:facet name="sourceCaption">#{out.available}</f:facet>
+						<f:facet name="targetCaption">#{out.added}</f:facet>
 					</p:pickList>
-					<p:commandButton id="btnAddOfferSave" value="Save"
+					<p:commandButton id="btnAddOfferSave" value="#{out.save}"
 						icon="ui-icon-check" action="#{offerGroupController.addOffers()}"
 						oncomplete="PF('addOffersDialog').hide()"
 						update=":categoryFormId:categoryDataTableId, :categoryFormId:btnEditCategory, :categoryFormId:btnDeleteCategory, :categoryFormId:btnAddOffer">

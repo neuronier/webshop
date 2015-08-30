@@ -28,13 +28,17 @@ public class CategoryMenuController implements Serializable {
 	private MenuModel model;
 	private List<OfferVO> offers;
 	private Long selectedId;
-	
+
+
 	@ManagedProperty("#{dataGridView}")
 	private DataGridView dataGridView;
+	
+	@ManagedProperty("#{fieldSetSessionBean}")
+	private FieldSetSessionBean fieldSetSessionBean;
 
 	@EJB(name = "OfferGroupService", mappedName = "OfferGroupService")
 	OfferGroupServiceRemote offerGroupServiceRemote;
-	
+
 	@EJB(name = "OfferService", mappedName = "OfferService")
 	OfferServiceRemote offerService;
 
@@ -58,36 +62,53 @@ public class CategoryMenuController implements Serializable {
 	public void init() {
 		model = new DefaultMenuModel();
 
-		DefaultSubMenu fo = new DefaultSubMenu();
-		fo.setLabel("Főoldal");
-		DefaultMenuItem foOldal = new DefaultMenuItem();
-		foOldal.setValue(getClass().getResourceAsStream("Főoldal"));
-		foOldal.setUrl("/");
-		foOldal.setUpdate(":form");
-		fo.addElement(foOldal);
-		model.addElement(fo);
+		DefaultSubMenu ajanlatok = new DefaultSubMenu();
+		ajanlatok.setLabel("Napi ajánlatok");
+		DefaultMenuItem akciok = new DefaultMenuItem();
+
+		akciok.setValue("Akciós ajánlatok");
+		akciok.setCommand("#{categoryMenuController.findActionOffers}");
+		akciok.setOnsuccess("window.location.replace('/webshopApp/index.xhtml')");
+		akciok.setUpdate(":form");
+		ajanlatok.addElement(akciok);
+		model.addElement(ajanlatok);
 		createMenu(null, null);
 	}
-	//belül konvertálom a paramétert Long típusúvá
+
+	// belül konvertálom a paramétert Long típusúvá
 	public String findOffers(String offerGroupId) {
 		Long id = Long.valueOf(offerGroupId);
 		try {
-			getDataGridView().setOffers( offerService.getOffersByParentOfferGroup(id));
-			
+			getDataGridView().setOffers(
+					offerService.getOffersByParentOfferGroup(id));
+			getFieldSetSessionBean().setFieldSetLegend(offerGroupServiceRemote.getOfferGroup(id)
+					.getName());
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		return "/";
 	}
 
+	// lekérdezi az akciós ajánlatokat
+	public String findActionOffers() {
+		try {
+			getDataGridView().setOffers(offerService.getActionOffers(true));
+			getFieldSetSessionBean().setFieldSetLegend("Akciós ajánlatok");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public void createMenu(MenuElement elem, OfferGroupVO parentOfferGroup) {
 		// össszes közvetlen gyermek lekérdezése
 		try {
-//			List<OfferGroupVO> lista = offerGroupServiceRemote
-//					.findOfferGroupByParentOfferGroup(parentOfferGroup);
+			// List<OfferGroupVO> lista = offerGroupServiceRemote
+			// .findOfferGroupByParentOfferGroup(parentOfferGroup);
 			List<OfferGroupVO> lista = offerGroupServiceRemote
-					.findOfferGroupByParentOfferGroupAndActive(parentOfferGroup,true);
+					.findOfferGroupByParentOfferGroupAndActive(
+							parentOfferGroup, true);
 			MenuElement element;
 			// ha nincs gyermek vége
 			if (lista.size() == 0) {
@@ -95,16 +116,18 @@ public class CategoryMenuController implements Serializable {
 			} else { // különben bejárjuk a gyermekek listáját
 				for (OfferGroupVO ogvo : lista) {
 					// megnézzük hogy van- e gyermeke
-				
-//					List<OfferGroupVO> gyerekek = offerGroupServiceRemote
-//							.findOfferGroupByParentOfferGroupAndActive(ogvo,true);
-					int gyerekekSzama = offerGroupServiceRemote.countOfferGroupByParentOfferGroupAndActive(ogvo, true);
-//					if (gyerekek.size() > 0) {
-					if(gyerekekSzama > 0){
+
+					// List<OfferGroupVO> gyerekek = offerGroupServiceRemote
+					// .findOfferGroupByParentOfferGroupAndActive(ogvo,true);
+					int gyerekekSzama = offerGroupServiceRemote
+							.countOfferGroupByParentOfferGroupAndActive(ogvo,
+									true);
+					// if (gyerekek.size() > 0) {
+					if (gyerekekSzama > 0) {
 						// ha van akkor DefaultSubmenu-t kell készíteni
 						element = new DefaultSubMenu(ogvo.getName());
 						element.setId(ogvo.getId().toString());
-						
+
 						// ha a paraméterként kapott elem null volt, akkor a
 						// modell-hez adjuk hozzá, mert főmenüpont
 						if (elem == null) {
@@ -121,17 +144,18 @@ public class CategoryMenuController implements Serializable {
 							element = new DefaultSubMenu(ogvo.getName());
 							// beállítjuk az id-ját
 							element.setId(ogvo.getId().toString());
-							
+
 							// hozzáadjuk a modellhez
 							model.addElement(element);
 						} else {
 							element = new DefaultMenuItem(ogvo.getName());
 							element.setId(ogvo.getId().toString());
-							((DefaultMenuItem) element).setCommand("#{categoryMenuController.findOffers(" + ogvo.getId().toString() + ")}");
+							((DefaultMenuItem) element)
+									.setCommand("#{categoryMenuController.findOffers("
+											+ ogvo.getId().toString() + ")}");
 							((DefaultMenuItem) element).setUpdate(":form");
-		
-							
-							
+							((DefaultMenuItem) element).setOnsuccess("window.location.replace('/webshopApp/index.xhtml')");
+
 							// hozzáadjuk a szülőhöz
 							// ha van szülője
 							if (elem instanceof DefaultSubMenu) {
@@ -166,5 +190,13 @@ public class CategoryMenuController implements Serializable {
 
 	public void setDataGridView(DataGridView dataGridView) {
 		this.dataGridView = dataGridView;
+	}
+
+	public FieldSetSessionBean getFieldSetSessionBean() {
+		return fieldSetSessionBean;
+	}
+
+	public void setFieldSetSessionBean(FieldSetSessionBean fieldSetSessionBean) {
+		this.fieldSetSessionBean = fieldSetSessionBean;
 	}
 }

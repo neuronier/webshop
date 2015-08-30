@@ -212,4 +212,11 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote,
 				converter.toEntity(parentOfferGroup), active);
 	}
 
+	@Override
+	public OfferGroupVO getOfferGroup(Long id) throws Exception {
+		OfferGroupVO offerGroup;
+		offerGroup = converter.toVO(offerGroupDao.findOne(id));
+		return offerGroup;
+	}
+
 }

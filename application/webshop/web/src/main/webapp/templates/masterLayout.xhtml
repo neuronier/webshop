@@ -27,8 +27,9 @@
 		<p:growl id="growl" showDetail="true" autoUpdate="true" />
 
 		<h:outputStylesheet library="default" name="css/masterLayout.css" />
+		<h:form>
 		<p:menubar style="margin:10px">
-			<p:menuitem value="#{out.home}" url="/" icon="ui-icon-home" action="#{dataGridView.init}" update=":form"/>
+			<p:menuitem value="#{out.home}" onsuccess="window.location.replace('/webshopApp/index.xhtml')" icon="ui-icon-home" action="#{dataGridView.init}" update=":form"/>
 
 			<sec:authorize ifAllGranted="ROLE_ADMIN">
 				
@@ -41,7 +42,7 @@
 			</sec:authorize>
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
 				
-					<p:menuitem value="Kategóriák" url="/secured/categories.xhtml"
+					<p:menuitem value="#{out.categories}" url="/secured/categories.xhtml"
 						action="#{offerGroupController.getAll()}" />
 					<p:menuitem value="Rendelés" url="/secured/order.xhtml"
 						action="#{orderController.createOrders()}" />
@@ -85,6 +86,7 @@
 				</div>
 			</f:facet>
 		</p:menubar>
+		</h:form>
 		</p:layoutUnit>
 			<p:layoutUnit position="center" style="z-index: -1;">
 				<div id="categoryMenuDiv" style="float: left; margin: 10px">

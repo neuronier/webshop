@@ -75,4 +75,10 @@ public class OrdersServiceImpl implements OrdersServiceRemote, Serializable {
 		return createOrder(ordersVO);
 	}
 
+	@Override
+	public OrdersVO findOrderByOrdersId(Long id) throws Exception {
+		OrdersVO ordersVO = converter.toVO(ordersDao.findOrdersByOrdersId(id));
+		return ordersVO;
+	}
+
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2.8-b13937 svn-revision#13942.--><xsd:schema targetNamespace="http://hu.neuron" xmlns:ns0="http://hu.neuron" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="orderElementVO">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="productType" type="ns0:productTypeVO" minOccurs="0"/>
+      <xsd:element name="quanty" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="productTypeVO">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="itemNumber" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getOderByOrderIdResponse">
+    <xsd:sequence>
+      <xsd:element name="getClientByOrderId" type="ns0:orderWebServiceVO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="updateOrderByOrdersId">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="arg1" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="orderWebServiceVO">
+    <xsd:sequence>
+      <xsd:element name="date" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="id" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="orderElements" type="ns0:orderElementVO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+      <xsd:element name="ordersId" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="status" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getOrderList"/>
+  <xsd:complexType name="getOrderListResponse">
+    <xsd:sequence>
+      <xsd:element name="getOrderList" type="ns0:orderListWebServiceVO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getOderByOrderId">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="xsd:long" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="updateOrderByOrdersIdResponse">
+    <xsd:sequence>
+      <xsd:element name="updateOrderByOrdersId" type="ns0:orderWebServiceVO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="orderListWebServiceVO">
+    <xsd:sequence>
+      <xsd:element name="orders" type="ns0:orderWebServiceVO" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="list" type="ns0:orderWebServiceVO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="OrderList" type="ns0:orderListWebServiceVO"/>
+  <xsd:element name="getOderByOrderIdResponse" type="ns0:getOderByOrderIdResponse"/>
+  <xsd:element name="updateOrderByOrdersId" type="ns0:updateOrderByOrdersId"/>
+  <xsd:element name="getOrderList" type="ns0:getOrderList"/>
+  <xsd:element name="getOrderListResponse" type="ns0:getOrderListResponse"/>
+  <xsd:element name="getOderByOrderId" type="ns0:getOderByOrderId"/>
+  <xsd:element name="updateOrderByOrdersIdResponse" type="ns0:updateOrderByOrdersIdResponse"/>
+</xsd:schema>

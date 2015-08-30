@@ -1,11 +1,13 @@
-package hu.neuron.ier.business.vo;
+package hu.neuron.ier.business.webservice.vo;
 
+
+import hu.neuron.ier.business.vo.OrderElementVO;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 
-public class OrdersVO implements Serializable {
+public class OrderWebServiceVO implements Serializable {
 
 
 	private static final long serialVersionUID = 3129217083180187209L;

@@ -55,8 +55,8 @@
 						update="rendel:Elements, rendel:Products,rendel:lead" />
 					<p:commandButton value="Rendelés leadása" style="margin:5px;"
 						id="lead" action="#{orderController.addOrder}"
-						disabled="#{orderController.orderElements.isEmpty()}"
-						oncomplete="/secured/order.xhtml" />
+						disabled="#{orderController.orderElements.isEmpty()}" 
+						onsuccess="window.location.replace('/webshopApp/secured/order.xhtml')" />
 					<p:button value="Vissza" href="/secured/order.xhtml" style="margin:5px;"></p:button>
 
 					<p:dataTable id="Products" var="product"

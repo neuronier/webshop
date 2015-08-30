@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/masterLayout.xhtml">
 
-	<ui:define name="pageTitle">Sikeres vásárlás</ui:define>
+	<ui:define name="pageTitle">#{out.purchase_successful}</ui:define>
 	<ui:define name="header">
 	</ui:define>
 
@@ -21,7 +21,7 @@
 					<h:outputText value="Köszönjük, hogy nálunk vásárolt." />
 					<br />
 					<br />
-					<p:commandButton value="Vissza a főoldalra"
+					<p:commandButton value="#{out.back_to_home_page}"
 						onclick="window.location.href = '/webshopApp';" />
 
 				</p:fieldset>

@@ -55,7 +55,7 @@
 					<p:commandButton value="Rendelés módosítása" style="margin:5px;"
 						id="lead" action="#{orderChangeController.addOrder}"
 						disabled="#{orderChangeController.orderElements.isEmpty()}"
-						oncomplete="/secured/order.xhtml" />
+						onsuccess="window.location.replace('/webshopApp/secured/order.xhtml')" />
 
 					<p:dataTable id="Products" var="product"
 						value="#{orderChangeController.productTypes}" selectionMode="single"

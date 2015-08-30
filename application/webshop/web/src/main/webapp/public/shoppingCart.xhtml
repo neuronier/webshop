@@ -56,7 +56,7 @@
 						disabled="#{empty shoppingCartController.offers}"
 						onclick="window.location.href = '/webshopApp/secured/client/payment.xhtml';" />
 					<h:outputText style="font-size:30px"
-						value="Végösszeg: #{shoppingCartController.totalPrice()} Ft" />
+						value="#{out.total_price}: #{shoppingCartController.totalPrice()} Ft" />
 				</p:fieldset>
 			</h:form>
 

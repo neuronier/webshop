@@ -57,6 +57,8 @@ public class PaymentController implements Serializable {
 	private String deliveryStreet;
 	private String deliveryHouse;
 
+	private boolean addressSame;
+
 	@PostConstruct
 	public void init() {
 		currentClient = clientService.findClientByName(SecurityContextHolder.getContext()
@@ -115,16 +117,30 @@ public class PaymentController implements Serializable {
 		currentClient.setFullName(clientFullName);
 		currentClient.setEmail(clientEmail);
 		currentClient.setPhone(clientPhone);
-		clientBillingAddress.setCity(billingCity);
-		clientBillingAddress.setHouse(billingHouse);
-		clientBillingAddress.setPostcode(billingPostcode);
-		clientBillingAddress.setStreet(billingStreet);
+		clientDeliveryAddress.setCity(deliveryCity);
+		clientDeliveryAddress.setHouse(deliveryHouse);
+		clientDeliveryAddress.setPostcode(deliveryPostcode);
+		clientDeliveryAddress.setStreet(deliveryStreet);
+
+		if (!addressSame) {
+			clientBillingAddress.setCity(clientDeliveryAddress.getCity());
+			clientBillingAddress.setHouse(clientDeliveryAddress.getHouse());
+			clientBillingAddress.setPostcode(clientDeliveryAddress.getPostcode());
+			clientBillingAddress.setStreet(clientDeliveryAddress.getStreet());
+		} else {
+			clientBillingAddress.setCity(billingCity);
+			clientBillingAddress.setHouse(billingHouse);
+			clientBillingAddress.setPostcode(billingPostcode);
+			clientBillingAddress.setStreet(billingStreet);
+		}
 		try {
 			clientBillingAddress = addressService.updateAddress(clientBillingAddress);
+			clientDeliveryAddress = addressService.updateAddress(clientDeliveryAddress);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		currentClient.setBillingAddress(clientBillingAddress);
+		currentClient.setDeliveryAddress(clientDeliveryAddress);
 
 		currentClient = clientService.registrationClient(currentClient);
 	}
@@ -271,6 +287,14 @@ public class PaymentController implements Serializable {
 
 	public void setDeliveryHouse(String deliveryHouse) {
 		this.deliveryHouse = deliveryHouse;
+	}
+
+	public boolean isAddressSame() {
+		return addressSame;
+	}
+
+	public void setAddressSame(boolean addressSame) {
+		this.addressSame = addressSame;
 	}
 
 }

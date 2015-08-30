@@ -31,9 +31,8 @@
 							update=":categoryFormId:categoryDataTableId, :categoryFormId:btnEditCategory, :categoryFormId:btnDeleteCategory, :categoryFormId:btnAddOffer">
 						</p:commandButton>
 						<p:commandButton id="btnSelectedOfferInfo" icon="ui-icon-search"
-							
 							oncomplete="PF('selectedOfferDialog').show();"
-							disabled="#{offerGroupcontroller.selectedOffer == null}">
+							disabled="#{offerGroupController.selectedOffer == null}">
 						</p:commandButton>
 					</h:panelGrid>
 				</h:panelGrid>

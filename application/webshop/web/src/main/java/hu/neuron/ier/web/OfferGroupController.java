@@ -23,7 +23,6 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.DualListModel;
-import org.springframework.ui.context.Theme;
 
 /**
  * Vezérlő osztály az ajánlatcsoporttal kapcsolatos funkciókhoz.
@@ -46,6 +45,7 @@ public class OfferGroupController implements Serializable, Converter {
 	private DualListModel<OfferVO> offers = null;
 	private List<OfferVO> offerSource;
 	private List<OfferVO> offerTarget;
+	private OfferVO selectedOffer = null;
 
 	public List<OfferVO> getOfferSource() {
 		return offerSource;
@@ -247,14 +247,17 @@ public class OfferGroupController implements Serializable, Converter {
 
 	public void onSelect(SelectEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
+		selectedOffer = (OfferVO)event.getObject();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Item Selected", event.getObject().toString()));
+		
 	}
 
 	public void onUnselect(UnselectEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Item Unselected", event.getObject().toString()));
+		selectedOffer = null;
 	}
 
 	public void onReorder() {
@@ -282,6 +285,14 @@ public class OfferGroupController implements Serializable, Converter {
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
 
 		return ((OfferVO) arg2).getId().toString();
+	}
+
+	public OfferVO getSelectedOffer() {
+		return selectedOffer;
+	}
+
+	public void setSelectedOffer(OfferVO selectedOffer) {
+		this.selectedOffer = selectedOffer;
 	}
 
 }

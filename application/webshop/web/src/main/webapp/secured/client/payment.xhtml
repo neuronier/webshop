@@ -22,8 +22,8 @@
 					<p:growl id="msgs" showDetail="true" />
 
 
-					<p:wizard>
-						<p:tab title="Szállítási adatok">
+					<p:wizard id="payingWizard">
+						<p:tab id="deliveryId" title="Szállítási adatok">
 							<h:panelGrid columns="2">
 								<h:outputText value="#{out.name}:" />
 								<h:inputText value="#{paymentController.clientFullName}" />
@@ -35,17 +35,33 @@
 								<h:inputText value="#{paymentController.clientEmail}" />
 
 								<h:outputText value="Szállítási irányítószám:" />
-								<h:inputText value="#{paymentController.billingPostcode}" />
+								<h:inputText value="#{paymentController.deliveryPostcode}" />
 								<h:outputText value="Szállítási város:" />
-								<h:inputText value="#{paymentController.billingCity}" />
+								<h:inputText value="#{paymentController.deliveryCity}" />
 								<h:outputText value="Szállítási utca:" />
-								<h:inputText value="#{paymentController.billingStreet}" />
+								<h:inputText value="#{paymentController.deliveryStreet}" />
 								<h:outputText value="Szállítási házszám:" />
-								<h:inputText value="#{paymentController.billingHouse}" />
+								<h:inputText value="#{paymentController.deliveryHouse}" />
 
-
-
+								<h:outputText value="Eltér a számlázási cím: " />
+								<p:selectBooleanCheckbox
+									value="#{paymentController.addressSame}">
+									<p:ajax update="payingWizard" />
+								</p:selectBooleanCheckbox>
 							</h:panelGrid>
+
+							<h:panelGrid id="billingAddressPanel" columns="2"
+								rendered="#{paymentController.addressSame}" >
+								<h:outputText value="Számlázási irányítószám:" />
+								<h:inputText value="#{paymentController.billingPostcode}" />
+								<h:outputText value="Számlázási város:" />
+								<h:inputText value="#{paymentController.billingCity}" />
+								<h:outputText value="Számlázási utca:" />
+								<h:inputText value="#{paymentController.billingStreet}" />
+								<h:outputText value="Számlázási házszám:" />
+								<h:inputText value="#{paymentController.billingHouse}" />
+							</h:panelGrid>
+
 						</p:tab>
 
 						<p:tab title="Összesítés">
@@ -85,20 +101,25 @@
 									value="Fizetendő összeg: #{paymentController.totalPrice()} Ft" />
 								<h:panelGrid columns="2" columnClasses="label, value">
 									<h:outputText value="Kibocsátó bank neve: " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Kártyára írt szám: " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Kártyára írt név: " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Lejárati dátum (hhéé): " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Érvényesítési kód: " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 								</h:panelGrid>
 								<br />
 								<p:commandButton value="Fizetés"
 									actionListener="#{paymentController.paying()}"
-									onsuccess="window.location.href = '/webshopApp';" />
+									onsuccess="window.location.href = '/webshopApp/secured/client/purchaseSuccessful.xhtml';" />
 
 
 							</p:fieldset>

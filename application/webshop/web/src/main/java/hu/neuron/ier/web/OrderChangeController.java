@@ -9,6 +9,7 @@ import hu.neuron.ier.business.vo.ProductTypeVO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -35,15 +36,24 @@ public class OrderChangeController implements Serializable{
 	private List<ProductTypeVO> productTypes = new ArrayList<ProductTypeVO>();
 	private int darab;
 	private List<OrderElementVO> actualElements = new ArrayList<OrderElementVO>();
+	private List<OrderElementVO> orderElements = new ArrayList<OrderElementVO>();
 	private OrderElementVO element = new OrderElementVO();
 	private ProductTypeVO selectedProduct;
 	private OrderElementVO selectedElement;
-	private OrdersVO orderVO;
+	private OrdersVO newOrderVO;
 	
 	@PostConstruct
-	public void initOrder() {
-		orderVO = getSelectedOrder();
-		actualElements=(List<OrderElementVO>) orderVO.getOrderElements();
+	public void initOrder() throws Exception {
+		newOrderVO = getSelectedOrder();
+		orderElements = ((List<OrderElementVO>) newOrderVO.getOrderElements());
+		actualElements.clear();
+		for(OrderElementVO element : orderElements){
+			OrderElementVO orderElementVO = new OrderElementVO();
+			orderElementVO.setProductType(element.getProductType());
+			orderElementVO.setQuanty(element.getQuanty());
+			actualElements.add(orderElementVO);
+		}
+		
 	}
 	
 	public void updateProductTypes() throws Exception {
@@ -116,30 +126,66 @@ public class OrderChangeController implements Serializable{
 		this.orderSet = orderSet;
 	}
 	
-	public void addItem(){
-		ProductTypeVO productVO = getSelectedProduct();
-		OrderElementVO orderElement =new OrderElementVO();
-		orderElement.setProductType(productVO);
-		orderElement.setQuanty(darab);
-		actualElements.add(orderElement);
-		setSelectedProduct(null);
-		this.getActualElements();
+	public void addItem(ProductTypeVO productVO) throws Exception{
+		boolean van=false;
+		for(OrderElementVO element : actualElements){
+			if(element.getProductType().getItemNumber().equals(productVO.getItemNumber())){
+				van=true;
+			}
+		}
+		if(van==false){
+			OrderElementVO orderElement =new OrderElementVO();
+			orderElement.setProductType(productVO);
+			orderElement.setQuanty(darab);
+			actualElements.add(orderElement);
+		}
+		selectedProduct = null;
+		selectedElement=null;
+		darab=0;
 	}
 	
-	public void deleteSelectedElement(){
-		OrderElementVO orderElement = getSelectedElement();
-		actualElements.remove(orderElement);
-		this.getActualElements();
-	}
-	
-	public void addOrder(){
+	public void deleteSelectedElement(OrderElementVO orderElement){
 		try {
-			Collection<OrderElementVO> orderElements = actualElements;
-			actualElements.clear();
+			for(OrderElementVO element : actualElements){
+				if(element.getProductType().getItemNumber().equals(orderElement.getProductType().getItemNumber())){
+					actualElements.remove(element);
+				}
+			}
+			selectedElement=null;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void addOrder() throws Exception{
+		ordersService.deleteOrders(newOrderVO.getId());
+		for(OrderElementVO element : orderElements){
+			orderElementService.deleteOrderElement(element.getId());
+		}
+		List<OrderElementVO> orders = new ArrayList<OrderElementVO>();
+		OrderElementVO orderE = new OrderElementVO();
+		OrdersVO orderVO = new OrdersVO();
+		Calendar cal = Calendar.getInstance();
+		System.out.println("Current year is :" + cal.get(Calendar.YEAR));
+		orderVO.setDate(cal);
+		orderVO.setStatus("Új");
+		orderVO.setOrdersId(newOrderVO.getOrdersId());
+		try {
+			for(OrderElementVO element : actualElements){
+				orderE = orderElementService.createOrderElement(element);
+				orders.add(orderE);
+			}
+			orderVO.setOrderElements(orders);
+
+			orderVO = ordersService.createOrder(orderVO);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		actualElements.clear();
+		orderElements.clear();
 	}
 	
 	public OrdersVO getSelectedOrder() {
@@ -156,6 +202,14 @@ public class OrderChangeController implements Serializable{
 
 	public void setActualElements(List<OrderElementVO> actualElements) {
 		this.actualElements = actualElements;
+	}
+
+	public List<OrderElementVO> getOrderElements() {
+		return orderElements;
+	}
+
+	public void setOrderElements(List<OrderElementVO> orderElements) {
+		this.orderElements = orderElements;
 	}
 	
 }

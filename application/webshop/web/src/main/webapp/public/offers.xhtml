@@ -1,0 +1,77 @@
+<ui:composition template="/templates/masterLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ui:define name="pageTitle">Welcome Page</ui:define>
+	<ui:define name="content">
+	<h:form id="form"></h:form>
+		<div align="center">
+
+
+
+			<p:fieldset legend="Ajánlataink" style="margin-bottom:20px">
+				<h:form id="offersFormId">
+					<p:dataGrid var="offer" value="#{categoryMenuController.offers}" columns="3"
+						layout="grid" rows="12" paginator="true" id="offers"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="6,12,16">
+
+						<p:panel header="#{offer.id}" style="text-align:center">
+							<h:panelGrid columns="1" style="width:100%">
+								<p:graphicImage library="images" name="#{offer.name}.jpg" />
+
+								<h:outputText value="#{offer.description}" />
+
+								<p:commandLink update=":offersFormId:offerDetail"
+									oncomplete="PF('offerDialog').show()" title="View Detail">
+									<h:outputText styleClass="ui-icon ui-icon-search"
+										style="margin:0 auto;" />
+									<f:setPropertyActionListener value="#{offer}"
+										target="#{dataGridView.selectedOffer}" />
+								</p:commandLink>
+								<p:commandButton icon="ui-icon-cart" update="offersFormId"
+									action="#{shoppingCartController.addOfferToShoppingCart(offer)}"
+									actionListener="#{shoppingCartController.info(offer)}" />
+							</h:panelGrid>
+						</p:panel>
+
+					</p:dataGrid>
+
+					<p:dialog header="Offer Info" widgetVar="offerDialog" modal="true"
+						showEffect="fade" appendTo="@(body)" hideEffect="fade"
+						resizable="false">
+						<p:outputPanel id="offerDetail" style="text-align:center;">
+							<p:panelGrid columns="2"
+								rendered="#{not empty dataGridView.selectedOffer}"
+								columnClasses="label,value">
+								<f:facet name="header">
+									<p:graphicImage library="images"
+										name="#{dataGridView.selectedOffer.name}-big.jpg" />
+								</f:facet>
+
+
+								<h:outputText value="Description" />
+								<h:outputText value="#{dataGridView.selectedOffer.description}" />
+
+								<h:outputText value="Old Price" />
+								<h:outputText value="#{dataGridView.selectedOffer.originalCost}" />
+
+								<h:outputText value="New Price" />
+								<h:outputText value="#{dataGridView.selectedOffer.newCost}" />
+
+								<h:outputText />
+
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+				</h:form>
+			</p:fieldset>
+		</div>
+	</ui:define>
+
+</ui:composition>

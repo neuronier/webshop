@@ -57,15 +57,28 @@ public class DragDropView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		root1 = new DefaultTreeNode(null, null);
+		root1 = new DefaultTreeNode("root1", null);
 		
-		root2 = new DefaultTreeNode(null, null);
+		root2 = new DefaultTreeNode("root2", null);
+
 		allNode = new ArrayList<TreeNode>();
-		createTree(null, root1);
+		// createTree(null, root1);
+		createTreeSelectively(null, root2, false);
+		createTreeSelectively(null, root1, true);
+		if (root1.getChildCount() == 0) {
+			TreeNode tr1 = new DefaultTreeNode(null, root1);
+			tr1.setSelectable(false);
+		}
+		if (root2.getChildCount() == 0) {
+			TreeNode tr2 = new DefaultTreeNode(null, root2);
+			tr2.setSelectable(false);
+		}
+
 	}
 
 	/**
 	 * Megkeresi az összes olyan ajánlatcsoportot aminek nincs szülője
+	 * 
 	 * @return az ajánlatcsoportok listájával tér vissza
 	 */
 	public List<OfferGroupVO> getAllParentOfferGroup() {
@@ -78,30 +91,63 @@ public class DragDropView implements Serializable {
 		}
 		return parents;
 	}
-	
+
 	/**
 	 * Rekurzívan felépíti az ajánlatcsoportok fáját
-	 * @param parentOfferGroup A szülő ajánlatcsoport
-	 * @param parentNode A szülőcsomópont a fában
+	 * 
+	 * @param parentOfferGroup
+	 *            A szülő ajánlatcsoport
+	 * @param parentNode
+	 *            A szülőcsomópont a fában
 	 */
-	public void createTree(OfferGroupVO parentOfferGroup, TreeNode parentNode){
+	public void createTree(OfferGroupVO parentOfferGroup, TreeNode parentNode) {
 		try {
-			//össszes közvetlen gyermek lekérdezése
-			List<OfferGroupVO> lista = offerGroupServiceRemote.findOfferGroupByParentOfferGroup(parentOfferGroup);
+			// össszes közvetlen gyermek lekérdezése
+			List<OfferGroupVO> lista = offerGroupServiceRemote
+					.findOfferGroupByParentOfferGroup(parentOfferGroup);
 			TreeNode node;
-			//ha nincs gyermek akkor vége
-			if(lista.size() == 0){
+			// ha nincs gyermek akkor vége
+			if (lista.size() == 0) {
 				return;
-			}
-			else{ //különben be kell járni
-				for(OfferGroupVO ogv : lista){
-					//minden gyermeket hozzáadunk a fához
+			} else { // különben be kell járni
+				for (OfferGroupVO ogv : lista) {
+					// minden gyermeket hozzáadunk a fához
 					node = new DefaultTreeNode(ogv, parentNode);
-					node.setRowKey(((OfferGroupVO)(node.getData())).getName());
-					//felvesszük a listába
+					node.setRowKey(((OfferGroupVO) (node.getData())).getName());
+					// felvesszük a listába
 					allNode.add(node);
-					//rekurzívan meghívjuk saját magára a metódust, hogy a gyermekeit is felvehessük
+					// rekurzívan meghívjuk saját magára a metódust, hogy a
+					// gyermekeit is felvehessük
 					createTree(ogv, node);
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void createTreeSelectively(OfferGroupVO parentOfferGroup,
+			TreeNode parentNode, Boolean active) {
+		try {
+			// össszes közvetlen gyermek lekérdezése
+			List<OfferGroupVO> lista = offerGroupServiceRemote
+					.findOfferGroupByParentOfferGroupAndActive(
+							parentOfferGroup, active);
+			TreeNode node;
+			// ha nincs gyermek akkor vége
+			if (lista.size() == 0) {
+				return;
+			} else { // különben be kell járni
+				for (OfferGroupVO ogv : lista) {
+					// minden gyermeket hozzáadunk a fához
+					node = new DefaultTreeNode(ogv, parentNode);
+					node.setRowKey(((OfferGroupVO) (node.getData())).getName());
+					// felvesszük a listába
+					allNode.add(node);
+					// rekurzívan meghívjuk saját magára a metódust, hogy a
+					// gyermekeit is felvehessük
+					createTreeSelectively(ogv, node, active);
 				}
 			}
 		} catch (Exception e) {
@@ -139,15 +185,28 @@ public class DragDropView implements Serializable {
 		TreeNode dropNode = event.getDropNode();
 		int dropIndex = event.getDropIndex();
 		OfferGroupVO dragged = ((OfferGroupVO) dragNode.getData());
-		OfferGroupVO parent = (OfferGroupVO) (dropNode.getData());
+		OfferGroupVO parent;
+		if (dropNode.getData() instanceof OfferGroupVO) {
+			parent = ((OfferGroupVO) dropNode.getData());
+		} else {
+			parent = null;
+		}
 		try {
 			if (parent != null) {
 				dragged = offerGroupServiceRemote.offerGroupToOfferGroup(
 						dragged.getId(), parent.getId());
-			}
-			else{
+				offerGroupServiceRemote.updateOfferGroupActiveRecursively(
+						dragged, parent.getActive());
+			} else {
 				dragged.setParentOfferGroup(null);
 				dragged = offerGroupServiceRemote.createOfferGroup(dragged);
+				if ("root1".equals((String) dropNode.getData())) {
+					offerGroupServiceRemote.updateOfferGroupActiveRecursively(
+							dragged, true);
+				} else {
+					offerGroupServiceRemote.updateOfferGroupActiveRecursively(
+							dragged, false);
+				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -15,5 +15,7 @@ public interface OrdersServiceRemote {
 	List<OrdersVO> getOrdersByStatus(String status) throws Exception;
 
 	OrdersVO updateOrderStatus(Long id, String status) throws Exception;
+	
+	OrdersVO updateOrderId(Long id, Long OrdersId) throws Exception;
 
 }

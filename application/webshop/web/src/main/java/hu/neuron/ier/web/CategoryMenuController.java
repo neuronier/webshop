@@ -1,5 +1,6 @@
 package hu.neuron.ier.web;
 
+import hu.neuron.ier.business.offer.OfferServiceRemote;
 import hu.neuron.ier.business.offergroup.OfferGroupServiceRemote;
 import hu.neuron.ier.business.vo.OfferGroupVO;
 import hu.neuron.ier.business.vo.OfferVO;
@@ -10,7 +11,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
@@ -18,16 +20,23 @@ import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuModel;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "categoryMenuController")
 public class CategoryMenuController implements Serializable {
 
 	private static final long serialVersionUID = -9124689148741262737L;
 	private MenuModel model;
 	private List<OfferVO> offers;
+	private Long selectedId;
+	
+	@ManagedProperty("#{dataGridView}")
+	private DataGridView dataGridView;
 
 	@EJB(name = "OfferGroupService", mappedName = "OfferGroupService")
 	OfferGroupServiceRemote offerGroupServiceRemote;
+	
+	@EJB(name = "OfferService", mappedName = "OfferService")
+	OfferServiceRemote offerService;
 
 	public List<OfferVO> getOffers() {
 		return offers;
@@ -49,57 +58,36 @@ public class CategoryMenuController implements Serializable {
 	public void init() {
 		model = new DefaultMenuModel();
 
-		// // First submenu
-		// DefaultSubMenu firstSubmenu = new DefaultSubMenu("Dynamic Submenu");
-		//
-		// DefaultMenuItem item = new DefaultMenuItem("External");
-		// item.setUrl("http://www.primefaces.org");
-		// item.setIcon("ui-icon-home");
-		// firstSubmenu.addElement(item);
-		// DefaultSubMenu ujmenu = new DefaultSubMenu("Új menü");
-		// DefaultMenuItem item2 = new DefaultMenuItem("Uj almenu");
-		// item.setUrl("http://www.primefaces.org");
-		// item.setIcon("ui-icon-home");
-		// ujmenu.addElement(item2);
-		// firstSubmenu.addElement(item);
-		// firstSubmenu.addElement(ujmenu);
-		//
-		// model.addElement(firstSubmenu);
-		//
-		// // Second submenu
-		// DefaultSubMenu secondSubmenu = new DefaultSubMenu("Dynamic Actions");
-		//
-		// item = new DefaultMenuItem("Save");
-		// item.setIcon("ui-icon-disk");
-		// // item.setCommand("#{menuView.save}");
-		// // item.setUpdate("messages");
-		// secondSubmenu.addElement(item);
-		//
-		// item = new DefaultMenuItem("Delete");
-		// item.setIcon("ui-icon-close");
-		// // item.setCommand("#{menuView.delete}");
-		// item.setAjax(false);
-		// secondSubmenu.addElement(item);
-		//
-		// item = new DefaultMenuItem("Redirect");
-		// item.setIcon("ui-icon-search");
-		// // item.setCommand("#{menuView.redirect}");
-		//
-		// secondSubmenu.addElement(item);
-		//
-		// model.addElement(secondSubmenu);
+		DefaultSubMenu fo = new DefaultSubMenu();
+		fo.setLabel("Főoldal");
+		DefaultMenuItem foOldal = new DefaultMenuItem();
+		foOldal.setValue(getClass().getResourceAsStream("Főoldal"));
+		foOldal.setUrl("/");
+		foOldal.setUpdate(":form");
+		fo.addElement(foOldal);
+		model.addElement(fo);
 		createMenu(null, null);
 	}
-
-	public void findOffers(Long offerGroupId) {
-
+	//belül konvertálom a paramétert Long típusúvá
+	public String findOffers(String offerGroupId) {
+		Long id = Long.valueOf(offerGroupId);
+		try {
+			getDataGridView().setOffers( offerService.getOffersByParentOfferGroup(id));
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return "/";
 	}
 
 	public void createMenu(MenuElement elem, OfferGroupVO parentOfferGroup) {
 		// össszes közvetlen gyermek lekérdezése
 		try {
+//			List<OfferGroupVO> lista = offerGroupServiceRemote
+//					.findOfferGroupByParentOfferGroup(parentOfferGroup);
 			List<OfferGroupVO> lista = offerGroupServiceRemote
-					.findOfferGroupByParentOfferGroup(parentOfferGroup);
+					.findOfferGroupByParentOfferGroupAndActive(parentOfferGroup,true);
 			MenuElement element;
 			// ha nincs gyermek vége
 			if (lista.size() == 0) {
@@ -107,12 +95,16 @@ public class CategoryMenuController implements Serializable {
 			} else { // különben bejárjuk a gyermekek listáját
 				for (OfferGroupVO ogvo : lista) {
 					// megnézzük hogy van- e gyermeke
-					List<OfferGroupVO> gyerekek = offerGroupServiceRemote
-							.findOfferGroupByParentOfferGroup(ogvo);
-					if (gyerekek.size() > 0) {
+				
+//					List<OfferGroupVO> gyerekek = offerGroupServiceRemote
+//							.findOfferGroupByParentOfferGroupAndActive(ogvo,true);
+					int gyerekekSzama = offerGroupServiceRemote.countOfferGroupByParentOfferGroupAndActive(ogvo, true);
+//					if (gyerekek.size() > 0) {
+					if(gyerekekSzama > 0){
 						// ha van akkor DefaultSubmenu-t kell készíteni
 						element = new DefaultSubMenu(ogvo.getName());
 						element.setId(ogvo.getId().toString());
+						
 						// ha a paraméterként kapott elem null volt, akkor a
 						// modell-hez adjuk hozzá, mert főmenüpont
 						if (elem == null) {
@@ -129,10 +121,17 @@ public class CategoryMenuController implements Serializable {
 							element = new DefaultSubMenu(ogvo.getName());
 							// beállítjuk az id-ját
 							element.setId(ogvo.getId().toString());
+							
 							// hozzáadjuk a modellhez
 							model.addElement(element);
 						} else {
 							element = new DefaultMenuItem(ogvo.getName());
+							element.setId(ogvo.getId().toString());
+							((DefaultMenuItem) element).setCommand("#{categoryMenuController.findOffers(" + ogvo.getId().toString() + ")}");
+							((DefaultMenuItem) element).setUpdate(":form");
+		
+							
+							
 							// hozzáadjuk a szülőhöz
 							// ha van szülője
 							if (elem instanceof DefaultSubMenu) {
@@ -151,5 +150,21 @@ public class CategoryMenuController implements Serializable {
 			e.printStackTrace();
 		}
 
+	}
+
+	public Long getSelectedId() {
+		return selectedId;
+	}
+
+	public void setSelectedId(Long selectedId) {
+		this.selectedId = selectedId;
+	}
+
+	public DataGridView getDataGridView() {
+		return dataGridView;
+	}
+
+	public void setDataGridView(DataGridView dataGridView) {
+		this.dataGridView = dataGridView;
 	}
 }

@@ -52,11 +52,11 @@
 						update="shoppingCartForm"
 						disabled="#{empty shoppingCartController.offers}"
 						actionListener="#{shoppingCartController.deleteAllOfferFromShoppingCart()}" />
-					<p:button value="#{out.pay}" style="float: left"
+					<p:commandButton value="#{out.pay}" style="float: left"
 						disabled="#{empty shoppingCartController.offers}"
-						href="/secured/client/payment.xhtml" />
+						onclick="window.location.href = '/webshopApp/secured/client/payment.xhtml';" />
 					<h:outputText style="font-size:30px"
-						value="Végösszeg: #{shoppingCartController.totalPrice()} Ft" />
+						value="#{out.total_price}: #{shoppingCartController.totalPrice()} Ft" />
 				</p:fieldset>
 			</h:form>
 

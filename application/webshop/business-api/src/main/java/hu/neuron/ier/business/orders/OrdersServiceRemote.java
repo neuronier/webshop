@@ -7,6 +7,8 @@ import java.util.List;
 public interface OrdersServiceRemote {
 
 	OrdersVO createOrder(OrdersVO ordersVO) throws Exception;
+	
+	OrdersVO findOrderByOrdersId(Long id) throws Exception;
 
 	void deleteOrders(Long id) throws Exception;
 
@@ -15,5 +17,7 @@ public interface OrdersServiceRemote {
 	List<OrdersVO> getOrdersByStatus(String status) throws Exception;
 
 	OrdersVO updateOrderStatus(Long id, String status) throws Exception;
+	
+	OrdersVO updateOrderId(Long id, Long OrdersId) throws Exception;
 
 }

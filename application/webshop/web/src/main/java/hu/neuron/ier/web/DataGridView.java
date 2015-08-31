@@ -23,9 +23,13 @@ public class DataGridView implements Serializable {
 	@ManagedProperty("#{offerController}")
 	private OfferController service;
 
+	@ManagedProperty("#{fieldSetSessionBean}")
+	private FieldSetSessionBean fieldSetSessionBean;
+
 	@PostConstruct
 	public void init() {
 		offers = service.createOffers();
+		fieldSetSessionBean.setFieldSetLegend("Kiemelt Ajánlatok");
 	}
 
 	public List<OfferVO> getOffers() {
@@ -50,6 +54,14 @@ public class DataGridView implements Serializable {
 
 	public void setService(OfferController service) {
 		this.service = service;
+	}
+
+	public FieldSetSessionBean getFieldSetSessionBean() {
+		return fieldSetSessionBean;
+	}
+
+	public void setFieldSetSessionBean(FieldSetSessionBean fieldSetSessionBean) {
+		this.fieldSetSessionBean = fieldSetSessionBean;
 	}
 
 }

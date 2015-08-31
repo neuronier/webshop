@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="head-extra">
+		<!-- 		custom css -->
+	</ui:define>
+	<ui:define name="pageTitle">Rendelés</ui:define>
+	<ui:define name="content">
+	<h:form id="form"></h:form>
+		<div align="center">
+			<p:fieldset legend="#{orderSet.getSettedOrder().getOrdersId()}. számú rendelés megtekintése" style="margin-bottom:20px">
+				<h:form id="rendel">
+					<p:dataTable id="Elements" var="order"
+						value="#{orderChangeController.actualElements}" selectionMode="single"
+						selection="#{orderChangeController.selectedElement}"
+						rowKey="#{order.productType.itemNumber}" rows="10"
+						paginator="true">
+						<f:facet name="header">
+           	 				Rendelt termékek
+        				</f:facet>
+						<p:column headerText="Id" filterBy="#{order.productType.itemNumber}" filterMatchMode="contains">
+							<h:outputText value="#{order.productType.itemNumber}" />
+						</p:column>
+						<p:column headerText="Darab">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{order.quanty}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{order.quanty}" style="width:100%"
+										label="darab" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+					</p:dataTable>				
+					<p:button value="Vissza" href="/secured/order.xhtml" style="margin:5px;"></p:button>
+				</h:form>
+			</p:fieldset>
+		</div>
+	</ui:define>
+</ui:composition>

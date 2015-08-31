@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/masterLayout.xhtml">
 
-	<ui:define name="pageTitle">Fizetés</ui:define>
+	<ui:define name="pageTitle">#{out.payment}</ui:define>
 	<ui:define name="header">
 	</ui:define>
 
@@ -15,41 +15,57 @@
 	</ui:define>
 
 	<ui:define name="content">
-	<h:form id="form"></h:form>
+		<h:form id="form"></h:form>
 		<div class="whiteLetter" align="center">
 			<h:form id="paymentForm">
-				<p:fieldset name="header" legend="Fizetési oldal">
+				<p:fieldset name="header" legend="#{out.payment_site}">
 					<p:growl id="msgs" showDetail="true" />
 
 
-					<p:wizard>
-						<p:tab title="Szállítási adatok">
+					<p:wizard id="payingWizard">
+						<p:tab id="deliveryId" title="#{out.shipping} #{out.information}">
 							<h:panelGrid columns="2">
 								<h:outputText value="#{out.name}:" />
 								<h:inputText value="#{paymentController.clientFullName}" />
 
-								<h:outputText value="Phone:" />
+								<h:outputText value="#{out.phone}" />
 								<h:inputText value="#{paymentController.clientPhone}" />
 
 								<h:outputText value="E-mail:" />
 								<h:inputText value="#{paymentController.clientEmail}" />
 
-								<h:outputText value="Szállítási irányítószám:" />
-								<h:inputText value="#{paymentController.billingPostcode}" />
-								<h:outputText value="Szállítási város:" />
-								<h:inputText value="#{paymentController.billingCity}" />
-								<h:outputText value="Szállítási utca:" />
-								<h:inputText value="#{paymentController.billingStreet}" />
-								<h:outputText value="Szállítási házszám:" />
-								<h:inputText value="#{paymentController.billingHouse}" />
+								<h:outputText value="#{out.shipping} #{out.postcode}:" />
+								<h:inputText value="#{paymentController.deliveryPostcode}" />
+								<h:outputText value="#{out.shipping} #{out.city}:" />
+								<h:inputText value="#{paymentController.deliveryCity}" />
+								<h:outputText value="#{out.shipping} #{out.street}:" />
+								<h:inputText value="#{paymentController.deliveryStreet}" />
+								<h:outputText value="#{out.shipping} #{out.house}:" />
+								<h:inputText value="#{paymentController.deliveryHouse}" />
 
-
-
+								<h:outputText value="#{out.different_billing_address}: " />
+								<p:selectBooleanCheckbox
+									value="#{paymentController.addressSame}">
+									<p:ajax update="payingWizard" />
+								</p:selectBooleanCheckbox>
 							</h:panelGrid>
+
+							<h:panelGrid id="billingAddressPanel" columns="2"
+								rendered="#{paymentController.addressSame}">
+								<h:outputText value="#{out.billing} #{out.postcode}:" />
+								<h:inputText value="#{paymentController.billingPostcode}" />
+								<h:outputText value="#{out.billing} #{out.city}:" />
+								<h:inputText value="#{paymentController.billingCity}" />
+								<h:outputText value="#{out.billing} #{out.street}:" />
+								<h:inputText value="#{paymentController.billingStreet}" />
+								<h:outputText value="#{out.billing} #{out.house}:" />
+								<h:inputText value="#{paymentController.billingHouse}" />
+							</h:panelGrid>
+
 						</p:tab>
 
-						<p:tab title="Összesítés">
-							<p:fieldset name="header" legend="Kosárban lévő termékek">
+						<p:tab title="#{out.summary}">
+							<p:fieldset name="header" legend="#{out.product_in_shoppingcart}">
 
 								<p:dataTable style="width:80%;"
 									value="#{shoppingCartController.offersToShow}" var="offer">
@@ -74,31 +90,36 @@
 									</p:column>
 								</p:dataTable>
 								<h:outputText style="font-size:30px"
-									value="Végösszeg: #{shoppingCartController.totalPrice()} Ft" />
+									value="#{out.total_price}: #{shoppingCartController.totalPrice()} Ft" />
 
 							</p:fieldset>
 						</p:tab>
 
-						<p:tab title="Fizetés" id="pay">
+						<p:tab title="#{out.payment}" id="pay">
 							<p:fieldset name="header" legend="Terhelendő kártya adatai">
 								<h:outputText style="font-size:30px"
-									value="Fizetendő összeg: #{paymentController.totalPrice()} Ft" />
+									value="#{out.total_price}: #{paymentController.totalPrice()} Ft" />
 								<h:panelGrid columns="2" columnClasses="label, value">
 									<h:outputText value="Kibocsátó bank neve: " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Kártyára írt szám: " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Kártyára írt név: " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Lejárati dátum (hhéé): " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Érvényesítési kód: " />
-									<h:inputText required="true" />
+									<h:inputText required="true"
+										requiredMessage="Kötelező kitölteni" />
 								</h:panelGrid>
 								<br />
-								<p:commandButton value="Fizetés"
+								<p:commandButton value="#{out.payment}"
 									actionListener="#{paymentController.paying()}"
-									onsuccess="window.location.href = '/webshopApp';" />
+									onsuccess="window.location.href = '/webshopApp/secured/client/purchaseSuccessful.xhtml';" />
 
 
 							</p:fieldset>

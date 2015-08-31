@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 @Stateless(mappedName = "ClientWebService", name = "ClientWebService")
-@WebService(name = "ClientWebServicePort", serviceName = "ClientWebService", targetNamespace = "http://hu.neuron", endpointInterface = "hu.neuron.ier.business.webservice.ClientWebService")
+@WebService(name = "WebshopClientWebServicePort", serviceName = "WebshopClientWebService", targetNamespace = "http://hu.neuron", endpointInterface = "hu.neuron.ier.business.webservice.ClientWebService")
 @Interceptors(SpringBeanAutowiringInterceptor.class)
 public class ClientWebServiceImpl implements ClientWebService {
 

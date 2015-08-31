@@ -98,7 +98,7 @@ public class OrderController implements Serializable {
 	public void initOrder() {
 		orderElements = new ArrayList<OrderElementVO>();
 		statusMenu.add("Új");
-		statusMenu.add("Átvett");
+		statusMenu.add("Teljesített");
 		statusMenu.add("Folyamatban");
 	}
 	
@@ -110,6 +110,9 @@ public class OrderController implements Serializable {
 			}
 		}
 		if(van==false){
+			if(darab<=0){
+				darab=1;
+			}
 			OrderElementVO orderElement =new OrderElementVO();
 			orderElement.setProductType(productVO);
 			orderElement.setQuanty(darab);

@@ -45,7 +45,7 @@
 						disabled="#{orderController.isNew()}" style="margin:5px;"></p:button>
 					<p:commandButton value="Törlés" update="rendelesek"
 						action="#{orderController.deleteSelected}"
-						disabled="#{orderController.selectedOrder == null}"  style="margin:5px;"/>
+						disabled="#{orderController.isNew()}"  style="margin:5px;"/>
 					<p:button value="Megtekint" href="/secured/checkOrder.xhtml"
 						disabled="#{orderController.selectedOrder == null}" style="margin:5px;"></p:button>
 				</p:fieldset>

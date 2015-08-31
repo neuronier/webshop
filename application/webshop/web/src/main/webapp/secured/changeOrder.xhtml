@@ -57,7 +57,7 @@
 						id="lead" action="#{orderChangeController.addOrder}"
 						disabled="#{orderChangeController.orderElements.isEmpty()}"
 						onsuccess="window.location.replace('/webshopApp/secured/order.xhtml')" />
-
+					<p:button value="Vissza" href="/secured/order.xhtml" style="margin:5px;"></p:button>
 					<p:dataTable id="Products" var="product"
 						value="#{orderChangeController.productTypes}" selectionMode="single"
 						selection="#{orderChangeController.selectedProduct}"

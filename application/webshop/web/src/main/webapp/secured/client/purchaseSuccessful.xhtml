@@ -15,19 +15,21 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<div class="whiteLetter" align="center">
-			<h:form id="purchaseSuccessfulForm">
-				<p:fieldset>
-					<h:outputText value="Köszönjük, hogy nálunk vásárolt." />
-					<br />
-					<br />
-					<p:commandButton value="#{out.back_to_home_page}"
-						onclick="window.location.href = '/webshopApp';" />
+		<h:form id="form"></h:form>
+		<div align="center">
+			<div class="whiteLetter" align="center">
+				<h:form id="purchaseSuccessfulForm">
+					<p:fieldset>
+						<h:outputText value="Köszönjük, hogy nálunk vásárolt." />
+						<br />
+						<br />
+						<p:commandButton value="#{out.back_to_home_page}"
+							onclick="window.location.href = '/webshopApp';" />
 
-				</p:fieldset>
-			</h:form>
+					</p:fieldset>
+				</h:form>
 
+			</div>
 		</div>
-
 	</ui:define>
 </ui:composition>

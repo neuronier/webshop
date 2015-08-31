@@ -77,6 +77,12 @@ public class PurchaseServiceImpl implements PurchaseServiceRemote, Serializable 
 		List<PurchaseVO> vos = purchaseConverter.toVO(purchaseDao.findAll());
 		return vos;
 	}
+	
+	@Override
+	public PurchaseVO getPurchaseById(Long id) throws Exception {
+		
+		return purchaseConverter.toVO(purchaseDao.findOne(id));
+	}
 
 	@Override
 	public List<PurchaseVO> getPurchaseByDate(Calendar date) throws Exception {
@@ -105,5 +111,9 @@ public class PurchaseServiceImpl implements PurchaseServiceRemote, Serializable 
 		}
 		
 	}
+	
+	
+	
+	
 
 }

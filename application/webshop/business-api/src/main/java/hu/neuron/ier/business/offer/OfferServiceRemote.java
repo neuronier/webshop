@@ -1,6 +1,7 @@
 package hu.neuron.ier.business.offer;
 
 import hu.neuron.ier.business.vo.OfferVO;
+import hu.neuron.ier.business.vo.PurchaseVO;
 import hu.neuron.ier.business.vo.UserVO;
 
 import java.util.List;
@@ -41,5 +42,7 @@ public interface OfferServiceRemote {
 	int getRowNumber() throws Exception;
 
 	OfferVO saveOffer(OfferVO selectedOffer) throws Exception;
+	
+	public List<OfferVO> getOffersFromPurchase(PurchaseVO purchaseVO);
 
 }

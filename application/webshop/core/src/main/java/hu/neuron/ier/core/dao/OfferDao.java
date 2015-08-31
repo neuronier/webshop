@@ -6,6 +6,8 @@ import hu.neuron.ier.core.entity.User;
 
 import java.util.List;
 
+import javax.persistence.JoinColumn;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,5 +32,11 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 	List<Offer> searchOffer(@Param("key")String key) throws Exception;
 	
 	Page<Offer> findByNameStartsWith(String filter,Pageable pageable);
+	
+//	@Query("SELECT u FROM Offer u WHERE u IN (SELECT o.offer FROM PurchasedOfferSw o WHERE z.purchase= :key)")
+	@Query("SELECT u FROM Offer u WHERE u IN (SELECT z.offer FROM PurchasedOfferSw z WHERE z.purchase.id=:key)")
+	List<Offer> getOffersFromPurchase(@Param("key")Long key);
+
+	
 	
 }

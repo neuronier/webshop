@@ -11,59 +11,116 @@
 	</ui:define>
 	<ui:define name="pageTitle">Selfcare</ui:define>
 	<ui:define name="content">
-		<h:form id="form"></h:form>
+<!-- 		<h:form id="form"></h:form> -->
 		<div align="center">
-			<h:panelGroup rendered="#{not empty request.remoteUser}"
-				style="color: white;">
-				<h2 align="center" style="font-family: Broadway; color: white">Selfcare
-					oldal, az adatait itt módosíthatja.</h2>
-				<br />
-				<br />
-				<br />
+			<div style="float: left">
+				<h:panelGroup rendered="#{not empty request.remoteUser}"
+					style="color: white;">
+					<h2 align="center" style="font-family: Broadway; color: white">Adatmódosítás</h2>
+					<br />
+					<br />
+					<br />
 
-				<h2 align="center" style="font-family: Roman; color: yellow">
-					Üdvözöljük
-					<h:outputText id="clientNameInput" font-style="italic;"
-						value="#{clientSelfCareController.currentClient.userName}" />
-					!
-				</h2>
 
-				<h:form id="clientSelfCareForm" prependId="false">
 
-					<h:panelGrid columns="2" cellpadding="5">
+					<h:form id="clientSelfCareForm" prependId="false">
 
-						<h:outputText style="color: white;" value="Új jelszó: " />
-						<p:password id="password1"
-							value="#{clientSelfCareController.password1}" match="password2" />
+						<h:panelGrid columns="2" cellpadding="5">
 
-						<h:outputText style="color: white;" value="Jelszó újra: " />
-						<p:password id="password2"
-							value="#{clientSelfCareController.password2}" />
+							<h:outputText style="color: white;" value="Új jelszó: " />
+							<p:password id="password1"
+								value="#{clientSelfCareController.password1}" match="password2" />
 
-						<h:outputText style="color: white;" value="Teljes név: " />
-						<p:inputText id="fullNameInput" required="true"
-							value="#{clientSelfCareController.currentClient.fullName}"
-							requiredMessage="Please enter your fullname" />
+							<h:outputText style="color: white;" value="Jelszó újra: " />
+							<p:password id="password2"
+								value="#{clientSelfCareController.password2}" />
 
-						<h:outputText style="color: white;" value="Email: " />
-						<p:inputText id="emailInput" required="true"
-							value="#{clientSelfCareController.currentClient.email}"
-							requiredMessage="Please enter your email" />
+							<h:outputText style="color: white;" value="Teljes név: " />
+							<p:inputText id="fullNameInput" required="true"
+								value="#{clientSelfCareController.currentClient.fullName}"
+								requiredMessage="Please enter your fullname" />
 
-						<h:outputText style="color: white;" value="Telefonszám " />
-						<p:inputText id="phoneNumberInput" required="true"
-							value="#{clientSelfCareController.currentClient.phone}"
-							requiredMessage="Please enter your phone number" />
+							<h:outputText style="color: white;" value="Email: " />
+							<p:inputText id="emailInput" required="true"
+								value="#{clientSelfCareController.currentClient.email}"
+								requiredMessage="Please enter your email" />
 
-					</h:panelGrid>
+							<h:outputText style="color: white;" value="Telefonszám " />
+							<p:inputText id="phoneNumberInput" required="true"
+								value="#{clientSelfCareController.currentClient.phone}"
+								requiredMessage="Please enter your phone number" />
 
-					<p:commandButton id="clientSelfCareApply"
-						value="Változtatások mentése"
-						action="#{clientSelfCareController.updateClient()}"
-						icon="ui-icon-check" update="clientSelfCareForm" />
+						</h:panelGrid>
 
-				</h:form>
-			</h:panelGroup>
+						<p:commandButton id="clientSelfCareApply"
+							value="Változtatások mentése"
+							action="#{clientSelfCareController.updateClient()}"
+							icon="ui-icon-check" update="clientSelfCareForm" />
+
+					</h:form>
+				</h:panelGroup>
+			</div>
+
+			<div style="width: 500px; float: right">
+				<h2 align="center" style="font-family: Broadway; color: white">Korábbi
+					vásárlások</h2>
+				<br /> <br /> <br />
+
+				<p:fieldset legend="Vásárolt ajánlatai" style="margin-bottom:20px">
+					<h:form id="form">
+						<p:dataGrid var="offer" value="#{dataGridClientView.offers}"
+							columns="3" layout="grid" rows="12" paginator="true" id="offers"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="6,12,16">
+
+							<p:panel header="#{offer.id}" style="text-align:center">
+								<h:panelGrid columns="1" style="width:100%">
+									<p:graphicImage library="images" name="#{offer.name}.jpg" />
+
+									<h:outputText value="#{offer.description}" />
+
+
+								</h:panelGrid>
+							</p:panel>
+
+						</p:dataGrid>
+
+						<p:dialog header="Offer Info" widgetVar="offerDialog" modal="true"
+							showEffect="fade" appendTo="@(body)" hideEffect="fade"
+							resizable="false">
+							<p:outputPanel id="offerDetail" style="text-align:center;">
+								<p:panelGrid columns="2"
+									rendered="#{not empty dataGridClientView.selectedOffer}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<p:graphicImage library="images"
+											name="#{dataGridClientView.selectedOffer.name}-big.jpg" />
+									</f:facet>
+
+
+									<h:outputText value="Description" />
+									<h:outputText
+										value="#{dataGridClientView.selectedOffer.description}" />
+
+									<h:outputText value="Old Price" />
+									<h:outputText
+										value="#{dataGridClientView.selectedOffer.originalCost}" />
+
+									<h:outputText value="New Price" />
+									<h:outputText
+										value="#{dataGridClientView.selectedOffer.newCost}" />
+
+									<h:outputText />
+
+								</p:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+					</h:form>
+				</p:fieldset>
+
+			</div>
+
 		</div>
 
 	</ui:define>

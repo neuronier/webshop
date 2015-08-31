@@ -3,10 +3,11 @@ package hu.neuron.ier.business.offer;
 import hu.neuron.ier.business.converter.OfferConverter;
 import hu.neuron.ier.business.user.UserServiceRemote;
 import hu.neuron.ier.business.vo.OfferVO;
-import hu.neuron.ier.business.vo.UserVO;
+import hu.neuron.ier.business.vo.PurchaseVO;
 import hu.neuron.ier.core.dao.OfferDao;
 import hu.neuron.ier.core.dao.OfferGroupDao;
 import hu.neuron.ier.core.entity.Offer;
+import hu.neuron.ier.core.entity.PurchasedOfferSw;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -177,6 +178,20 @@ public class OfferServiceImpl implements OfferServiceRemote, Serializable {
 	public OfferVO saveOffer(OfferVO selectedOffer) throws Exception {
 		OfferVO vo = converter.toVO(offerDao.save(converter.toEntity(selectedOffer)));
 		return vo;
+	}
+	
+	@Override
+	public List<OfferVO> getOffersFromPurchase(PurchaseVO purchaseVO) {
+		List<OfferVO> offerVO = new ArrayList<OfferVO>();
+		try {
+			
+			
+				offerVO=converter.toVO(offerDao.getOffersFromPurchase(purchaseVO.getId())) ;
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return offerVO;
 	}
 
 }

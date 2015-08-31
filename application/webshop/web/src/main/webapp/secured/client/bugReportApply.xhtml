@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml">
+
+
+	<ui:define name="pageTitle">#{out.admin_title}</ui:define>
+	<ui:define name="header"> -> #{out.admin_title}</ui:define>
+
+	<ui:define name="head-extra">
+		<!-- custom css -->
+	</ui:define>
+
+	<ui:define name="content">
+		<!-- 		<h:form id="form"></h:form> -->
+		<div align="center">
+
+			<p:fieldset legend="Vásárolt ajánlatai" style="margin-bottom:20px">
+
+				<p:dialog widgetVar="bugReportViewerDialog" width="80%"
+					resizable="false" appendTo="@(body)">
+					<h:form id="bugReportViewerDialogForm">
+
+						<h:outputText value="A bug leírása" />
+
+						<p:editor id="editor" widgetVar="editorWidget"
+							value="#{bugReportApplyController.subject}"
+							controls="bold italic underline color bullets numbering" />
+<!-- 						<p:inputText id="subj" required="true" -->
+<!-- 						value="#{adminController.userName}" /> -->
+						<p:commandButton value="Küldés"
+							action="#{bugReportApplyController.sendBug()}"
+							update=":bugReportViewerDialogForm" oncomplete="PF('bugReportViewerDialog').hide();"/>
+						<p:commandButton value="Törlés" type="button"
+							onclick="PF('editorWidget').clear();" />
+
+					</h:form>
+				</p:dialog>
+
+				<h:form id="form">
+					<p:dataGrid var="offer" value="#{dataGridClientView.offers}"
+						columns="3" layout="grid" rows="12" paginator="true" id="offers"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="6,12,16">
+
+						<p:panel header="#{offer.id}" style="text-align:center">
+							<h:panelGrid columns="1" style="width:100%">
+								<p:graphicImage library="images" name="#{offer.name}.jpg" />
+
+								<h:outputText value="#{offer.description}" />
+
+								<p:commandLink value="hibajelentés" 
+									oncomplete="PF('bugReportViewerDialog').show()" title="View Detail">
+									<h:outputText styleClass="ui-icon ui-icon-search"
+										style="margin:0 auto;" />
+									
+								</p:commandLink>
+
+
+							</h:panelGrid>
+						</p:panel>
+
+					</p:dataGrid>
+
+					<p:dialog header="Offer Info" widgetVar="offerDialog" modal="true"
+						showEffect="fade" appendTo="@(body)" hideEffect="fade"
+						resizable="false">
+						<p:outputPanel id="offerDetail" style="text-align:center;">
+							<p:panelGrid columns="2"
+								rendered="#{not empty dataGridClientView.selectedOffer}"
+								columnClasses="label,value">
+								<f:facet name="header">
+									<p:graphicImage library="images"
+										name="#{dataGridClientView.selectedOffer.name}-big.jpg" />
+								</f:facet>
+
+
+								<h:outputText value="Description" />
+								<h:outputText
+									value="#{dataGridClientView.selectedOffer.description}" />
+
+								<h:outputText value="Old Price" />
+								<h:outputText
+									value="#{dataGridClientView.selectedOffer.originalCost}" />
+
+								<h:outputText value="New Price" />
+								<h:outputText
+									value="#{dataGridClientView.selectedOffer.newCost}" />
+
+								<h:outputText />
+
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+
+				</h:form>
+			</p:fieldset>
+
+		</div>
+	</ui:define>
+</ui:composition>

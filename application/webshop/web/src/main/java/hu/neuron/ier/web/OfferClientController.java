@@ -28,9 +28,9 @@ import org.springframework.security.core.userdetails.User;
  * Controller for the admin site.
  */
 
-@ManagedBean(name = "offerController")
+@ManagedBean(name = "offerClientController")
 @ApplicationScoped
-public class OfferController implements Serializable {
+public class OfferClientController implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -42,10 +42,8 @@ public class OfferController implements Serializable {
 	private String name;
 	private String description;
 	private boolean action;
-	private LazyOfferModel lazyOfferModel;
-	private LazyOfferClientModel lazyOfferClientModel;
 	private boolean featured;
-	private OfferVO selectedOffer;
+	private OfferVO selectedClientOffer;
 	
 	@EJB(name = "OfferService", mappedName = "OfferService")
 	private OfferServiceRemote offerService;
@@ -55,29 +53,6 @@ public class OfferController implements Serializable {
 	
 	@EJB(name = "ClientService", mappedName = "ClientService")
 	private ClientServiceRemote clientService;
-	
-	@PostConstruct
-	public void init() {
-
-		setLazyOfferModel(new LazyOfferModel(getOfferService()));
-		setLazyOfferClientModel(new LazyOfferClientModel(getOfferService()));
-	}
-	
-
-	public List<OfferVO> createOffers() {
-		try {
-
-			list = new ArrayList<OfferVO>();
-
-			list = offerService.getFeaturedOffers(true);
-
-		} catch (Exception e) {
-
-		}
-		return list;
-
-	}
-	
 	
 	public List<OfferVO> createClientOffers() {
 		try {
@@ -91,55 +66,30 @@ public class OfferController implements Serializable {
 			
 			clientVO = clientService.findClientByName(name);
 			
-			
-			
-			
 			purchases = new ArrayList<PurchaseVO>();
 			purchases = purchaseService.getPurchaseByClient(clientVO);
-			
 			
 			for (PurchaseVO purchaseVO : purchases) {
 				offerVos = offerService.getOffersFromPurchase(purchaseVO);
 				list.addAll(offerVos);
 			}
 			
-			
-
-		} catch (Exception e) {
+			} catch (Exception e) {
 
 		}
 		return list;
 
 	}
 
-	public void updateOffer() {
-		try {
-			selectedOffer.setFeatured(featured);
-			selectedOffer.setAction(action);
-			selectedOffer.setNewCost(newCost);
-			offerService.saveOffer(selectedOffer);
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",
-							"Update: " + selectedOffer.getName()));
-			selectedOffer = null;
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-							"Update: "));
-		}
-	}
-
 	public void onRowSelect(SelectEvent event) {
 		
 		
-		selectedOffer = (OfferVO) event.getObject();
+		selectedClientOffer = (OfferVO) event.getObject();
 		
 		FacesContext.getCurrentInstance().addMessage(
 				"createmsgs",
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",
-						selectedOffer.getName()));
+						selectedClientOffer.getName()));
 	}
 
 	public List<OfferVO> getOffers() {
@@ -215,19 +165,19 @@ public class OfferController implements Serializable {
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
-		selectedOffer = null;
+		selectedClientOffer = null;
 	}
 
 	public void unselect() {
-		selectedOffer = null;
+		selectedClientOffer = null;
 	}
 
 	public OfferVO getSelectedOffer() {
-		return selectedOffer;
+		return selectedClientOffer;
 	}
 
 	public void setSelectedOffer(OfferVO selectedOffer) {
-		this.selectedOffer = selectedOffer;
+		this.selectedClientOffer = selectedOffer;
 	}
 
 	public List<OfferVO> getList() {
@@ -238,50 +188,5 @@ public class OfferController implements Serializable {
 		this.list = list;
 	}
 
-	public LazyOfferModel getLazyOfferModel() {
-		return lazyOfferModel;
-	}
 
-	public void setLazyOfferModel(LazyOfferModel lazyOfferModel) {
-		this.lazyOfferModel = lazyOfferModel;
-	}
-	
-	public LazyOfferClientModel getLazyOfferClientModel() {
-		return lazyOfferClientModel;
-	}
-
-
-	public void setLazyOfferClientModel(LazyOfferClientModel lazyOfferClientModel) {
-		this.lazyOfferClientModel = lazyOfferClientModel;
-	}
-
-
-	public PurchaseServiceRemote getPurchaseService() {
-		return purchaseService;
-	}
-
-
-	public void setPurchaseService(PurchaseServiceRemote purchaseService) {
-		this.purchaseService = purchaseService;
-	}
-
-
-	public ClientServiceRemote getClientService() {
-		return clientService;
-	}
-
-
-	public void setClientService(ClientServiceRemote clientService) {
-		this.clientService = clientService;
-	}
-
-
-	public List<PurchaseVO> getPurchases() {
-		return purchases;
-	}
-
-
-	public void setPurchases(List<PurchaseVO> purchases) {
-		this.purchases = purchases;
-	}
 }

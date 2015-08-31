@@ -23,4 +23,6 @@ public interface PurchaseServiceRemote {
 	List<PurchaseVO> getPurchaseByStatus(String status) throws Exception;
 	
 	public void addOffersToPurchace(Map<OfferVO, Long> map, PurchaseVO purchaseVO);
+
+	PurchaseVO getPurchaseById(Long id) throws Exception;
 }

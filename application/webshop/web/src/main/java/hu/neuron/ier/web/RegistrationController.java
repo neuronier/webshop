@@ -99,16 +99,16 @@ private String street = "";
 			AddressVO deliveryAddress2 = new AddressVO();
 			AddressVO billAddress2 = new AddressVO();
 
-			billAddress.setPostcode(billingPostcode);
-			billAddress.setHouse(billingHouse);
-			billAddress.setCity(billingCity);
-			billAddress.setStreet(billingStreet);
-
-			deliveryAddress.setPostcode(postcode);
-			deliveryAddress.setHouse(house);
-			deliveryAddress.setCity(city);
-			deliveryAddress.setStreet(street);
-			
+//			billAddress.setPostcode(billingPostcode);
+//			billAddress.setHouse(billingHouse);
+//			billAddress.setCity(billingCity);
+//			billAddress.setStreet(billingStreet);
+//
+//			deliveryAddress.setPostcode(postcode);
+//			deliveryAddress.setHouse(house);
+//			deliveryAddress.setCity(city);
+//			deliveryAddress.setStreet(street);
+//			
 			deliveryAddress2=addressService.createAddress(billAddress);
 			billAddress2=addressService.createAddress(deliveryAddress);
 

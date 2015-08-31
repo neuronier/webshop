@@ -1,9 +1,15 @@
 package hu.neuron.ier.web;
 
 import hu.neuron.ier.business.client.ClientSelfCareServiceRemote;
+import hu.neuron.ier.business.client.ClientServiceRemote;
+import hu.neuron.ier.business.purchase.PurchaseServiceRemote;
 import hu.neuron.ier.business.vo.ClientVO;
+import hu.neuron.ier.business.vo.OfferVO;
+import hu.neuron.ier.business.vo.PurchaseVO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,6 +19,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @ViewScoped
@@ -23,9 +30,34 @@ public class ClientSelfCareController implements Serializable {
 	private ClientVO currentClient = new ClientVO();
 	private String password1 = null;
 	private String password2 = null;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<PurchaseVO> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<PurchaseVO> purchases) {
+		this.purchases = purchases;
+	}
+
+	private String name;
+	List<PurchaseVO> purchases;
 
 	@EJB(name = "ClientSelfCareService", mappedName = "ClientSelfCareService")
 	private ClientSelfCareServiceRemote clientSelfCareService;
+	
+	@EJB(name = "PurchaseService", mappedName = "PurchaseService")
+	private PurchaseServiceRemote purchaseService;
+	
+	@EJB(name = "ClientService", mappedName = "ClientService")
+	private ClientServiceRemote clientService;
 
 	@PostConstruct
 	public void init() {
@@ -66,6 +98,26 @@ public class ClientSelfCareController implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", e.getMessage()));
 		}
 		return null;
+	}
+	
+	
+	public List<PurchaseVO> createPurchases(){
+		try {
+			ClientVO clientVO = new ClientVO();
+			
+			
+			User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			name = user.getUsername();
+			
+			clientVO = clientService.findClientByName(name);
+			
+			purchases = new ArrayList<PurchaseVO>();
+			purchases = purchaseService.getPurchaseByClient(clientVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return purchases;
 	}
 
 	public ClientVO getCurrentClient() {

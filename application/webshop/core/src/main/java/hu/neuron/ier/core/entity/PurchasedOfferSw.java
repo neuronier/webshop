@@ -1,6 +1,7 @@
 package hu.neuron.ier.core.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -10,8 +11,10 @@ public class PurchasedOfferSw extends BaseEntity {
 
 	private static final long serialVersionUID = 2562692275986465726L;
 	@ManyToOne
+	@JoinColumn(name="offer_id")
 	private Offer offer;
 	@ManyToOne
+	@JoinColumn(name="purchase_id")
 	private Purchase purchase;
 	private Long quanty;
 

@@ -46,14 +46,15 @@
 					<p:menuitem value="Rendelés" url="/secured/order.xhtml"
 						action="#{orderController.createOrders()}" />
 					<p:menuitem value="Ajánlatok" url="/secured/offers.xhtml" />
-					
+					<p:menuitem value="Hibakezelés" url="/secured/bugReportManagement.xhtml" />		
 
 			</sec:authorize>
 				
 			<p:menuitem 
 				url="/public/shoppingCart.xhtml" value="#{out.shoppingCart}" icon="ui-icon-cart" />
-			<p:menuitem value="Hibakezelés" url="/public/bugReportManagement.xhtml" />		
-
+			
+			<p:menuitem value="Hibajelentés" url="/secured/client/bugReportApply.xhtml" />
+			
 			<f:facet name="options">
 				<div  class='lfloat' >
 				<h:form >

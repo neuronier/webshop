@@ -1,6 +1,9 @@
 package hu.neuron.ier.business.vo;
 
+
+
 import java.io.Serializable;
+import java.util.Map;
 
 public class OfferVO implements Serializable {
 
@@ -86,6 +89,8 @@ public class OfferVO implements Serializable {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+	
+	
 
 	@Override
 	public boolean equals(Object obj) {

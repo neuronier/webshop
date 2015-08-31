@@ -15,16 +15,17 @@
 	</ui:define>
 
 	<ui:define name="content">
-	<h:form id="form"></h:form>
+		<h:form id="form"></h:form>
 		<div class="whiteLetter" align="center">
 			<h:form id="shoppingCartForm">
 				<p:fieldset name="header" legend="#{out.shoppingCart}">
-					<p:dataTable style="width:80%;"
-						value="#{shoppingCartController.offersToShow}" var="offer">
-						<p:column width="110px">
-							<h:outputText style="align:center"
-								value="#{shoppingCartController.offerCounter(offer)} x" />
-							<p:graphicImage library="images" name="#{offer.name}-big.jpg" />
+					<p:dataTable value="#{shoppingCartController.offersToShow}"
+						var="offer" id="shoppingCartId">
+						<p:column>
+							<h:outputText style="align:center;font-size:20px"
+								value="#{shoppingCartController.offerCounter(offer)} x " />
+							<p:graphicImage library="images" name="#{offer.name}-big.jpg"
+								style="align:center" />
 						</p:column>
 
 						<p:column headerText="Item">
@@ -48,7 +49,7 @@
 					</p:dataTable>
 
 
-					<p:commandButton value="#{out.deleteAll}" style="float: left"
+					<p:commandButton value="#{out.deleteAll}" style="float: left;"
 						update="shoppingCartForm"
 						disabled="#{empty shoppingCartController.offers}"
 						actionListener="#{shoppingCartController.deleteAllOfferFromShoppingCart()}" />

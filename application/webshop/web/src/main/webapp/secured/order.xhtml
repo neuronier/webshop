@@ -16,11 +16,11 @@
 						value="#{orderController.orders}" widgetVar="orderTable"
 						selectionMode="single"
 						selection="#{orderController.selectedOrder}" rowKey="#{order.id}"
-						emptyMessage="Valami nincs" stlye="width:100%;" rows="10"
+						emptyMessage="Üres lista" stlye="width:100%;" rows="10"
 						paginator="true" filteredValue="#{orderController.filteredOrders}">
 						<p:ajax event="rowSelect" update="rendelesek" />
 						<p:column headerText="Rendelési szám"
-							filterBy="#{order.ordersId}" filterMatchMode="contains">
+							filterBy="#{order.ordersId}" filterMatchMode="contains" style="text-align:center">
 							<h:outputText value="#{order.ordersId}" />
 						</p:column>
 

@@ -21,9 +21,12 @@
 				<p:fieldset name="header" legend="#{out.shoppingCart}">
 					<p:dataTable value="#{shoppingCartController.offersToShow}"
 						var="offer" id="shoppingCartId">
-						<p:column>
-							<h:outputText style="align:center;font-size:20px"
+						<p:column style="width:35px;text-align:center">
+							<h:outputText style="width:35px;align:center;font-size:20px"
 								value="#{shoppingCartController.offerCounter(offer)} x " />
+						</p:column>
+
+						<p:column>
 							<p:graphicImage library="images" name="#{offer.name}-big.jpg"
 								style="align:center" />
 						</p:column>

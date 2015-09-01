@@ -16,7 +16,7 @@
 
 	<ui:define name="content">
 		<h:form id="form"></h:form>
-		
+
 		<div class="whiteLetter" align="center">
 			<h:form id="paymentForm">
 				<p:fieldset name="header" legend="#{out.payment_site}">
@@ -70,10 +70,14 @@
 
 								<p:dataTable style="width:80%;"
 									value="#{shoppingCartController.offersToShow}" var="offer">
-									<p:column width="110px">
-										<h:outputText style="align:center"
-											value="#{shoppingCartController.offerCounter(offer)} x" />
-										<p:graphicImage library="images" name="#{offer.name}-big.jpg" />
+									<p:column style="width:35px;text-align:center">
+										<h:outputText style="width:35px;align:center;font-size:20px"
+											value="#{shoppingCartController.offerCounter(offer)} x " />
+									</p:column>
+
+									<p:column>
+										<p:graphicImage library="images" name="#{offer.name}-big.jpg"
+											style="align:center" />
 									</p:column>
 
 									<p:column headerText="Item">
@@ -114,7 +118,7 @@
 									<h:inputText required="true"
 										requiredMessage="Kötelező kitölteni" />
 									<h:outputText value="Érvényesítési kód: " />
-									<h:inputText required="true"
+									<h:inputSecret  required="true"
 										requiredMessage="Kötelező kitölteni" />
 								</h:panelGrid>
 								<br />
@@ -128,12 +132,12 @@
 					</p:wizard>
 
 				</p:fieldset>
-				</h:form>
-				
-				</div>
-			
+			</h:form>
 
-		
+		</div>
+
+
+
 
 	</ui:define>
 </ui:composition>

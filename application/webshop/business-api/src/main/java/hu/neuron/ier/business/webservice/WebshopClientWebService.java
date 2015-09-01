@@ -7,8 +7,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 
-@WebService(targetNamespace = "http://hu.neuron")
-public interface ClientWebService {
+@WebService(name = "WebshopClientWebServicePort", serviceName = "WebshopClientWebService", targetNamespace = "http://hu.neuron")
+public interface WebshopClientWebService {
 
 	@WebMethod(operationName = "getClientList")
 	@WebResult(name = "getClientList")
@@ -27,6 +27,5 @@ public interface ClientWebService {
 	@WebResult(name = "updateClientByUserName")
 	public ClientWebServiceVO updateClientByUserNameWebMethod(String clientId, String name,
 			String userName, String password, String email, String phoneNumber);
-
 
 }

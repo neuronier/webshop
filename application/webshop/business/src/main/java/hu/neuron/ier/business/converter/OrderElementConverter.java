@@ -2,7 +2,6 @@ package hu.neuron.ier.business.converter;
 
 import hu.neuron.ier.business.vo.OrderElementVO;
 import hu.neuron.ier.core.entity.OrderElement;
-import hu.neuron.ier.core.entity.Orders;
 
 import java.util.ArrayList;
 import java.util.List;

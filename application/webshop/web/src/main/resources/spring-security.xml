@@ -3,35 +3,38 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<security:http disable-url-rewriting="false" authentication-manager-ref="authenticationManager">
+	<security:http disable-url-rewriting="false"
+		authentication-manager-ref="authenticationManager">
 		<security:access-denied-handler
 			error-page="/public/accesdenied.xhtml" />
 		<security:csrf disabled="true" />
 		<security:headers disabled="true" />
 		<security:intercept-url pattern="/secured/client/**"
 			access="hasRole('ROLE_CLIENT')" />
+		<security:intercept-url pattern="/secured/user/**"
+			access="hasRole('ROLE_USER')" />
 		<security:intercept-url pattern="/secured/admin/**"
-			access="hasRole('ROLE_ADMIN')" />	 
+			access="hasRole('ROLE_ADMIN')" />
 		<security:form-login login-page="/public/login.xhtml"
 			login-processing-url="/login" default-target-url="/index.xhtml"
 			authentication-failure-url="/public/login.xhtml?error=1"
 			username-parameter="username" password-parameter="password" />
 		<security:logout logout-url="/logout"
 			logout-success-url="/index.xhtml" />
-		
+
 	</security:http>
 
-<!-- 	<security:authentication-manager id="authenticationManager"> -->
-<!-- 		<security:authentication-provider -->
-<!-- 			user-service-ref="customUserDetailsService"> -->
-<!-- 			<security:password-encoder hash="bcrypt" /> -->
-<!-- 		</security:authentication-provider> -->
-<!-- 	</security:authentication-manager> -->
-	
+	<!-- <security:authentication-manager id="authenticationManager"> -->
+	<!-- <security:authentication-provider -->
+	<!-- user-service-ref="customUserDetailsService"> -->
+	<!-- <security:password-encoder hash="bcrypt" /> -->
+	<!-- </security:authentication-provider> -->
+	<!-- </security:authentication-manager> -->
+
 	<security:authentication-manager id="authenticationManager">
 		<security:authentication-provider
 			user-service-ref="customClientDetailsService">
-			
+
 			<security:password-encoder hash="bcrypt" />
 		</security:authentication-provider>
 		<security:authentication-provider

@@ -136,7 +136,12 @@ public class OfferGroupController implements Serializable, Converter {
 			e.printStackTrace();
 		}
 	}
-
+	@PostConstruct
+	public void init(){
+		getAll();
+		initOffers();
+	}
+	
 	public List<OfferGroupVO> getAll() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		allOfferGroup = new ArrayList<OfferGroupVO>();
@@ -181,7 +186,7 @@ public class OfferGroupController implements Serializable, Converter {
 		}
 	}
 
-	@PostConstruct
+
 	public void initOffers() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		// Offers

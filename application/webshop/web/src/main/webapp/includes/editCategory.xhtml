@@ -8,7 +8,7 @@
 
 	<p:dialog header="#{out.editCategory}" widgetVar="editCategoryDialog"
 		showEffect="scale" appendTo="@(body)" hideEffect="puff"
-		resizable="false" height="100">
+		resizable="false" height="100" modal="true">
 		<h:panelGroup>
 			<h:form id="editCategoryFormId" prependId="false">
 				<table>
@@ -29,13 +29,14 @@
 						<h:outputLabel id="outLblCategoryDescriptionId"
 							for="categoryDescription" name="outLblCategoryDescriptionNm"></h:outputLabel>
 					</tr>
-					
+
 				</table>
 
-				<h:commandButton id="editCategorySave" value="#{out.save}"
-					action="#{offerGroupController.updateSelected() }"
+				<p:commandButton id="editCategorySave" value="#{out.save}"
+					action="#{offerGroupController.updateSelected}"
+					onsuccess="PF('editCategoryDialog').hide();"
 					styleClass="loginPanelBtn"
-					update=":categoryFormId:categoryDataTableId, :categoryFormId:btnEditCategory, :categoryFormId:btnDeleteCategory"></h:commandButton>
+					update=":categoryFormId:categoryDataTableId, :categoryFormId:btnEditCategory, :categoryFormId:btnDeleteCategory" />
 
 			</h:form>
 		</h:panelGroup>

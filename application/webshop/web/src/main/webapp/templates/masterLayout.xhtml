@@ -42,10 +42,9 @@
 			</sec:authorize>
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
 				
-					<p:menuitem value="#{out.categories}" url="/secured/categories.xhtml"
-						action="#{offerGroupController.getAll()}" />
+					<p:menuitem value="#{out.categories}" url="/secured/user/categories.xhtml"/>
 					<p:menuitem value="Rendelés" url="/secured/order.xhtml"
-						action="#{orderController.createOrders()}" />
+						action="#{orderController.createOrders}" />
 					<p:menuitem value="Ajánlatok" url="/secured/offers.xhtml" />
 					<p:menuitem value="Hibakezelés" url="/secured/bugReportManagement.xhtml" />		
 

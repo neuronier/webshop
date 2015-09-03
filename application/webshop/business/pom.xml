@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>business</artifactId>
-	
+
 	<packaging>ejb</packaging>
 	<name>business</name>
 	<url>http://maven.apache.org</url>
@@ -23,6 +23,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>hu.neuron.java</groupId>
+			<artifactId>SalesClientWebService</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>hu.neuron.ier.webshop</groupId>
 			<artifactId>business-api</artifactId>

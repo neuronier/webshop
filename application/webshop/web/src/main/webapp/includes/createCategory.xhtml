@@ -7,7 +7,7 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 
 	<p:dialog header="#{out.createCategory}" widgetVar="createCategoryDialog" showEffect="slide"
-		hideEffect="clip"  appendTo="@(body)" resizable="false" height="100">
+		hideEffect="clip"  appendTo="@(body)" resizable="false" height="100" modal="true">
 		<h:panelGroup>
 			<h:form id="createCategoryFormId" prependId="false">
 				<table>
@@ -27,9 +27,9 @@
 				</tr>
 				</table>
 
-				<h:commandButton id="createCategorySave" value="#{out.save}" action="#{offerGroupController.createOfferGroup}"
-					styleClass="loginPanelBtn" update="categoryDataTableId, categoryMenuFormId" onclick="#{offerGroupController.getAll()}" 
-					actionListener="#{categoryMenuController.init()}"></h:commandButton>
+				<p:commandButton id="createCategorySave" value="#{out.save}" action="#{offerGroupController.createOfferGroup}"
+					styleClass="loginPanelBtn" update=":categoryFormId:categoryDataTableId, categoryMenuFormId, createCategoryFormId" onsuccess="PF('createCategoryDialog').hide();"  
+					actionListener="#{categoryMenuController.init()}"/>
 
 			</h:form>
 		</h:panelGroup>

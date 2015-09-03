@@ -22,10 +22,10 @@
 						<f:facet name="header">
            	 				Rendelt termékek
         				</f:facet>
-						<p:column headerText="Id" filterBy="#{order.productType.itemNumber}" filterMatchMode="contains">
+						<p:column headerText="Id" filterBy="#{order.productType.itemNumber}" filterMatchMode="contains" style="text-align:center">
 							<h:outputText value="#{order.productType.itemNumber}" />
 						</p:column>
-						<p:column headerText="Darab">
+						<p:column headerText="Darab" style="text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{order.quanty}" />

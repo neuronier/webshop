@@ -7,7 +7,10 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 
-public class OrderWebServiceVO implements Serializable {
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "WebshopOrder")
+public class WebshopOrderWebServiceVO implements Serializable {
 
 
 	private static final long serialVersionUID = 3129217083180187209L;

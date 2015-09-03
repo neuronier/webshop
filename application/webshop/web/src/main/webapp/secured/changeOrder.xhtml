@@ -6,42 +6,71 @@
 	template="/templates/masterLayout.xhtml"
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<ui:define name="head-extra">
-		<!-- 		custom css -->
+		<style>
+				TD {
+					vertical-align: top;
+				}
+				</style>
 	</ui:define>
 	<ui:define name="pageTitle">Rendelés</ui:define>
 	<ui:define name="content">
-	<h:form id="form"></h:form>
+		<h:form id="form"></h:form>
 		<div align="center">
-			<p:fieldset legend="#{orderSet.getSettedOrder().getOrdersId()}. számú rendelés módosítása" style="margin-bottom:20px">
+			<p:fieldset
+				legend="#{orderSet.getSettedOrder().getOrdersId()}. számú rendelés módosítása"
+				style="margin-bottom:20px">
 				<h:form id="rendel">
-					<p:dataTable id="Elements" var="order"
-						value="#{orderChangeController.actualElements}" selectionMode="single"
-						selection="#{orderChangeController.selectedElement}"
-						rowKey="#{order.productType.itemNumber}" editable="true"
-						editMode="cell" rows="10"
-						paginator="true">
-						<f:facet name="header">
+					<p:panelGrid columns="2">
+					<p:dataTable id="Products" var="product"
+							value="#{orderChangeController.productTypes}"
+							selectionMode="single"
+							selection="#{orderChangeController.selectedProduct}"
+							rowKey="#{product.itemNumber}" rows="10" paginator="true">
+							<f:facet name="header">
+           	 				Készlet
+        				</f:facet>
+							<p:ajax event="rowSelect" update="rendel:hozzaad" />
+							<p:column headerText="Id" filterBy="#{product.itemNumber}" style="text-align:center"
+								filterMatchMode="contains">
+								<h:outputText value="#{product.itemNumber}" />
+							</p:column>
+							<p:column headerText="Darab" style="text-align:center">
+								<h:outputText value="0" />
+							</p:column>
+
+						</p:dataTable>
+						
+						<p:dataTable id="Elements" var="order"
+							value="#{orderChangeController.actualElements}"
+							selectionMode="single"
+							selection="#{orderChangeController.selectedElement}"
+							rowKey="#{order.productType.itemNumber}" editable="true"
+							editMode="cell" rows="10" paginator="true" emptyMessage="Nincs rendelt termék">
+							<f:facet name="header">
            	 				Rendelt termékek
         				</f:facet>
-						<p:ajax event="rowSelect" update="rendel:delete" />
-						<p:column headerText="Id" filterBy="#{order.productType.itemNumber}" filterMatchMode="contains">
-							<h:outputText value="#{order.productType.itemNumber}" />
-						</p:column>
-						<p:column headerText="Darab">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{order.quanty}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{order.quanty}" style="width:100%"
-										label="darab" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
+							<p:ajax event="rowSelect" update="rendel:delete" />
+							<p:column headerText="Id"
+								filterBy="#{order.productType.itemNumber}"
+								filterMatchMode="contains" style="text-align:center">
+								<h:outputText value="#{order.productType.itemNumber}" />
+							</p:column>
+							<p:column headerText="Darab" style="text-align:center">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{order.quanty}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{order.quanty}" style="width:100%"
+											label="darab" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
 
-					</p:dataTable>
-
-					<h:outputText style="color: white; margin:5px;" value="Rendelt darab:" />
+						</p:dataTable>
+					</p:panelGrid>
+					<h:outputText style="color: white; margin:5px;"
+						value="Rendelt darab:" />
 					<p:inputText id="darab" value="#{orderChangeController.darab}"
 						label="darab" />
 					<p:commandButton value="Hozzáad" id="hozzaad"
@@ -57,25 +86,8 @@
 						id="lead" action="#{orderChangeController.addOrder}"
 						disabled="#{orderChangeController.orderElements.isEmpty()}"
 						onsuccess="window.location.replace('/webshopApp/secured/order.xhtml')" />
-					<p:button value="Vissza" href="/secured/order.xhtml" style="margin:5px;"></p:button>
-					<p:dataTable id="Products" var="product"
-						value="#{orderChangeController.productTypes}" selectionMode="single"
-						selection="#{orderChangeController.selectedProduct}"
-						rowKey="#{product.itemNumber}" rows="10"
-						paginator="true">
-						<f:facet name="header">
-           	 				Készlet
-        				</f:facet>
-						<p:ajax event="rowSelect" update="rendel:hozzaad" />
-						<p:column headerText="Id" filterBy="#{product.itemNumber}" filterMatchMode="contains">
-							<h:outputText value="#{product.itemNumber}" />
-						</p:column>
-						<p:column headerText="Darab">
-							<h:outputText value="0" />
-						</p:column>
-
-					</p:dataTable>
-
+					<p:button value="Vissza" href="/secured/order.xhtml"
+						style="margin:5px;"></p:button>
 				</h:form>
 			</p:fieldset>
 		</div>

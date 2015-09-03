@@ -26,7 +26,7 @@
 						value="#{offerGroupController.allOfferGroup}" sortMode="multiple"
 						rows="10" paginator="true"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15">
+						rowsPerPageTemplate="5,10,15" emptyMessage="#{out.noRecordsFound}">
 						<p:ajax event="rowSelect"
 							listener="#{offerGroupController.onRowSelect}"
 							update=":editCategoryFormId, :categoryFormId:btnEditCategory, :categoryFormId:btnDeleteCategory, :categoryFormId:btnAddOffer" />
@@ -71,7 +71,7 @@
 						onclick="PF('createCategoryDialog').show();" />
 
 					<p:button value="#{out.sortCategories}" id="btnSortCategories"
-						icon="ui-icon-wrench" href="/secured/sortCategories.xhtml" />
+						icon="ui-icon-wrench" href="/secured/user/sortCategories.xhtml" />
 
 					<p:commandButton value="#{out.editSelected}" id="btnEditCategory"
 						icon="ui-icon-pencil"
@@ -79,9 +79,9 @@
 						onclick="PF('editCategoryDialog').show();" />
 
 					<p:commandButton value="#{out.deleteSelected}" id="btnDeleteCategory"
-						update="categoryFormId" icon="ui-icon-minusthick"
+						update="categoryFormId, categoryFormId:categoryDataTableId" icon="ui-icon-minusthick"
 						disabled="#{offerGroupController.selectedOfferGroup == null}"
-						action="#{offerGroupController.deleteSelected()}" />
+						action="#{offerGroupController.deleteSelected}" />
 
 					<p:commandButton value="#{out.addOffers}" id="btnAddOffer"
 						icon="ui-icon-suitcase"

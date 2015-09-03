@@ -1,40 +1,44 @@
 package hu.neuron.ier.business.webservice.impl;
 
-import hu.neuron.ier.business.client.ClientServiceRemote;
-import hu.neuron.ier.business.vo.ClientVO;
-import hu.neuron.ier.business.webservice.ClientWebService;
-import hu.neuron.ier.business.webservice.vo.ClientListWebServiceVO;
-import hu.neuron.ier.business.webservice.vo.ClientWebServiceVO;
+import hu.neuron.ier.business.bugreport.BugReportServiceRemote;
+import hu.neuron.ier.business.webservice.WebshopBugReportWebService;
+import hu.neuron.ier.business.webservice.vo.BugReportListWebServiceVO;
+import hu.neuron.ier.business.webservice.vo.BugReportWebServiceVO;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Properties;
-
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.jws.WebService;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
-//@Stateless(mappedName = "ClientWebService", name = "ClientWebService")
-//@WebService(name = "WebshopClientWebServicePort", serviceName = "WebshopClientWebService", targetNamespace = "http://hu.neuron", endpointInterface = "hu.neuron.ier.business.webservice.ClientWebService")
+//@Stateless(mappedName = "BugReportWebService", name = "BugReportWebService")
+//@WebService(name = "WebshopBugReportWebServicePort", serviceName = "WebshopBugReportWebService", targetNamespace = "http://hu.neuron", endpointInterface = "hu.neuron.ier.business-api.webservice.WebhopBugReportWebService")
 //@Interceptors(SpringBeanAutowiringInterceptor.class)
-public class ClientWebServiceImpl implements ClientWebService {
+public class WebshopBugReportWebServiceImpl implements WebshopBugReportWebService {
 
 //	@Autowired
 //	@Qualifier("mapper")
 //	Mapper mapper;
 //
-//	ClientServiceRemote clientService;
+//	@EJB(mappedName = "BugReportService", name = "BugReportService")
+//	BugReportServiceRemote bugReportService;
 //
+//	@Override
+//	public BugReportListWebServiceVO getReportListWebMethod() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public BugReportWebServiceVO getBugReportByUserNameWebMethod(String userName) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 //	public void initEJB() {
 //		try {
 //			InputStream inputStream = this.getClass().getClassLoader()
@@ -63,7 +67,7 @@ public class ClientWebServiceImpl implements ClientWebService {
 //			e.printStackTrace();
 //		}
 //	}
-//
+
 //	@Override
 //	public ClientListWebServiceVO getClientListWebMethod() {
 //		initEJB();

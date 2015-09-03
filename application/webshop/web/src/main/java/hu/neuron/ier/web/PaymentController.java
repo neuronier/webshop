@@ -10,7 +10,7 @@ import hu.neuron.ier.business.vo.PurchaseVO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,7 +96,7 @@ public class PaymentController implements Serializable {
 
 		PurchaseVO purchaseVO = new PurchaseVO();
 		purchaseVO.setClient(currentClient);
-		purchaseVO.setDate(Calendar.getInstance());
+		purchaseVO.setDate( new Date());
 		purchaseVO.setFullCost(Integer.valueOf(totalPrice()).longValue());
 		try {
 			purchaseVO = purchaseService.createPurchase(purchaseVO);

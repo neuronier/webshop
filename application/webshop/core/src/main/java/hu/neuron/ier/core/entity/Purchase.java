@@ -1,6 +1,6 @@
 package hu.neuron.ier.core.entity;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -15,8 +15,9 @@ public class Purchase extends BaseEntity {
 	private static final long serialVersionUID = 1826068613871566627L;
 	@ManyToOne
 	private Client client;
-	private Calendar date;
-	private Long fullCost;
+	//lehet Date kell majd
+	private Date date;
+	private long fullCost;
 	private String status;
 
 	public String getStatus() {
@@ -27,19 +28,19 @@ public class Purchase extends BaseEntity {
 		this.status = status;
 	}
 
-	public Calendar getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	public Long getFullCost() {
+	public long getFullCost() {
 		return fullCost;
 	}
 
-	public void setFullCost(Long fullCost) {
+	public void setFullCost(long fullCost) {
 		this.fullCost = fullCost;
 	}
 

@@ -11,10 +11,11 @@ import hu.neuron.ier.business.vo.PurchaseVO;
 import hu.neuron.ier.core.dao.ClientDao;
 import hu.neuron.ier.core.dao.PurchaseDao;
 import hu.neuron.ier.core.dao.PurchasedOfferSwDao;
+import hu.neuron.ier.core.entity.Purchase;
 import hu.neuron.ier.core.entity.PurchasedOfferSw;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -85,7 +86,7 @@ public class PurchaseServiceImpl implements PurchaseServiceRemote, Serializable 
 	}
 
 	@Override
-	public List<PurchaseVO> getPurchaseByDate(Calendar date) throws Exception {
+	public List<PurchaseVO> getPurchaseByDate(Date date) throws Exception {
 		List<PurchaseVO> vos = purchaseConverter.toVO(purchaseDao.findByDate(date));
 		return vos;
 	}
@@ -110,6 +111,24 @@ public class PurchaseServiceImpl implements PurchaseServiceRemote, Serializable 
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Override
+	public int findCountByMonth(int year, int month) {
+		return purchaseDao.findCountByMonth(year, month);
+	}
+	
+	@Override
+	public int findIncomeByMonth(int year, int month) throws Exception {
+		List<Purchase> purchases = purchaseDao.findByMonth(year, month);
+		
+		int sum = 0;
+		for (Purchase purchase : purchases) {
+			
+			sum += (int)purchase.getFullCost();
+		}
+		
+		return sum;
 	}
 	
 	

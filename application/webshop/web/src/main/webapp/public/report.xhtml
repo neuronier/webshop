@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml">
+
+
+	<ui:define name="pageTitle">#{out.report}</ui:define>
+	<ui:define name="header"> -> #{out.report}</ui:define>
+
+	<ui:define name="head-extra">
+		<style>
+.jqplot-title {
+	color: #FFFFFF;
+}
+
+.jqplot-xaxis-label {
+	color: #FFFFFF;
+}
+
+.jqplot-yaxis-label {
+	color: #FFFFFF;
+}
+</style>
+
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h:form id="form" />
+		
+		<div align="center">
+			<h:form id="reportForm">
+				<p:growl id="msgs" showDetail="true" />
+				<p:tabView id="tabViewId" dynamic="true" cache="false" >
+					<p:ajax event="tabChange"
+						listener="#{reportController.onTabChange}" update=":reportForm:msgs" />
+					<p:tab title="Eladások" id="sales">
+
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:chart type="line" model="#{reportController.salesModel}"
+								style="height:400x; width:1000px;"
+								seriesColors="FFFFFF, FFFFFF, FFFFFF" />
+						</h:panelGrid>
+						
+						<p:spacer height="20" />
+						
+						<p:panelGrid columns="5" styleClass="intervalGrid">
+							<p:outputLabel for="from" value="innen " />
+							<p:calendar id="from" value="#{reportController.reportFrom}" />
+
+							<p:outputLabel for="to" value="ideig " />
+							<p:calendar id="to" value="#{reportController.reportTo}" />
+							<p:commandButton value="generate"
+								action="#{reportController.salesNumGenerateAction()}"
+								update=":reportForm" />
+						</p:panelGrid>
+					</p:tab>
+					<p:tab title="Bevétel" id="income">
+
+						
+
+						
+
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:chart type="line" model="#{reportController.incomeModel}"
+								style="height:300px; width:1000px;"
+								seriesColors="FFFFFF, FFFFFF, FFFFFF" />
+						</h:panelGrid>
+						
+						<p:spacer height="20" />
+						
+						<p:panelGrid columns="5" styleClass="intervalGrid">
+							<p:outputLabel for="fromId" value="innen: " />
+							<p:calendar id="fromId" value="#{reportController.reportFrom}" />
+
+							<p:outputLabel for="toId" value="ideig " />
+							<p:calendar id="toId" value="#{reportController.reportTo}" />
+							<p:commandButton value="generate"
+								action="#{reportController.incomeNumGenerateAction()}"
+								update="@form" />
+						</p:panelGrid>
+					</p:tab>
+				</p:tabView>
+			</h:form>
+		</div>
+
+	</ui:define>
+</ui:composition>

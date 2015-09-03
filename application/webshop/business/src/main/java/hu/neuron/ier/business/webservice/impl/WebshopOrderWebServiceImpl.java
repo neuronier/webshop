@@ -55,7 +55,7 @@ public class WebshopOrderWebServiceImpl implements WebshopOrderWebService {
 	public WebshopOrderListWebServiceVO getOrderListWebMethod() {
 		List<OrdersVO> orderVOs = null;
 		try {
-			orderVOs = orderService.getAllOrders();
+			orderVOs = orderService.getOrdersByStatus("Új");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

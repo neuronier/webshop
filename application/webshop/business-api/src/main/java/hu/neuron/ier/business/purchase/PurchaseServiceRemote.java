@@ -25,4 +25,8 @@ public interface PurchaseServiceRemote {
 	public void addOffersToPurchace(Map<OfferVO, Long> map, PurchaseVO purchaseVO);
 
 	PurchaseVO getPurchaseById(Long id) throws Exception;
+	
+	public int findIncomeByMonth(int year, int month) throws Exception;
+	
+	public int findCountByMonth(int year, int month);
 }

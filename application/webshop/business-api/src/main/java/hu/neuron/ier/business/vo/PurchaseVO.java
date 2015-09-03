@@ -2,6 +2,7 @@ package hu.neuron.ier.business.vo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 public class PurchaseVO implements Serializable {
 
@@ -10,7 +11,7 @@ public class PurchaseVO implements Serializable {
 	private Long id;
 	private ClientVO client;
 	private Calendar date;
-	private Long fullCost;
+	private long fullCost;
 	private String status;
 
 	public Long getId() {
@@ -28,6 +29,8 @@ public class PurchaseVO implements Serializable {
 	public void setClient(ClientVO client) {
 		this.client = client;
 	}
+
+	
 
 	public Calendar getDate() {
 		return date;

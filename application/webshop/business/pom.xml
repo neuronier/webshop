@@ -26,7 +26,6 @@
 		<dependency>
 			<groupId>hu.neuron.java</groupId>
 			<artifactId>SalesClientWebService</artifactId>
-			<version>1.0</version>
 		</dependency>
 
 		<dependency>

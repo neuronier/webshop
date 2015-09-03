@@ -36,7 +36,7 @@
 			<url>file:\\192.168.1.23\www\WebShop</url>
 		</site>
 	</distributionManagement>
-	
+
 	<repositories>
 		<repository>
 			<id>prime-repo</id>
@@ -45,11 +45,11 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-	
+
 	<build>
 		<defaultGoal>install</defaultGoal>
 
-		
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -95,7 +95,7 @@
 			<!-- <artifactId>web</artifactId> -->
 			<!-- <version>0.1</version> -->
 			<!-- </dependency> -->
-			
+
 
 			<dependency>
 				<groupId>junit</groupId>
@@ -185,7 +185,7 @@
 				<version>1.8.0.RELEASE</version>
 			</dependency>
 
-		
+
 
 			<dependency>
 				<groupId>org.springframework.security</groupId>
@@ -284,11 +284,16 @@
 				<artifactId>aspectjweaver</artifactId>
 				<version>1.8.5</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-dbcp</groupId>
 				<artifactId>commons-dbcp</artifactId>
 				<version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>hu.neuron.java</groupId>
+				<artifactId>SalesClientWebService</artifactId>
+				<version>1.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

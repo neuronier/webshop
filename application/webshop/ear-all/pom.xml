@@ -25,6 +25,7 @@
 			<type>war</type>
 			<version>${version}</version>
 		</dependency>
+		
 	</dependencies>
 	<build>
 

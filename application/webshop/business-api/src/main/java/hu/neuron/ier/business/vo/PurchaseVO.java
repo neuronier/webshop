@@ -10,7 +10,7 @@ public class PurchaseVO implements Serializable {
 
 	private Long id;
 	private ClientVO client;
-	private Date date;
+	private Calendar date;
 	private long fullCost;
 	private String status;
 
@@ -18,7 +18,7 @@ public class PurchaseVO implements Serializable {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -30,11 +30,13 @@ public class PurchaseVO implements Serializable {
 		this.client = client;
 	}
 
-	public Date getDate() {
+	
+
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
@@ -42,7 +44,7 @@ public class PurchaseVO implements Serializable {
 		return fullCost;
 	}
 
-	public void setFullCost(long fullCost) {
+	public void setFullCost(Long fullCost) {
 		this.fullCost = fullCost;
 	}
 

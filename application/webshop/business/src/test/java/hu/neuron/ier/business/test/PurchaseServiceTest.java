@@ -5,7 +5,7 @@ import hu.neuron.ier.business.purchase.PurchaseServiceRemote;
 import hu.neuron.ier.business.vo.ClientVO;
 import hu.neuron.ier.business.vo.PurchaseVO;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Properties;
 
 import javax.ejb.EJB;
@@ -21,7 +21,7 @@ public class PurchaseServiceTest {
 
 	private static PurchaseVO purchaseVO;
 	private static ClientVO clientVO;
-	private static Date date;
+	private static Calendar date;
 	private EJBContainer ejbContainer;
 
 	@EJB(mappedName = "PurchaseService", name = "PurchaseService")

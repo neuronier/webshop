@@ -3,7 +3,6 @@ package hu.neuron.ier.business.vo;
 
 
 import java.io.Serializable;
-import java.util.Map;
 
 public class OfferVO implements Serializable {
 
@@ -111,7 +110,7 @@ public class OfferVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return name + "_" + id;
+		return name;
 	}
 	
 

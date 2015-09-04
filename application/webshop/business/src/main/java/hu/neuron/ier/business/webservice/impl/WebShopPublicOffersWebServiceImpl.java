@@ -9,6 +9,7 @@ import hu.neuron.ier.core.entity.Offer;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.jws.WebService;
@@ -23,7 +24,7 @@ public class WebShopPublicOffersWebServiceImpl implements WebShopPublicOffersWeb
 	@Autowired
 	OfferDao offerDao;
 	
-	@Autowired
+	@EJB
 	PublicOfferConverter converter;
 	
 	@Override

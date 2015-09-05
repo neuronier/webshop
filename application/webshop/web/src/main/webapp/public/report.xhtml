@@ -7,8 +7,8 @@
 	template="/templates/masterLayout.xhtml">
 
 
-	<ui:define name="pageTitle">#{out.report}</ui:define>
-	<ui:define name="header"> -> #{out.report}</ui:define>
+	<ui:define name="pageTitle">#{out.reports}</ui:define>
+	<ui:define name="header"> -> #{out.reports}</ui:define>
 
 	<ui:define name="head-extra">
 		<style>
@@ -32,12 +32,13 @@
 		<h:form id="form" />
 		
 		<div align="center">
+		<p:fieldset legend="#{out.reports}">
 			<h:form id="reportForm">
 				<p:growl id="msgs" showDetail="true" />
 				<p:tabView id="tabViewId" dynamic="true" cache="false" >
 					<p:ajax event="tabChange"
 						listener="#{reportController.onTabChange}" update=":reportForm:msgs" />
-					<p:tab title="Eladások" id="sales">
+					<p:tab title="#{out.sales}" id="sales">
 
 						<h:panelGrid columns="2" cellpadding="10">
 							<p:chart type="line" model="#{reportController.salesModel}"
@@ -53,12 +54,12 @@
 
 							<p:outputLabel for="to" value="ideig " />
 							<p:calendar id="to" value="#{reportController.reportTo}" />
-							<p:commandButton value="generate"
+							<p:commandButton value="#{out.generate}"
 								action="#{reportController.salesNumGenerateAction()}"
 								update=":reportForm" />
 						</p:panelGrid>
 					</p:tab>
-					<p:tab title="Bevétel" id="income">
+					<p:tab title="#{out.income}" id="income">
 
 						<h:panelGrid columns="2" cellpadding="10">
 							<p:chart type="line" model="#{reportController.incomeModel}"
@@ -74,13 +75,14 @@
 
 							<p:outputLabel for="toId" value="ideig " />
 							<p:calendar id="toId" value="#{reportController.reportTo}" />
-							<p:commandButton value="generate"
+							<p:commandButton value="#{out.generate}"
 								action="#{reportController.incomeNumGenerateAction()}"
 								update="@form" />
 						</p:panelGrid>
 					</p:tab>
 				</p:tabView>
 			</h:form>
+			</p:fieldset>
 		</div>
 
 	</ui:define>

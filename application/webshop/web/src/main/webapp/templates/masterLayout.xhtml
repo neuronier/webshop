@@ -23,79 +23,91 @@
 
 	<h:body>
 		<p:layout fullPage="true">
-		<p:layoutUnit position="north">
-		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+			<p:layoutUnit position="north">
+				<p:growl id="growl" showDetail="true" autoUpdate="true" />
 
-		<h:outputStylesheet library="default" name="css/masterLayout.css" />
-		<h:form>
-		<p:menubar style="margin:10px">
-			<p:menuitem value="#{out.home}" onsuccess="window.location.replace('/webshopApp/index.xhtml')" icon="ui-icon-home" action="#{dataGridView.init}" update=":form"/>
+				<h:outputStylesheet library="default" name="css/masterLayout.css" />
+				<h:form>
+					<p:menubar style="margin:10px">
+						<p:menuitem value="#{out.home}"
+							onsuccess="window.location.replace('/webshopApp/index.xhtml')"
+							icon="ui-icon-home" action="#{dataGridView.init}" update=":form" />
 
-			<sec:authorize ifAllGranted="ROLE_ADMIN">
-				
-					<p:menuitem value="Felhasználók" url="/secured/admin/users.xhtml"
-						icon="fa fa-user" />
-					<p:menuitem value="Role" url="/secured/admin/roles.xhtml"
-						icon="fa fa-user" />
-				
+						<sec:authorize ifAllGranted="ROLE_ADMIN">
 
-			</sec:authorize>
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-				
-					<p:menuitem value="#{out.categories}" url="/secured/user/categories.xhtml"/>
-					<p:menuitem value="Rendelés" url="/secured/order.xhtml"
-						action="#{orderController.createOrders}" />
-					<p:menuitem value="Ajánlatok" url="/secured/offers.xhtml" />
-					<p:menuitem value="Hibakezelés" url="/secured/bugReportManagement.xhtml" />		
-					<p:menuitem value="Riport" url="/public/report.xhtml" />
-			</sec:authorize>
-				
-			<p:menuitem 
-				url="/public/shoppingCart.xhtml" value="#{out.shoppingCart}" icon="ui-icon-cart" />
-			
-			<p:menuitem value="Hibajelentés" url="/secured/client/bugReportApply.xhtml" />
-			
-			<f:facet name="options">
-				<div  class='lfloat' >
-				<h:form >
-					<p:inputText placeholder="Search" value="#{searchController.key}"
-						id="searchId" />
-					<p:commandButton icon="ui-icon-search"
-						action="/public/searchResults.xhtml?faces-redirect=true">
-						<f:ajax execute="searchId" />
-					</p:commandButton>
+							<p:menuitem value="Felhasználók" url="/secured/admin/users.xhtml"
+								icon="fa fa-user" />
+							<p:menuitem value="Role" url="/secured/admin/roles.xhtml"
+								icon="fa fa-user" />
+
+
+						</sec:authorize>
+						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+
+							<p:menuitem value="#{out.categories}"
+								url="/secured/user/categories.xhtml" />
+							<p:menuitem value="Rendelés" url="/secured/order.xhtml"
+								action="#{orderController.createOrders}" />
+							<p:menuitem value="Ajánlatok" url="/secured/offers.xhtml" />
+							<p:menuitem value="Hibakezelés"
+								url="/secured/bugReportManagement.xhtml" />
+							<p:menuitem value="Riport" url="/public/report.xhtml" />
+						</sec:authorize>
+
+						<p:menuitem url="/public/shoppingCart.xhtml"
+							value="#{out.shoppingCart}" icon="ui-icon-cart" />
+
+						<sec:authorize access="hasRole('ROLE_CLIENT')">
+							<p:menuitem value="Hibajelentés"
+								url="/secured/client/bugReportApply.xhtml" />
+						</sec:authorize>
+
+						<f:facet name="options">
+							<div class='lfloat'>
+								<h:form>
+									<p:inputText placeholder="Search"
+										value="#{searchController.key}" id="searchId" />
+									<p:commandButton icon="ui-icon-search"
+										action="/public/searchResults.xhtml?faces-redirect=true">
+										<f:ajax execute="searchId" />
+									</p:commandButton>
+								</h:form>
+							</div>
+							<div style="float: left">
+								<h:outputLabel
+									rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
+									value="Bejelentkezve, mint [" />
+								<p:commandLink
+									rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
+									value="#{request.userPrincipal.name}"
+									action="/public/clientSelfCare.xhtml" />
+								<h:outputLabel
+									rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
+									value="]" />
+
+								<p:button
+									rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}"
+									href="/public/login.xhtml" value="#{out.login}" type="button"
+									icon="ui-icon-locked" />
+								<p:button
+									rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('registration.xhtml')}"
+									value="#{out.signup}" type="button"
+									href="/public/registration.xhtml" />
+								<p:button rendered="#{not empty request.remoteUser}"
+									type="button" href="/logout" value="Kijelentkezés" />
+							</div>
+						</f:facet>
+					</p:menubar>
 				</h:form>
-				</div>
-				<div  style="float: left" >
-				<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="Bejelentkezve, mint [" />
-				<p:commandLink
-					rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}"
-					value="#{request.userPrincipal.name}" action="/public/clientSelfCare.xhtml" />
-					<h:outputLabel rendered="#{not empty request.remoteUser and !request.requestURL.toString().contains('clientSelfCare.xhtml')}" value="]" />
-				
-				<p:button
-					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('login.xhtml')}"
-					href="/public/login.xhtml" value="#{out.login}" type="button"
-					icon="ui-icon-locked"  />
-				<p:button
-					rendered="#{empty request.remoteUser and !request.requestURL.toString().contains('registration.xhtml')}"
-					 value="#{out.signup}" type="button"
-					href="/public/registration.xhtml" />
-				<p:button rendered="#{not empty request.remoteUser}" type="button" href="/logout"
-					value="Kijelentkezés"  />
-				</div>
-			</f:facet>
-		</p:menubar>
-		</h:form>
-		</p:layoutUnit>
+			</p:layoutUnit>
 			<p:layoutUnit position="center" style="z-index: -1;">
 				<div id="categoryMenuDiv" style="float: left; margin: 10px">
 					<h:form id="categoryMenuFormId">
 						<p:growl autoUpdate="true" />
 
 						<p:panelMenu style="width:200px;"
-							model="#{categoryMenuController.model}" >
-							
+							model="#{categoryMenuController.model}">
+
 						</p:panelMenu>
 
 					</h:form>
@@ -113,7 +125,7 @@
 				</div>
 			</p:layoutUnit>
 			<p:layoutUnit position="south">
-				
+
 				<div style="float: center">IER Webshop 2015</div>
 			</p:layoutUnit>
 		</p:layout>

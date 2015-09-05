@@ -93,7 +93,7 @@ public class ReportController {
 		
 		salesModel.addSeries(number);
 
-		salesModel.setTitle("Sales Chart");
+		salesModel.setTitle("Eladott termékek száma");
 		salesModel.setLegendPosition("ne");
 		salesModel.setStacked(true);
 		salesModel.setShowPointLabels(true);
@@ -101,7 +101,7 @@ public class ReportController {
 		Axis xAxis = new CategoryAxis("Years");
 		salesModel.getAxes().put(AxisType.X, xAxis);
 		Axis yAxis = salesModel.getAxis(AxisType.Y);
-		yAxis.setLabel("Sales");
+		yAxis.setLabel("Eladások");
 		yAxis.setMin(0);
 		
 	}
@@ -111,7 +111,7 @@ public class ReportController {
 
 		LineChartSeries number = new LineChartSeries();
 		number.setFill(true);
-		number.setLabel("Income");
+		number.setLabel("Bevétel");
 		for (ReportElement reportElement : incomeNumberList) {
 			String date = new SimpleDateFormat("yyyy-MM-dd").format(reportElement.getDate());
 			number.set(date, reportElement.getNumber());
@@ -119,7 +119,7 @@ public class ReportController {
 
 		incomeModel.addSeries(number);
 
-		incomeModel.setTitle("Income Chart");
+		incomeModel.setTitle("Bevétel");
 		incomeModel.setLegendPosition("ne");
 		incomeModel.setStacked(true);
 		incomeModel.setShowPointLabels(true);

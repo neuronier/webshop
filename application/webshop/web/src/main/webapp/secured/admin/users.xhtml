@@ -16,39 +16,39 @@
 
     <ui:define name="content">
     <h:form id="form"></h:form>
-    	<p:dialog header="Create User" widgetVar="createUser" showEffect="explode"
+    	<p:dialog header="Új felhasználó" widgetVar="createUser" showEffect="explode"
 			hideEffect="explode" mheight="100" modal="true" appendTo="@(body)" resizable="false">
 			<h:form>
 			<h:panelGrid columns="2" cellpadding="5">
 			<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
 			
-				<h:outputLabel for="userName" value="Name:" style="font-weight:bold" />
+				<h:outputLabel for="userName" value="Felhasználónév:" style="font-weight:bold" />
 				<p:inputText id="userName" required="true"
 					value="#{adminController.userName}" />
 				 
-				<h:outputLabel for="password" value="Password:" style="font-weight:bold" />	
+				<h:outputLabel for="password" value="Jelszó:" style="font-weight:bold" />	
 				<p:password id="password" required="true"
 					match="passwordid" value="#{adminController.password}" />
 					
-				<h:outputLabel for="passwordid" value="Pass again:" style="font-weight:bold" />	
+				<h:outputLabel for="passwordid" value="Jelszó újra:" style="font-weight:bold" />	
 				<p:password id="passwordid" required="true"
 					value="#{adminController.password2}" />
 				
-				<h:outputLabel for="fullName" value="Full Name:" style="font-weight:bold" />		
+				<h:outputLabel for="fullName" value="Teljes név:" style="font-weight:bold" />		
 				<p:inputText id="fullName" required="true"
 					value="#{adminController.fullName}" />
 				
-				<h:outputLabel for="email" value="Email" style="font-weight:bold" />	
+				<h:outputLabel for="email" value="Email cím:" style="font-weight:bold" />	
 				<p:inputText id="email" required="true"
 					value="#{adminController.email}" />
 					
-				<h:outputLabel for="phone" value="Phone:" style="font-weight:bold" />
+				<h:outputLabel for="phone" value="Telefon:" style="font-weight:bold" />
 				<p:inputText id="phone" required="true"
 					value="#{adminController.phone}" />
 				</h:panelGrid>	
 				<div id="createBtnPanelId">	
 				
-				<p:commandButton value="Create" id="create"
+				<p:commandButton value="Mentés" id="create"
 					actionListener="#{adminController.createNewUser}"
 					update=":growl, :adminForm" icon="ui-icon-check"
 					oncomplete="PF('createUser').hide();" />
@@ -144,12 +144,12 @@
                 
               
                 
-                <p:column headerText="Full name"
+                <p:column headerText="Teljes név"
                           sortBy="#{currentUser.fullName}" >
                     <h:outputText value="#{currentUser.fullName}" />
                 </p:column>
                 
-                <p:column headerText="Phone"
+                <p:column headerText="Telefon"
                           sortBy="#{currentUser.phone}" >
                     <h:outputText value="#{currentUser.phone}" />
                 </p:column>
@@ -170,7 +170,7 @@
                                  onclick="PF('dlg_edit').show()"
                                  >
                 </p:commandButton>
-                <p:commandButton value="Create User" type="button"
+                <p:commandButton value="Új felhasználó" type="button"
 							onclick="PF('createUser').show();" />
             </h:panelGrid>
             </p:fieldset>

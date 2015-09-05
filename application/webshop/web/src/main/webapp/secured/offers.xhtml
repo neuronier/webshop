@@ -16,13 +16,13 @@
 
 	<ui:define name="content">
 		<h:form id="form"></h:form>
-		<p:dialog header="Effects" widgetVar="updateOffer"
+		<p:dialog header="Ajánlat módosítása" widgetVar="updateOffer"
 			showEffect="explode" appendTo="@(body)" hideEffect="explode" mheight="100" modal="true" resizable="false">
 			<h:form>
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
 
-						<h:outputLabel for="newCostId" value="New cost:"
+						<h:outputLabel for="newCostId" value="Új ár"
 							style="font-weight:bold" />
 						<p:inputText id="newCostId" required="true"
 							value="#{offerController.newCost}" />
@@ -41,7 +41,7 @@
 
 					<div id="updateBtnPanelId">
 
-						<p:commandButton value="Update" id="update"
+						<p:commandButton value="Mentés" id="update"
 							actionListener="#{offerController.updateOffer}"
 							update=":growl, :offerForm" icon="ui-icon-check"
 							oncomplete="PF('updateOffer').hide();" />
@@ -67,13 +67,13 @@
 					<p:ajax event="rowUnselect"
 						listener="#{offerController.onRowUnselect}" update=":offerForm" />
 
-					<p:column headerText="name">
+					<p:column headerText="Ajánlat neve">
 						<h:outputText value="#{currentOffer.name}" />
 					</p:column>
 
-					<p:column headerText="Price">
+					<p:column headerText="Ár">
 
-						<h:outputText value="#{currentOffer.newCost}" />
+						<h:outputText value="#{currentOffer.newCost} Ft" />
 					</p:column>
 
 					<p:column headerText="Akciós">
@@ -85,11 +85,11 @@
 					</p:column>
 
 					<p:column headerText="Eredeti ar">
-						<h:outputText value="#{currentOffer.originalCost}" />
+						<h:outputText value="#{currentOffer.originalCost} Ft" />
 					</p:column>
 				</p:dataTable>
 				<h:panelGrid columns="4" cellpadding="5">
-					<p:commandButton value="Update Offer" type="button"
+					<p:commandButton value="Ajánlat módosítása" type="button"
 						disabled="#{offerController.selectedOffer == null}"
 						onclick="PF('updateOffer').show();" />
 				</h:panelGrid>

@@ -12,6 +12,14 @@
 
 	<ui:define name="head-extra">
 		<!-- custom css -->
+		<style type="text/css">
+    .ui-editor {
+        width: 30% !important;
+    }
+    .ui-editor iframe {
+        width:30% !important;
+    }
+</style>
 	</ui:define>
 
 	<ui:define name="content">
@@ -24,9 +32,9 @@
 					resizable="false" appendTo="@(body)">
 					<h:form id="bugReportViewerDialogForm">
 
-						<h:outputText value="A bug leírása" />
+						<h:outputText value="A hiba leírása" />
 
-						<p:editor id="editor" widgetVar="editorWidget"
+						<p:editor  id="editor" widgetVar="editorWidget"
 							value="#{bugReportApplyController.subject}"
 							controls="bold italic underline color bullets numbering" />
 <!-- 						<p:inputText id="subj" required="true" -->

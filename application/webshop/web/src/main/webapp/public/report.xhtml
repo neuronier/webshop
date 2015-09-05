@@ -11,33 +11,98 @@
 	<ui:define name="header"> -> #{out.reports}</ui:define>
 
 	<ui:define name="head-extra">
-		<style>
-.jqplot-title {
-	color: #FFFFFF;
+<!-- 		<style> -->
+/* .jqplot-xaxis-tick { */
+/* 	color: red; */
+/* } */
+
+/* .jqplot-xaxis-label { */
+/* 	color: #FF0000; */
+/* } */
+
+/* .jqplot-yaxis-label { */
+/* 	color: #FF0000; */
+/* } */
+
+/* .jqplot-xaxis-tick { */
+/* 	color: #FF0000; */
+/* } */
+
+/* .jqplot-yaxis-tick { */
+/* 	color: #FF0000; */
+/* } */
+
+/* .jqplot-xaxis { */
+/* 	color: #FF0000; */
+/* } */
+
+/* .jqplot-yaxis { */
+/* 	color: #FF0000; */
+/* } */
+
+/* canvas.jqplot-xaxis-label { */
+/* 	color: #FF0000; */
+/* } */
+
+/* div.jqplot-axis.jqplot-xaxis { */
+/* 	color: #FF0000; */
+/* } */
+<!-- </style> -->
+
+<style type="text/css">
+.jqplot-title{
+        color:white;
+        }
+.jqplot-xaxis-tick {
+	color: red;
 }
 
 .jqplot-xaxis-label {
-	color: #FFFFFF;
+	color: white;
 }
 
 .jqplot-yaxis-label {
-	color: #FFFFFF;
+	color: white;
+}
+
+.jqplot-xaxis-tick {
+	color: #FF0000;
+}
+
+.jqplot-yaxis-tick {
+	color: #FF0000;
+}
+
+.jqplot-xaxis {
+	color: white;
+}
+
+.jqplot-yaxis {
+	color: white;
+}
+
+canvas.jqplot-xaxis-label {
+	color: white;
+}
+
+div.jqplot-axis.jqplot-xaxis {
+	color: white;
 }
 </style>
-
 	</ui:define>
 
 	<ui:define name="content">
 
 		<h:form id="form" />
-		
+
 		<div align="center">
 		<p:fieldset legend="#{out.reports}">
 			<h:form id="reportForm">
 				<p:growl id="msgs" showDetail="true" />
-				<p:tabView id="tabViewId" dynamic="true" cache="false" >
+				<p:tabView id="tabViewId" dynamic="true" cache="false">
 					<p:ajax event="tabChange"
-						listener="#{reportController.onTabChange}" update=":reportForm:msgs" />
+						listener="#{reportController.onTabChange}"
+						update=":reportForm:msgs" />
 					<p:tab title="#{out.sales}" id="sales">
 
 						<h:panelGrid columns="2" cellpadding="10">
@@ -45,16 +110,16 @@
 								style="height:400x; width:1000px;"
 								seriesColors="FFFFFF, FFFFFF, FFFFFF" />
 						</h:panelGrid>
-						
+
 						<p:spacer height="20" />
-						
+
 						<p:panelGrid columns="5" styleClass="intervalGrid">
 							<p:outputLabel for="from" value="innen " />
 							<p:calendar id="from" value="#{reportController.reportFrom}" />
 
 							<p:outputLabel for="to" value="ideig " />
 							<p:calendar id="to" value="#{reportController.reportTo}" />
-							<p:commandButton value="#{out.generate}"
+							<p:commandButton value="Módosítás"
 								action="#{reportController.salesNumGenerateAction()}"
 								update=":reportForm" />
 						</p:panelGrid>
@@ -66,16 +131,16 @@
 								style="height:300px; width:1000px;"
 								seriesColors="FFFFFF, FFFFFF, FFFFFF" />
 						</h:panelGrid>
-						
+
 						<p:spacer height="20" />
-						
+
 						<p:panelGrid columns="5" styleClass="intervalGrid">
-							<p:outputLabel for="fromId" value="innen: " />
+							<p:outputLabel for="fromId" value="Ettől az időponttól: " />
 							<p:calendar id="fromId" value="#{reportController.reportFrom}" />
 
-							<p:outputLabel for="toId" value="ideig " />
+							<p:outputLabel for="toId" value="Ideáig: " />
 							<p:calendar id="toId" value="#{reportController.reportTo}" />
-							<p:commandButton value="#{out.generate}"
+							<p:commandButton value="Módosítás"
 								action="#{reportController.incomeNumGenerateAction()}"
 								update="@form" />
 						</p:panelGrid>

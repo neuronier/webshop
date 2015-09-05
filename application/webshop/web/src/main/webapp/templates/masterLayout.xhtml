@@ -49,11 +49,13 @@
 					<p:menuitem value="Hibakezelés" url="/secured/bugReportManagement.xhtml" />		
 					<p:menuitem value="Riport" url="/public/report.xhtml" />
 			</sec:authorize>
-				
+			
+			 <sec:authorize ifAllGranted="ROLE_CLIENT">	
 			<p:menuitem 
 				url="/public/shoppingCart.xhtml" value="#{out.shoppingCart}" icon="ui-icon-cart" />
 			
 			<p:menuitem value="Hibajelentés" url="/secured/client/bugReportApply.xhtml" />
+			</sec:authorize>
 			
 			<f:facet name="options">
 				<div  class='lfloat' >

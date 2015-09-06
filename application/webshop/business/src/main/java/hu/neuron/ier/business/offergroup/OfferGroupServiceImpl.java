@@ -56,7 +56,6 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote,
 		// gyermekek szülőmezőjének nullázása
 		for (OfferGroup ogroup : childOffergroups) {
 			ogroup.setParentOfferGroup(null);
-			;
 			offerGroupDao.save(ogroup);
 		}
 
@@ -188,9 +187,7 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote,
 				// meghívjuk az adott gyermekre is a metódust
 				updateOfferGroupActiveRecursively(ogvo, active);
 			}
-
 		}
-
 	}
 
 	/**

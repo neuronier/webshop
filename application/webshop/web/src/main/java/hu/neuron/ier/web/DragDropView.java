@@ -57,14 +57,15 @@ public class DragDropView implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		//gyökércsomópontok létrehozása
 		root1 = new DefaultTreeNode("root1", null);
-
 		root2 = new DefaultTreeNode("root2", null);
-
+		//csomópontok listájának létrehozása
 		allNode = new ArrayList<TreeNode>();
-
+		//aktív és inaktív kategóriák fáinak felépítése
 		createTreeSelectively(null, root2, false);
 		createTreeSelectively(null, root1, true);
+		//ha valamelyik oldal üres maradt, beleteszünk egy üres elemet
 		if (root1.getChildCount() == 0) {
 			TreeNode tr1 = new DefaultTreeNode(null, root1);
 			tr1.setSelectable(false);
@@ -73,7 +74,6 @@ public class DragDropView implements Serializable {
 			TreeNode tr2 = new DefaultTreeNode(null, root2);
 			tr2.setSelectable(false);
 		}
-
 	}
 
 	/**

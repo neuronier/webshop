@@ -53,9 +53,10 @@
 								url="/secured/bugReportManagement.xhtml" />
 							<p:menuitem value="Riport" url="/public/report.xhtml" />
 						</sec:authorize>
-
+						<sec:authorize access="hasRole('ROLE_CLIENT') or isAnonymous()">
 						<p:menuitem url="/public/shoppingCart.xhtml"
 							value="#{out.shoppingCart}" icon="ui-icon-cart" />
+						</sec:authorize>
 
 						<sec:authorize access="hasRole('ROLE_CLIENT')">
 							<p:menuitem value="Hibajelentés"

@@ -58,11 +58,11 @@ public class DragDropView implements Serializable {
 	@PostConstruct
 	public void init() {
 		root1 = new DefaultTreeNode("root1", null);
-		
+
 		root2 = new DefaultTreeNode("root2", null);
 
 		allNode = new ArrayList<TreeNode>();
-		// createTree(null, root1);
+
 		createTreeSelectively(null, root2, false);
 		createTreeSelectively(null, root1, true);
 		if (root1.getChildCount() == 0) {
@@ -127,6 +127,19 @@ public class DragDropView implements Serializable {
 		}
 	}
 
+	/**
+	 * Rekurzívan felépíti az ajánlatcsoportok fáját figyelembevéve, hogy aktív
+	 * vagy inaktív ajánlatcsoportokból kell állnia
+	 * 
+	 * @param parentOfferGroup
+	 *            A szülő ajánlatcsoport
+	 * 
+	 * @param parentNode
+	 *            A szülő csomópont a fában
+	 * 
+	 * @param active
+	 *            Aktív tulajdonság
+	 */
 	public void createTreeSelectively(OfferGroupVO parentOfferGroup,
 			TreeNode parentNode, Boolean active) {
 		try {
@@ -151,7 +164,10 @@ public class DragDropView implements Serializable {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", e
+							.getMessage()));
 			e.printStackTrace();
 		}
 	}
@@ -209,17 +225,12 @@ public class DragDropView implements Serializable {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", e
+							.getMessage()));
 			e.printStackTrace();
 		}
-
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Dragged " + dragNode.getData(), "Dropped on "
-						+ dropNode.getData() + " at " + dropIndex);
-		FacesMessage message2 = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Dragged instance of: ", dragged.getClass().getSimpleName());
-		FacesContext.getCurrentInstance().addMessage(null, message);
-		FacesContext.getCurrentInstance().addMessage(null, message2);
 
 	}
 }

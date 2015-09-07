@@ -116,13 +116,12 @@ public class DragDropView implements Serializable {
 					node.setRowKey(((OfferGroupVO) (node.getData())).getName());
 					// felvesszük a listába
 					allNode.add(node);
-					// rekurzívan meghívjuk saját magára a metódust, hogy a
+					// rekurzívan meghívjuk a metódust, hogy a
 					// gyermekeit is felvehessük
 					createTree(ogv, node);
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -158,7 +157,7 @@ public class DragDropView implements Serializable {
 					node.setRowKey(((OfferGroupVO) (node.getData())).getName());
 					// felvesszük a listába
 					allNode.add(node);
-					// rekurzívan meghívjuk saját magára a metódust, hogy a
+					// rekurzívan meghívjuk a metódust, hogy a
 					// gyermekeit is felvehessük
 					createTreeSelectively(ogv, node, active);
 				}

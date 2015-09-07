@@ -66,8 +66,6 @@ public class OfferGroupServiceImpl implements OfferGroupServiceRemote,
 			o.setParentOfferGroup(null);
 			offerDao.save(o);
 		}
-		// mentés, hogy az adatbázisban is változzon
-		offerGroupDao.save(og);
 		// törlés függőségek nélkül
 		offerGroupDao.delete(og);
 	}

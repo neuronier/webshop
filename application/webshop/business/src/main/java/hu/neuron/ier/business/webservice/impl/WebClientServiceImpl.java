@@ -17,7 +17,10 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.xml.namespace.QName;
 
+import neuron.hu.ClientListWebServiceVO;
 import neuron.hu.ClientWebService;
+import neuron.hu.ClientWebServiceVO;
+import neuron.hu.ClientWebService_Service;
 
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
@@ -42,23 +45,26 @@ public class WebClientServiceImpl implements WebClientService {
 		}
 		QName qName = new QName("http://hu.neuron", "ClientWebService");
 
-		ClientWebService clientWebService;
+		ClientWebService_Service clientWebService_Service = new ClientWebService_Service(wsdl,
+				qName);
 
-//		List<ClientWebServiceVO> salesClients = clientWebService.getClientList().getClients();
-//
-//		for (ClientWebServiceVO clientWebServiceVO : salesClients) {
-//			ClientVO clientVO = new ClientVO();
-//			clientVO.setClientId(clientWebServiceVO.getClientId());
-//			clientVO.setEmail(clientWebServiceVO.getEmailAddress());
-//			clientVO.setFullName(clientWebServiceVO.getName());
-//			clientVO.setPassword(clientWebServiceVO.getPassword());
-//			clientVO.setPhone(clientWebServiceVO.getPhoneNumber());
-//			clientVO.setUserName(clientWebServiceVO.getUserName());
-//			if (clientService.findClientByName(clientVO.getUserName()) == null) {
-//				clientVO = clientService.registrationClient(clientVO);
-//				clientList.add(clientVO);
-//			}
-//		}
+		ClientWebService clientWebService = clientWebService_Service.getClientWebServicePortPort();
+
+		ClientListWebServiceVO salesClients = clientWebService.getClientList();
+
+		for (ClientWebServiceVO clientWebServiceVO : salesClients.getClients()) {
+			ClientVO clientVO = new ClientVO();
+			clientVO.setClientId(clientWebServiceVO.getClientId());
+			clientVO.setEmail(clientWebServiceVO.getEmailAddress());
+			clientVO.setFullName(clientWebServiceVO.getName());
+			clientVO.setPassword(clientWebServiceVO.getPassword());
+			clientVO.setPhone(clientWebServiceVO.getPhoneNumber());
+			clientVO.setUserName(clientWebServiceVO.getUserName());
+			if (clientService.findClientByName(clientVO.getUserName()) == null) {
+				clientVO = clientService.registrationClient(clientVO);
+				clientList.add(clientVO);
+			}
+		}
 
 		return clientList;
 	}

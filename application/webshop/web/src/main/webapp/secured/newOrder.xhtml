@@ -33,7 +33,7 @@
 								<h:outputText value="#{product.itemNumber}" />
 							</p:column>
 							<p:column headerText="Darab" style="text-align:center">
-								<h:outputText value="0" />
+								<h:outputText value="#{orderController.numberGen()}" />
 							</p:column>
 
 						</p:dataTable>

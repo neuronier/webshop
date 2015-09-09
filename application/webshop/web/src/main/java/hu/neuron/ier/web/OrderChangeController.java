@@ -134,6 +134,9 @@ public class OrderChangeController implements Serializable{
 			}
 		}
 		if(van==false){
+			if(darab<=0){
+				darab=1;
+			}
 			OrderElementVO orderElement =new OrderElementVO();
 			orderElement.setProductType(productVO);
 			orderElement.setQuanty(darab);

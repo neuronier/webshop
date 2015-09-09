@@ -150,7 +150,6 @@ public class OrderController implements Serializable {
 				orders.add(orderE);
 			}
 			orderVO.setOrderElements(orders);
-
 			orderVO = ordersService.createOrder(orderVO);
 			ordersService.updateOrderId(orderVO.getId(), orderVO.getId());
 			updateOrders();
@@ -174,6 +173,12 @@ public class OrderController implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public int numberGen(){
+		Random rand = new Random();
+		int  n = rand.nextInt(50) + 1;
+		return n;
 	}
 	
 	public boolean isNew(){

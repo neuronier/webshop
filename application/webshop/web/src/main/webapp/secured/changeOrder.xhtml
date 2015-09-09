@@ -10,6 +10,7 @@
 				TD {
 					vertical-align: top;
 				}
+
 				</style>
 	</ui:define>
 	<ui:define name="pageTitle">Rendelés</ui:define>
@@ -17,25 +18,25 @@
 		<h:form id="form"></h:form>
 		<div align="center">
 			<p:fieldset
-				legend="#{orderSet.getSettedOrder().getOrdersId()}. számú rendelés módosítása"
+				legend="#{orderSet.getSettedOrder().getOrdersId()}. azonosítójú rendelés módosítása"
 				style="margin-bottom:20px">
 				<h:form id="rendel">
-					<p:panelGrid columns="2">
+					<p:panelGrid columns="2" border="0">
 					<p:dataTable id="Products" var="product"
 							value="#{orderChangeController.productTypes}"
 							selectionMode="single"
 							selection="#{orderChangeController.selectedProduct}"
-							rowKey="#{product.itemNumber}" rows="10" paginator="true">
+							rowKey="#{product.itemNumber}" rows="10" paginator="true" border="0">
 							<f:facet name="header">
            	 				Készlet
         				</f:facet>
 							<p:ajax event="rowSelect" update="rendel:hozzaad" />
-							<p:column headerText="Id" filterBy="#{product.itemNumber}" style="text-align:center"
+							<p:column headerText="Termék azonosító" filterBy="#{product.itemNumber}" style="text-align:center"
 								filterMatchMode="contains">
 								<h:outputText value="#{product.itemNumber}" />
 							</p:column>
 							<p:column headerText="Darab" style="text-align:center">
-								<h:outputText value="0" />
+								<h:outputText value="#{orderController.numberGen()}" />
 							</p:column>
 
 						</p:dataTable>
@@ -50,7 +51,7 @@
            	 				Rendelt termékek
         				</f:facet>
 							<p:ajax event="rowSelect" update="rendel:delete" />
-							<p:column headerText="Id"
+							<p:column headerText="Termék azonosító"
 								filterBy="#{order.productType.itemNumber}"
 								filterMatchMode="contains" style="text-align:center">
 								<h:outputText value="#{order.productType.itemNumber}" />

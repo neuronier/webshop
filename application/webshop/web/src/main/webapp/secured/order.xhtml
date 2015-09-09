@@ -19,12 +19,12 @@
 						emptyMessage="Üres lista" stlye="width:100%;" rows="10"
 						paginator="true" filteredValue="#{orderController.filteredOrders}">
 						<p:ajax event="rowSelect" update="rendelesek" />
-						<p:column headerText="Rendelési szám"
+						<p:column headerText="Rendelés azonosító"
 							filterBy="#{order.ordersId}" filterMatchMode="contains" style="text-align:center">
 							<h:outputText value="#{order.ordersId}" />
 						</p:column>
 
-						<p:column headerText="Datum" style="text-align:center">
+						<p:column headerText="Rendelés dátuma" style="text-align:center">
 							<h:outputText value="#{orderController.dateToString(order.date)}" />
 						</p:column>
 
